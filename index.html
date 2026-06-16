@@ -234,6 +234,14 @@
     .before-item h3{font-size:18px;margin-bottom:5px}
     .before-item p{font-size:14.5px;color:var(--gray);line-height:1.5}
     .before-item p strong{color:var(--ink);font-weight:600}
+    @media (hover:hover){
+      .before-item{cursor:default;transition:border-color .2s ease,box-shadow .2s ease}
+      .before-item h3{margin-bottom:0;transition:margin-bottom .25s ease}
+      .before-item p{max-height:0;opacity:0;overflow:hidden;transition:max-height .32s ease,opacity .24s ease}
+      .before-item:hover{border-color:var(--blue-line);box-shadow:0 6px 20px rgba(16,16,16,.06)}
+      .before-item:hover h3{margin-bottom:6px}
+      .before-item:hover p{max-height:180px;opacity:1}
+    }
     .close-line{margin-top:14px;background:var(--ink);color:var(--white);border-radius:var(--radius);padding:18px 22px;font-size:18px;font-weight:700;letter-spacing:-.015em;line-height:1.35}
     .close-line span{background:var(--yellow);color:var(--ink);padding:0 .15em;border-radius:4px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 
@@ -298,6 +306,7 @@
     .vision h2{color:var(--white);margin-bottom:20px}
     .vision h2 .hl{background:var(--yellow);color:var(--ink)}
     .vision-lede{font-size:18px;line-height:1.6;color:rgba(255,255,255,.9);margin-bottom:0;max-width:540px}
+    .vision-lede .hl{color:var(--ink)}
     .vision-lede strong{color:var(--white);font-weight:600}
     .compound{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.24);border-radius:var(--radius)}
     .crow{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:13px 18px;border-bottom:1px solid rgba(255,255,255,.16)}
@@ -686,7 +695,7 @@
       <div>
         <p class="eyebrow">Why it compounds</p>
         <h2>Every bid makes <span class="hl">the next one smarter.</span></h2>
-        <p class="vision-lede">Every resolved gap becomes company memory: which scope gets missed, which subs hedge, which seam turns into a change order. <strong>The work gets easier, margin stops leaking to the same misses bid after bid, and the knowledge stops walking out the door when your senior estimator does.</strong></p>
+        <p class="vision-lede">Every resolved gap becomes company memory: which scope gets missed, which subs hedge, which seam turns into a change order.<br><strong>The work gets easier, margin stops leaking to the same misses bid after bid, and the knowledge stops walking out the door when your senior estimator does.</strong><br><br>No integration needed. <span class="hl">First live bid free.</span></p>
       </div>
       <div class="compound reveal" aria-label="What Ladder remembers across bids">
         <div class="crow head"><span class="ck">K-12 · CMU + steel - bid 47</span><span class="cv">learned</span></div>
