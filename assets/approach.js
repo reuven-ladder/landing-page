@@ -412,6 +412,16 @@ function start() {
   addEventListener('resize', () => { resize(); readScroll(); });
   resize(); readScroll(); prog = target;
 
+  /* ---------- beat → scene ---------- */
+  //            hero  when  today  bias  ·dept·      rules  past  people  decision
+  const BX = [0,    1,    2,     3,    3.5,  4.5,  5,     6,    7,      8];
+  const BY = [0,    0.4,  1,     2,    2.5,  2.5,  3,     3.6,  4,      5];
+  function remap(x) {
+    if (x <= BX[0]) return BY[0];
+    for (let i = 0; i < BX.length - 1; i++) if (x < BX[i + 1]) return lerp(BY[i], BY[i + 1], (x - BX[i]) / (BX[i + 1] - BX[i]));
+    return BY[BY.length - 1];
+  }
+
   /* ---------- frame ---------- */
   const cp = new THREE.Vector3(), ct = new THREE.Vector3(), tmpA = new THREE.Vector3(), tmpB = new THREE.Vector3();
   const tint = new THREE.Color();
@@ -423,8 +433,8 @@ function start() {
     const dt = Math.min(0.05, (now - last) / 1000); last = now;
     uTime.value += reduce ? 0 : dt;
     prog += (target - prog) * (reduce ? 1 : Math.min(1, dt * 3.2));
-    // beat 4 is an opaque section with its own walkthrough: the world holds still behind it
-    const p = prog < 3.5 ? prog : prog < 4.5 ? 3.5 : prog - 1, T = uTime.value;
+    // story beats (0-8) → scene progress (0-5); beat 4 is an opaque walkthrough, so the world holds still behind it
+    const p = remap(prog), T = uTime.value;
     const mob = innerWidth < 760;
 
     // camera
