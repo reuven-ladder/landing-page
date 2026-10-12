@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google Analytics (GA4) -->
+  <script>
+    var GA_ID = 'G-2SN38LE7MF';
+    (function(){
+      var s = document.createElement('script'); s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+      document.head.appendChild(s);
+    })();
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', GA_ID);
+  </script>
+  <title>Our approach — Ladder</title>
+  <meta name="description" content="AI-native cost engineering: more of the project examined before the cost decision is made. How Ladder connects project documents so cost professionals can examine scope, compare options and track changes." />
+  <meta name="theme-color" content="#fafaf7" />
+  <meta property="og:title" content="Ladder — Drawings in. A defensible estimate out." />
+  <meta property="og:description" content="How Ladder uses AI to examine more of the project before the cost decision is made." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://getladder.ai/" />
+  <meta property="og:image" content="https://getladder.ai/assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@500;600;700&family=Wix+Madefor+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/site.css" />
+  <link rel="stylesheet" href="../assets/world.css" />
+  <link rel="stylesheet" href="../assets/approach.css" />
+  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+</head>
+<body class="home approach" data-beat="0">
+
+<header class="site-header">
+  <div class="topbar">
+    <a class="brand" href="../" aria-label="Ladder home">Ladder<span class="accent">.</span></a>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="../#services">Services</a>
+      <a href="../#how">How we work</a>
+      <a href="../approach/" aria-current="page">Why Ladder</a>
+      <a href="../#team">Team</a>
+      <span class="btns">
+        <a class="btn btn-outline btn-sm" href="../sample/">View a sample estimate</a>
+        <a class="btn btn-dark btn-sm" href="../#start">Request a quote</a>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<!-- The world: one building, one roof assembly followed from documents to a cost decision -->
+<div class="world" id="world" aria-hidden="true">
+  <canvas></canvas>
+  <img class="fallback" src="../assets/hero-art.svg" alt="" />
+  <div class="grain"></div>
+  <div class="ov" id="ov">
+    <!-- 1 · each document holds part of the roof -->
+    <div class="tag3" data-at="sheet.A-501" data-show="doc"><i></i><div><b>A-501 roof plan</b><small>Area, slopes, drains</small></div></div>
+    <div class="tag3" data-at="sheet.07 54 23" data-show="doc"><i></i><div><b>Spec 07 54 23</b><small>Membrane, insulation, warranty</small></div></div>
+    <div class="tag3" data-at="sheet.ADD. 3" data-show="doc"><i></i><div><b>Addendum 3</b><small>RTU-3 resized · new roof curb</small></div></div>
+    <!-- 2 · questions beside the assembly -->
+    <div class="tag3 warn" data-at="memb" data-dx="5" data-dy="0.4" data-show="q"><i></i><div><b>Membrane <em>60 mil?</em></b><small>Plan note · not yet checked against spec</small></div></div>
+    <div class="tag3 warn" data-at="insul" data-dx="5" data-dy="0.2" data-show="q"><i></i><div><b>Build-up <em>R-30?</em></b><small>Tapered · thickness not dimensioned</small></div></div>
+    <div class="tag3 warn" data-at="deck" data-dx="5" data-dy="0" data-show="q"><i></i><div><b>Roof area <em>≈ 18,900 SF</em></b><small>Gross · curbs not deducted</small></div></div>
+    <div class="tag3 warn" data-at="deck" data-dx="-4.6" data-dy="-1.4" data-show="q"><i></i><div><b>Roof drains <em>allowance?</em></b><small>Count missing on P-201</small></div></div>
+  </div>
+
+  <!-- 1 · the deadline holds while the set grows -->
+  <div class="panel3 deadline">
+    <div class="p-head"><span>Estimate due</span><span>Illustrative</span></div>
+    <div class="dl-row"><span>Due date</span><b>Fri · 2:00 PM</b><s>Unchanged</s></div>
+    <div class="dl-row grow"><span>Documents in the set</span><b id="doc-count">38</b><s>Growing</s></div>
+    <div class="dl-kinds"><span>Drawings</span><span>Specifications</span><span>Schedules</span><span>Revisions</span><span>Quotes</span></div>
+  </div>
+
+  <!-- 3–4 · the roof as a connected scope, then reviewed -->
+  <div class="panel3 scopecard">
+    <div class="p-head"><span><i class="v3">Roof scope · connected by AI</i><i class="v4">Roof scope · professionally reviewed</i></span><span>Illustrative</span></div>
+    <div class="d-row d-h"><span>Item &amp; source</span><span>Qty</span></div>
+    <div class="d-row"><span><b>TPO membrane, 60 mil, fully adhered</b><small>↗ A-501 · Spec 07 54 23 §2.2</small></span><span><i class="v3">18,900 SF</i><i class="v4"><del>18,900</del> 18,400 SF</i></span></div>
+    <div class="d-row"><span><b>Tapered insulation, avg. R-30</b><small>↗ A-501 slopes · Spec §2.3</small></span><span><i class="v3">18,900 SF</i><i class="v4"><del>18,900</del> 18,400 SF</i></span></div>
+    <div class="d-row"><span><b>Flashings &amp; curbs, incl. RTU-3</b><small>↗ A-502 · Addendum 3 item 12</small></span><span>1,150 LF</span></div>
+    <div class="d-row"><span><b>Roof drains</b><small>↗ P-201 · count missing</small><i class="k l">Allowance</i></span><span>8 EA</span></div>
+    <div class="d-row"><span><b>Pricing basis</b><small class="v3">Last project’s rate, $21.40 / SF</small><small class="v4">Regional bids, $22.30 – $25.50 / SF</small><i class="k a v3">Assumption · not yet reviewed</i><i class="k m v4">Reviewed</i></span><span><i class="v3">—</i><i class="v4">$410k – $470k</i></span></div>
+    <div class="d-row alt v4"><span><b>Alternative: 80 mil membrane</b><small>Longer warranty term · same build-up</small></span><span>+$37k – $53k</span></div>
+  </div>
+
+  <!-- 5 · the decision -->
+  <div class="panel3 optcard">
+    <div class="p-head"><span>Roofing · options against budget</span><span>Illustrative</span></div>
+    <div class="o-grid">
+      <div class="o-col"><p>Option A</p><b>60 mil TPO</b><strong>$410k – $470k</strong><small>As specified · 18,400 SF</small></div>
+      <div class="o-col"><p>Option B</p><b>80 mil TPO</b><strong>$447k – $523k</strong><small>Longer warranty · same build-up</small></div>
+    </div>
+    <div class="o-diff"><span>Difference</span><b>+$37k – $53k</b></div>
+    <div class="o-open"><i class="k l">Allowance</i> Roof drains carried until P-201 shows the count</div>
+  </div>
+</div>
+
+<main id="top">
+  <div class="story" id="story">
+
+    <!-- 0 · INTRO -->
+    <section class="beat hero3" data-beat="0">
+      <div class="wrap">
+        <p class="kicker">Our approach</p>
+        <h1>AI-native cost engineering. <span class="accent h1b">More analysis behind every cost decision.</span></h1>
+        <p class="lede">A construction estimate depends on how well the project is understood. Ladder uses AI to connect drawings, specifications and revisions, giving cost professionals a structured basis to examine the scope, quantities and pricing.</p>
+        <p class="lede">For your team, that means a clearer view of what the project will cost, and the decisions that can change it.</p>
+        <div class="cta-row">
+          <a class="btn btn-dark btn-lg" href="../sample/">See a sample estimate <span class="arr">→</span></a>
+          <a class="btn btn-outline btn-lg" href="#b1">How it works <span>↓</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1 · THE CHALLENGE -->
+    <section class="beat" data-beat="1" id="b1">
+      <div class="wrap"><div class="bcard">
+        <p class="bno">01 / The challenge</p>
+        <h2>More information. <span class="accent">The same deadline.</span></h2>
+        <p>A project’s requirements are spread across drawings, specifications, schedules and revisions.</p>
+        <p>Understanding the work means bringing those pieces together: what must be built, how much is required and which conditions affect the cost.</p>
+        <p class="sub">That work takes time. The deadline rarely makes room for all of it.</p>
+      </div></div>
+    </section>
+
+    <!-- 2 · WHAT NEEDS EXAMINATION -->
+    <section class="beat" data-beat="2">
+      <div class="wrap"><div class="bcard">
+        <p class="bno">02 / What needs examination</p>
+        <h2>Every estimate starts <span class="warn">with assumptions.</span></h2>
+        <p>An early budget. A familiar assembly. A rate from a previous project. Experience gives these starting points value. The next step is examining whether they fit this project.</p>
+        <p class="qs">What has changed? What does the design require? What is still unknown?</p>
+        <p class="sub">We make those questions part of the analysis, with assumptions clearly stated for review.</p>
+      </div></div>
+    </section>
+
+    <!-- 3 · WHERE AI FITS -->
+    <section class="beat" data-beat="3">
+      <div class="wrap"><div class="bcard">
+        <p class="bno">03 / Where AI fits</p>
+        <h2>Connect the project <span class="accent">before pricing the work.</span></h2>
+        <p>Our AI organizes requirements by trade, connects drawing and specification references, extracts quantities and flags conflicting information.</p>
+        <p>That brings the information an estimate needs into a form cost professionals can examine together.</p>
+        <p class="sub">Scope, quantities and assumptions stay connected as the estimate is developed, reviewed and revised.</p>
+      </div></div>
+    </section>
+
+    <!-- 4 · HOW WE WORK: specialist agents, an engineer leading -->
+    <section class="beat solid hww-sec" data-beat="4" id="how-we-work">
+      <div class="wrap">
+        <div class="hww-head">
+          <div>
+            <p class="bno">04 / How we work</p>
+            <h2>Specialist AI agents. <span class="accent">A cost engineer leading the work.</span></h2>
+          </div>
+          <div>
+            <p>Our AI agents examine different parts of the project in parallel: connecting requirements, checking quantities and comparing information across documents.</p>
+            <p>A cost engineer brings those findings together, challenges assumptions and directs further checks where needed. The analysis feeds the review. The review shapes the next round of analysis.</p>
+            <p class="sub">You receive a coordinated estimate, with its scope, pricing basis and unresolved questions clearly stated.</p>
+          </div>
+        </div>
+
+        <div class="hww" id="hww" aria-label="Illustrative walkthrough: a door hardware conflict, from documents to estimate line">
+          <div class="hww-bar">
+            <ol class="hww-steps">
+              <li><button type="button" data-go="1"><i>1</i>Specialist agents examine the project.</button></li>
+              <li><button type="button" data-go="2"><i>2</i>Findings come together for review.</button></li>
+              <li><button type="button" data-go="3"><i>3</i>The engineer challenges and directs.</button></li>
+              <li><button type="button" data-go="4"><i>4</i>Decisions become part of the estimate.</button></li>
+            </ol>
+            <span class="hww-note">Illustrative walkthrough · sample project, invented figures</span>
+          </div>
+
+          <div class="hww-grid">
+            <div class="hc docs">
+              <p class="hc-h">Project documents</p>
+              <div class="doc" id="d-a501"><b>A-501</b>Roof plan</div>
+              <div class="doc" id="d-m401"><b>M-401</b>Mechanical schedule</div>
+              <div class="doc" id="d-add3"><b>Add. 3</b>RTU-3 resized</div>
+              <div class="doc key" id="d-spec"><b>08 71 00</b>Spec · hardware sets</div>
+              <div class="doc key" id="d-a601"><b>A-601</b>Door schedule</div>
+              <div class="doc chk" id="d-g101"><b>G-101</b>Life-safety plan</div>
+            </div>
+
+            <div class="hc agents">
+              <p class="hc-h">Specialist agents</p>
+              <div class="agent" id="a-env"><b>Envelope</b><small>Roof, walls, glazing</small><span>Roof build-up connected</span></div>
+              <div class="agent" id="a-mep"><b>MEP</b><small>Mechanical, plumbing, electrical</small><span>RTU schedule vs. Addendum 3</span></div>
+              <div class="agent" id="a-int"><b>Interiors</b><small>Doors, hardware, finishes</small><span class="t1">Hardware sets vs. door schedule</span><span class="t3">Checking set 4 doors on A-601, G-101</span></div>
+            </div>
+
+            <div class="hc eng">
+              <div class="who">
+                <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#fff" stroke="currentColor" stroke-width="1.5"/><circle cx="20" cy="16" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8.5 33c2.2-6 6.4-8.5 11.5-8.5S29.3 27 31.5 33" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+                <div><b>Cost engineer</b><small>Leads the review</small></div>
+              </div>
+              <div class="find" id="f1"><i class="ok"></i>Roof area 18,400 SF net<small>↗ A-501</small></div>
+              <div class="find" id="f2"><i class="ok"></i>RTU-3 priced at Addendum 3 size<small>↗ M-401 · Add. 3</small></div>
+              <div class="find bad" id="f3"><i></i>Set 4 lists closers. The door schedule omits them.<small>↗ 08 71 00 · A-601</small></div>
+              <div class="ask" id="q1">“Which doors use set 4, and are any of them fire-rated?”</div>
+              <div class="find ret" id="f4"><i class="ok"></i>12 doors on set 4. 8 are rated on G-101, so closers are needed.<small>↗ A-601 · G-101</small></div>
+            </div>
+
+            <div class="hc est">
+              <p class="hc-h">Estimate</p>
+              <div class="eline" id="e1">
+                <p class="eref">08 71 00</p>
+                <b>Door hardware sets</b>
+                <div class="enums"><span>146 EA</span><span>$118k – $139k</span></div>
+                <dl>
+                  <dt>Basis</dt><dd>Set rate by type. Closers priced on set 4, per spec.</dd>
+                  <dt>Source</dt><dd>Spec 08 71 00 · A-601 · G-101</dd>
+                  <dt>Open</dt><dd class="o">RFI #9: confirm closers on set 4</dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <svg class="hww-lines" id="hww-lines" aria-hidden="true"></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 · WHERE ENGINEERING MATTERS -->
+    <section class="beat" data-beat="5">
+      <div class="wrap"><div class="bcard">
+        <p class="bno">05 / Where engineering matters</p>
+        <h2>Examine the scope. <span class="accent">Evaluate the choices.</span></h2>
+        <p>Cost professionals review the analysis, challenge quantities, assess the pricing basis and evaluate the conditions that affect delivery. They also examine alternatives: how a material, system or scope decision changes the cost.</p>
+        <div class="treat">
+          <p>Where information is incomplete, the estimate records how it was treated:</p>
+          <span>Clarification</span><span>Assumption</span><span>Allowance</span><span>Exclusion</span>
+        </div>
+        <p class="sub">You can see the basis of the number and discuss the choices behind it.</p>
+      </div></div>
+    </section>
+
+    <!-- 5 · WHAT IT MEANS FOR YOUR PROJECT -->
+    <section class="beat cta3" data-beat="6">
+      <div class="wrap"><div class="bcard">
+        <p class="bno">06 / What it means for your project</p>
+        <h2>A clearer basis <span class="accent">for the next decision.</span></h2>
+        <ul class="stages">
+          <li><b>During design</b><span>Compare options against your budget.</span></li>
+          <li><b>Before bidding</b><span>Understand the quantities, scope and pricing assumptions.</span></li>
+          <li><b>As the project progresses</b><span>Assess changes against the agreed cost basis.</span></li>
+        </ul>
+        <p>Delivered as cost estimates, quantity breakdowns and reviews your team can use.</p>
+        <div class="cta-row">
+          <a class="btn btn-dark btn-lg" href="../#services">Explore our services <span class="arr">→</span></a>
+          <a class="btn btn-outline btn-lg" href="../sample/">View a sample estimate</a>
+        </div>
+      </div></div>
+    </section>
+  </div>
+
+
+  <!-- ============ ONE LINE, START TO FINISH ============ -->
+  <section class="sec" id="line">
+    <div class="wrap">
+      <div class="sec-head-a">
+        <p class="sec-label">Illustrative · built on our sample estimate</p>
+        <h2 class="sec-title">One line, <span class="accent">from requirement to decision.</span></h2>
+        <p class="sec-sub">The roofing line from our sample deliverable, with the analysis behind it and an option comparison added. Each line in a Ladder estimate keeps these parts together.</p>
+      </div>
+      <ol class="r2d">
+        <li><p>Requirement</p><b>TPO membrane, 60 mil, fully adhered, over tapered insulation</b><small>Spec 07 54 23 §2.2–2.3</small></li>
+        <li><p>Quantity</p><b>18,400 SF net of curbs and roof hatch</b><small>A-501, A-502 · AI measured, professionally checked</small></li>
+        <li><p>Pricing basis</p><b>Regional bids, $22.30 – $25.50 / SF</b><small>Recent regional bids for comparable roofs</small></li>
+        <li class="a"><p>Assumption</p><b>Roof drains carried as an allowance</b><small>Count missing on P-201 · clarification drafted</small></li>
+        <li class="d"><p>Decision</p><b>60 mil: $410k – $470k. 80 mil option: +$37k – $53k.</b><small>Your team chooses with the difference in view</small></li>
+      </ol>
+      <div class="cta-row"><a class="btn btn-dark" href="../sample/">Open the sample estimate <span class="arr">→</span></a><a class="btn btn-outline" href="../sample/ladder-sample-estimate.xlsx">Download the Excel</a></div>
+    </div>
+  </section>
+
+
+  <!-- ============ FAQ ============ -->
+  <section class="sec" id="faq">
+    <div class="wrap split top">
+      <div>
+        <p class="sec-label">Questions</p>
+        <h2 class="sec-title">Before you <span class="accent">ask for a quote.</span></h2>
+      </div>
+      <div class="faq">
+        <details><summary>How is AI used?</summary><div class="a">Project information is organized for analysis from the start: requirements by trade, references connected across documents, quantities extracted and conflicts flagged. Cost professionals review that analysis, and their decisions on pricing, allowances and uncertainty become part of the estimate.</div></details>
+        <details><summary>Can the AI get it wrong?</summary><div class="a">Yes. It can misread a sheet or anchor on the wrong reference, the same way a person can. That is why quantities carry their source references and a cost professional reviews the items that move the number. We describe what the analysis covered rather than promise it found everything.</div></details>
+        <details><summary>What happens when the documents don’t answer a question?</summary><div class="a">It gets one of four treatments: a clarification for the design team, a stated assumption, an allowance, or an exclusion. Each is listed with the estimate. Some need the designer’s answer before they can close.</div></details>
+        <details><summary>Can you update the estimate when the design changes?</summary><div class="a">Yes. Because scope, quantities and assumptions stay connected to their sources, a revision can be assessed against the existing cost basis rather than estimated from scratch.</div></details>
+        <details><summary>Who reviews the estimate?</summary><div class="a">An experienced cost professional, named in your proposal with their experience and scope of review.</div></details>
+        <details><summary>Do I need to send drawings to get a quote?</summary><div class="a">No. Describe the project first. We ask for documents once the scope is clear. NDA on request.</div></details>
+        <details><summary>How long, and what does it cost?</summary><div class="a">A fixed fee. We confirm the scope, fee and delivery schedule with you before starting.</div></details>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============ VALIDATION ============ -->
+  <section class="sec val" id="validation">
+    <div class="wrap split top">
+      <div>
+        <p class="sec-label">Validation</p>
+        <h2 class="sec-title val-t">AI-only backtests on public bids.</h2>
+        <p class="sec-sub">We run the AI analysis alone on public bid documents, without seeing the results, and compare it with the award. These runs have no professional review, and an award reflects the winning bidder’s own scope and pricing, so the difference is a measure of the raw analysis, not of a delivered estimate. We publish misses too.</p>
+      </div>
+      <div class="tab3">
+        <div class="t-head"><span>Project</span><span>AI only</span><span>Awarded</span><span>Diff.</span></div>
+        <div class="t-row"><span><b>Everett Old High School</b><small>Roof replacement · bid #25-14 · Feb 2025</small></span><span>$3.77M</span><span>$3.14M</span><span class="hi">+20%</span></div>
+        <p class="t-note">Run 1, before professional review. Roofing filed sub-bid. New results are posted as they finish.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="panel">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="../">Ladder<span class="accent">.</span></a>
+        <p>Construction cost estimating. Drawings in, a defensible estimate out.</p>
+        <p><a href="mailto:omri@getladder.ai">omri@getladder.ai</a></p>
+      </div>
+      <div>
+        <h4>Ladder</h4>
+        <ul>
+          <li><a href="../#services">Services</a></li>
+          <li><a href="../#how">How we work</a></li>
+          <li><a href="../approach/">Why Ladder</a></li>
+          <li><a href="../sample/">Sample estimate</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../company/">About</a></li>
+          <li><a href="../company/#careers">Careers</a></li>
+          <li><a href="https://www.linkedin.com/company/ladder-ai/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://medium.com/ladder-ai" target="_blank" rel="noopener">Medium</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="../faq/">FAQ</a></li>
+          <li><a href="../privacy-policy/">Privacy Policy</a></li>
+          <li><a href="../terms-of-use/">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>© <span id="year">2026</span> Ladder</span>
+      <span>Drawn by Ladder AI · Reviewed by people</span>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="../assets/approach.js"></script>
+<script src="../assets/hww.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

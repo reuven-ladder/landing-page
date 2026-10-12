@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Services Experiments</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@500;600;700&family=Wix+Madefor+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/site.css" />
+  <style>
+    html{scroll-behavior:smooth}
+    body{background:var(--paper)}
+    /* ---------- experiment chrome ---------- */
+    .xbar{position:sticky;top:0;z-index:20;background:rgba(250,250,247,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+    .xbar .wrap{display:flex;align-items:center;gap:1rem;height:56px;overflow-x:auto}
+    .xbar b{font:600 .7rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap}
+    .xbar a{font:500 .85rem/1 var(--sans);color:var(--ink-2);text-decoration:none;padding:.45rem .7rem;border-radius:var(--r-pill);white-space:nowrap}
+    .xbar a:hover{background:var(--paper-2);color:var(--ink)}
+    .xv{padding:5.5rem 0;border-bottom:1px dashed var(--line-strong);scroll-margin-top:56px}
+    .xtag{display:inline-flex;gap:.6rem;align-items:center;font:600 .68rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:2.5rem}
+    .xtag i{font-style:normal;display:grid;place-items:center;width:22px;height:22px;border-radius:6px;background:var(--ink);color:#fff}
+    .xtag em{font-style:normal;color:var(--ink-2);text-transform:none;letter-spacing:0;font:400 .85rem/1.3 var(--sans)}
+
+    /* shared heading */
+    .sl{font:600 .72rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin:0 0 1rem}
+    .st{font-size:clamp(1.9rem,3.6vw,2.9rem);max-width:22ch}
+    .ss{color:var(--ink-2);font-size:1.05rem;max-width:36rem;margin:1rem 0 0}
+    .head{margin-bottom:3rem}
+    .head.row{display:flex;justify-content:space-between;align-items:end;gap:2rem;flex-wrap:wrap}
+    .head.row .ss{flex:0 1 24rem;margin:0}
+
+    /* ================= A · PRICING TIERS ================= */
+    .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line-strong);border-radius:var(--r-lg);background:var(--card);overflow:hidden}
+    .tier{display:flex;flex-direction:column;padding:2rem 1.75rem;border-left:1px solid var(--line)}
+    .tier:first-child{border-left:0}
+    .tier.hl{background:var(--ink);color:#fff;border-left-color:var(--ink);position:relative}
+    .tier-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem}
+    .tier .stage{font:600 .66rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+    .tier.hl .stage{color:rgba(255,255,255,.55)}
+    .pill{font:600 .62rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:.35rem .55rem;border-radius:var(--r-pill);background:var(--yellow);color:var(--ink)}
+    .tier h3{font-size:1.5rem;margin-bottom:.6rem}
+    .tier .who{font-size:.92rem;color:var(--ink-2);min-height:3em;margin:0}
+    .tier.hl .who{color:rgba(255,255,255,.7)}
+    .price{margin:1.6rem 0;padding:1.25rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .tier.hl .price{border-color:rgba(255,255,255,.14)}
+    .price b{display:block;font:600 1.9rem/1 var(--display);letter-spacing:-.02em}
+    .price small{display:block;margin-top:.5rem;font:500 .72rem/1 var(--mono);letter-spacing:.04em;color:var(--ink-3);text-transform:uppercase}
+    .tier.hl .price small{color:rgba(255,255,255,.5)}
+    .inc{list-style:none;padding:0;margin:0 0 2rem;display:grid;gap:.75rem;font-size:.92rem;flex:1}
+    .inc li{display:flex;gap:.65rem;align-items:flex-start}
+    .inc li::before{content:"";flex:none;width:16px;height:16px;margin-top:.2rem;border-radius:50%;background:var(--blue-50) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.2l2.3 2.3 4.7-4.9' fill='none' stroke='%233F63D5' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat}
+    .tier.hl .inc li::before{background-color:rgba(255,255,255,.12);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.2l2.3 2.3 4.7-4.9' fill='none' stroke='%23FFDD64' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+    .tier .btn{justify-content:center}
+    .tier.hl .btn-dark{background:#fff;color:var(--ink)}
+    .tiers-foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-top:1.25rem;font-size:.9rem;color:var(--ink-2)}
+    .tiers-foot a{color:var(--ink);font-weight:600}
+
+    /* ================= B · PROJECT TIMELINE ================= */
+    .tl{border-top:1px solid var(--ink)}
+    .tl-ph{display:grid;grid-template-columns:repeat(6,1fr)}
+    .tl-ph span{padding:.9rem 0 .9rem .75rem;font:600 .66rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);border-left:1px solid var(--line)}
+    .tl-ph span:first-child{border-left:0;padding-left:0}
+    .tl-lanes{position:relative;display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:auto;row-gap:.75rem;padding:1.25rem 0 1.5rem;
+      background:repeating-linear-gradient(90deg,transparent 0,transparent calc(100%/6 - 1px),var(--line) calc(100%/6 - 1px),var(--line) calc(100%/6))}
+    .bar{position:relative;display:flex;align-items:center;gap:.75rem;height:54px;padding:0 1rem;border-radius:10px;color:#fff;text-decoration:none;font:600 .95rem/1.2 var(--display);transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+    .bar:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+    .bar small{font:500 .66rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;opacity:.65;margin-left:auto;white-space:nowrap}
+    .bar.d{grid-column:1/4;background:var(--blue)}
+    .bar.b{grid-column:4/5;background:var(--ink)}
+    .bar.b small{display:none}
+    .bar.c{grid-column:5/7;background:var(--navy)}
+    .ms{position:absolute;bottom:-5px;width:10px;height:10px;border-radius:50%;background:var(--yellow);border:2px solid var(--paper)}
+    .tl-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--line)}
+    .tl-cols h3{font-size:1.2rem;display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem}
+    .tl-cols h3 i{width:10px;height:10px;border-radius:3px;flex:none}
+    .tl-cols p{margin:0 0 .9rem;color:var(--ink-2);font-size:.95rem}
+    .tl-cols .rcv{font-size:.88rem;color:var(--ink)}
+    .tl-cols .rcv b{display:block;font:600 .64rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.4rem}
+    .tl-cols .link-arrow{margin-top:1rem;font-size:.92rem;color:var(--ink)}
+
+    /* ================= C · DELIVERABLE PREVIEWS ================= */
+    .dv{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+    .dv-c{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--card);overflow:hidden;transition:border-color .2s,box-shadow .25s var(--ease)}
+    .dv-c:hover{border-color:var(--line-strong);box-shadow:var(--shadow)}
+    .dv-art{height:210px;padding:1.25rem;background:var(--paper-2);border-bottom:1px solid var(--line);display:flex;flex-direction:column}
+    .dv-art .cap{display:flex;justify-content:space-between;font:600 .62rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:auto}
+    .dv-body{padding:1.5rem;display:flex;flex-direction:column;flex:1}
+    .dv-body .stage{font:600 .64rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:.7rem}
+    .dv-body h3{font-size:1.3rem;margin-bottom:.6rem}
+    .dv-body p{margin:0 0 1.25rem;font-size:.93rem;color:var(--ink-2);flex:1}
+    .dv-body .link-arrow{font-size:.92rem;color:var(--ink)}
+    /* mini milestone chart */
+    .mc{display:flex;align-items:flex-end;gap:10px;height:120px;position:relative}
+    .mc .bl{position:absolute;left:0;right:0;bottom:78px;border-top:1.5px dashed var(--ink);}
+    .mc .bl::after{content:"Budget";position:absolute;left:0;top:-14px;font:600 .58rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+    .mc div.c{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+    .mc div.c span{width:100%;border-radius:4px 4px 0 0;background:var(--blue)}
+    .mc div.c span.over{background:#d9534f}
+    .mc div.c em{font:500 .58rem/1 var(--mono);font-style:normal;color:var(--ink-3)}
+    /* mini boq */
+    .mb{font:500 .7rem/1 var(--mono);background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+    .mb div{display:grid;grid-template-columns:1.6fr 1fr 1fr;padding:.5rem .7rem;border-top:1px solid var(--line)}
+    .mb div:first-child{border-top:0;color:var(--ink-3);font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;background:var(--paper)}
+    .mb div span:not(:first-child){text-align:right}
+    .mb div.t{font-weight:700;background:var(--yellow-soft)}
+    /* mini forecast */
+    .mf{height:120px;width:100%}
+
+    /* ================= D · INTERACTIVE PICKER ================= */
+    .pk{display:grid;grid-template-columns:.85fr 1.15fr;gap:2rem;align-items:stretch}
+    .pk-q{font:600 .7rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:0 0 1rem}
+    .pk-tabs{display:grid;gap:.6rem}
+    .pk-t{all:unset;cursor:pointer;display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;padding:1.15rem 1.25rem;border:1px solid var(--line);border-radius:12px;background:var(--card);transition:border-color .2s,background .2s}
+    .pk-t:hover{border-color:var(--line-strong)}
+    .pk-t:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+    .pk-t .n{font:600 .7rem/1 var(--mono);color:var(--ink-3)}
+    .pk-t b{display:block;font:600 1.05rem/1.25 var(--display)}
+    .pk-t small{display:block;font-size:.85rem;color:var(--ink-2);margin-top:.2rem}
+    .pk-t .ar{color:var(--ink-3);transition:transform .2s var(--ease)}
+    .pk-t[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+    .pk-t[aria-selected="true"] small,.pk-t[aria-selected="true"] .n{color:rgba(255,255,255,.6)}
+    .pk-t[aria-selected="true"] .ar{color:var(--yellow);transform:translateX(4px)}
+    .pk-p{border:1px solid var(--line-strong);border-radius:var(--r-lg);background:var(--card);padding:2rem;display:flex;flex-direction:column}
+    .pk-p[hidden]{display:none}
+    .pk-p .stage{font:600 .64rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+    .pk-p h3{font-size:1.75rem;margin:.7rem 0 .8rem}
+    .pk-p > p{color:var(--ink-2);margin:0 0 1.5rem}
+    .pk-g{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.75rem}
+    .pk-g div{padding:1rem;border-radius:10px;background:var(--paper)}
+    .pk-g b{display:block;font:600 .62rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.5rem}
+    .pk-g span{font-size:.9rem}
+    .pk-p .acts{margin-top:auto;display:flex;gap:.6rem;flex-wrap:wrap}
+
+    /* ================= ★ · TIMELINE + PREVIEWS ================= */
+    .xtag i.star{background:var(--blue)}
+    .bc{margin-top:2.5rem}
+    .bc .dv-c{position:relative;scroll-margin-top:80px}
+    .bc .dv-c::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--k)}
+    .bc .dv-body .stage{color:var(--ink-3);display:flex;align-items:center;gap:.5rem}
+    .bc .dv-body .stage::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--k)}
+    .bc .rcv{font-size:.86rem;color:var(--ink);margin:-.35rem 0 1.25rem;padding-top:.9rem;border-top:1px solid var(--line)}
+    .bc .rcv b{display:block;font:600 .62rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.4rem}
+    .bc .dv-body p{flex:0}
+    .bc .dv-body .link-arrow{margin-top:auto}
+    .bc .dv-art{height:190px}
+    /* per-trade bars */
+    .tb{display:grid;gap:.55rem;font:500 .64rem/1 var(--mono);color:var(--ink-2)}
+    .tb div{display:grid;grid-template-columns:5.5rem 1fr 3.4rem;gap:.6rem;align-items:center}
+    .tb span:last-child{text-align:right;color:var(--ink)}
+    .tb i{display:block;height:8px;border-radius:2px;background:var(--ink)}
+    .tb div.t{padding-top:.55rem;border-top:1px solid var(--line-strong);font-weight:700;color:var(--ink)}
+
+    /* ---------- responsive ---------- */
+    @media (max-width:900px){
+      .tiers,.dv,.tl-cols{grid-template-columns:1fr}
+      .tier{border-left:0;border-top:1px solid var(--line)}
+      .tier:first-child{border-top:0}
+      .pk{grid-template-columns:1fr}
+      .tl-ph,.tl-lanes{grid-template-columns:repeat(6,minmax(90px,1fr))}
+      .tl-scroll{overflow-x:auto;margin:0 calc(-1*var(--gutter));padding:0 var(--gutter)}
+      .tl{min-width:640px}
+    }
+    @media (max-width:560px){.pk-g{grid-template-columns:1fr}.xv{padding:4rem 0}}
+  </style>
+</head>
+<body>
+
+<nav class="xbar" aria-label="Variants">
+  <div class="wrap">
+    <b>Services · 5 alternatives</b>
+    <a href="#r">★ Timeline + previews</a>
+    <a href="#a">A · Pricing tiers</a>
+    <a href="#b">B · Project timeline</a>
+    <a href="#c">C · Deliverable previews</a>
+    <a href="#d">D · “Where’s your project?”</a>
+  </div>
+</nav>
+
+<!-- ======================================================= ★ -->
+<section class="xv" id="r">
+  <div class="wrap">
+    <p class="xtag"><i class="star">★</i> Timeline + previews <em>— recommended. B’s timeline gives the whole-project overview, C’s previews prove the output. Bars link to their cards.</em></p>
+    <div class="head row">
+      <div>
+        <p class="sl">Our services</p>
+        <h2 class="st">From first budget <span class="accent">to final cost.</span></h2>
+      </div>
+      <a class="btn btn-outline btn-sm" href="#">View a sample estimate →</a>
+    </div>
+
+    <div class="tl-scroll">
+      <div class="tl">
+        <div class="tl-ph"><span>Concept</span><span>Schematic</span><span>Design dev.</span><span>Bid</span><span>Construction</span><span>Closeout</span></div>
+        <div class="tl-lanes">
+          <a class="bar d" href="#r-d">Design-to-budget <small>Milestone estimates</small>
+            <i class="ms" style="left:14%"></i><i class="ms" style="left:47%"></i><i class="ms" style="left:80%"></i>
+          </a>
+          <a class="bar b" href="#r-b">Bid estimating</a>
+          <a class="bar c" href="#r-c">Project cost control <small>Ongoing</small></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dv bc">
+      <article class="dv-c" id="r-d" style="--k:var(--blue)">
+        <div class="dv-art">
+          <div class="cap"><span>Estimate vs budget</span><span>Illustrative</span></div>
+          <div class="mc">
+            <i class="bl"></i>
+            <div class="c"><span style="height:64px"></span><em>CON</em></div>
+            <div class="c"><span style="height:72px"></span><em>SD</em></div>
+            <div class="c"><span class="over" style="height:96px"></span><em>DD</em></div>
+            <div class="c"><span style="height:76px"></span><em>CD</em></div>
+          </div>
+        </div>
+        <div class="dv-body">
+          <span class="stage">Design</span>
+          <h3>Design-to-budget</h3>
+          <p>Estimates at agreed milestones, compared with your budget, with alternatives priced to support design decisions.</p>
+          <div class="rcv"><b>You receive</b>Milestone estimates, budget comparisons, costed options.</div>
+          <a class="link-arrow" href="#">Discuss your project →</a>
+        </div>
+      </article>
+      <article class="dv-c" id="r-b" style="--k:var(--ink)">
+        <div class="dv-art">
+          <div class="cap"><span>Estimate by trade</span><span>Illustrative</span></div>
+          <div class="tb">
+            <div><span>03 Concrete</span><i style="width:72%"></i><span>$842K</span></div>
+            <div><span>05 Metals</span><i style="width:48%"></i><span>$561K</span></div>
+            <div><span>07 Roofing</span><i style="width:38%"></i><span>$440K</span></div>
+            <div><span>08 Openings</span><i style="width:94%"></i><span>$1.09M</span></div>
+            <div class="t"><span>Total</span><span></span><span>$2.93M</span></div>
+          </div>
+        </div>
+        <div class="dv-body">
+          <span class="stage">Bidding</span>
+          <h3>Bid estimating</h3>
+          <p>We measure the work from drawings and specs, price the scope and organize it by trade, with assumptions and exclusions spelled out.</p>
+          <div class="rcv"><b>You receive</b>Quantity takeoffs and a priced estimate with references.</div>
+          <a class="link-arrow" href="#">Request a quote →</a>
+        </div>
+      </article>
+      <article class="dv-c" id="r-c" style="--k:var(--navy)">
+        <div class="dv-art">
+          <div class="cap"><span>Final-cost forecast</span><span>Illustrative</span></div>
+          <svg class="mf" viewBox="0 0 300 120" preserveAspectRatio="none" aria-hidden="true">
+            <line x1="0" y1="44" x2="300" y2="44" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="5 4"/>
+            <text x="300" y="38" text-anchor="end" font-family="JetBrains Mono" font-size="9" font-weight="600" fill="#1a1a1a">BUDGET</text>
+            <polyline points="0,96 50,92 100,84 140,70 180,62 220,54 260,50 300,48" fill="none" stroke="#1f3478" stroke-width="2.5" stroke-linejoin="round"/>
+            <g fill="#FFDD64" stroke="#1a1a1a" stroke-width="1.5"><circle cx="140" cy="70" r="4.5"/><circle cx="220" cy="54" r="4.5"/></g>
+            <text x="140" y="88" text-anchor="middle" font-family="JetBrains Mono" font-size="8.5" fill="#7a7a74">CO-04</text>
+            <text x="220" y="72" text-anchor="middle" font-family="JetBrains Mono" font-size="8.5" fill="#7a7a74">CO-09</text>
+          </svg>
+        </div>
+        <div class="dv-body">
+          <span class="stage">Construction</span>
+          <h3>Project cost control</h3>
+          <p>We monitor committed costs, assess proposed changes and update the forecast of the final project cost.</p>
+          <div class="rcv"><b>You receive</b>Cost reports, change assessments, updated forecasts.</div>
+          <a class="link-arrow" href="#">Discuss your project →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= A -->
+<section class="xv" id="a">
+  <div class="wrap">
+    <p class="xtag"><i>A</i> Pricing tiers <em>— SaaS pricing layout. Stage is the “plan”, deliverables are the feature list. Middle card is highlighted.</em></p>
+    <div class="head row">
+      <div>
+        <p class="sl">Our services</p>
+        <h2 class="st">One team, <span class="accent">from first budget to final cost.</span></h2>
+      </div>
+      <p class="ss">Pick the stage you’re at. Every engagement is quoted per project from your drawings and specifications.</p>
+    </div>
+
+    <div class="tiers">
+      <article class="tier">
+        <div class="tier-top"><span class="stage">Design</span></div>
+        <h3>Design-to-budget</h3>
+        <p class="who">Owners, architects and design teams, concept through CDs.</p>
+        <div class="price"><b>Per milestone</b><small>Concept · SD · DD · CD</small></div>
+        <ul class="inc">
+          <li>Estimate at each agreed design milestone</li>
+          <li>Comparison against your budget</li>
+          <li>Costed design alternatives</li>
+          <li>Drawing and specification references</li>
+        </ul>
+        <a class="btn btn-outline" href="#">Discuss your project</a>
+      </article>
+      <article class="tier hl">
+        <div class="tier-top"><span class="stage">Bidding</span><span class="pill">Fastest start</span></div>
+        <h3>Bid estimating</h3>
+        <p class="who">General contractors and construction teams preparing bids.</p>
+        <div class="price"><b>Per bid</b><small>Quantities + priced estimate</small></div>
+        <ul class="inc">
+          <li>Quantity takeoffs from drawings and specs</li>
+          <li>Priced estimate organized by trade</li>
+          <li>Clear assumptions, allowances and exclusions</li>
+          <li>Excel estimate + written report</li>
+        </ul>
+        <a class="btn btn-dark" href="#">Request a quote <span class="arr">→</span></a>
+      </article>
+      <article class="tier">
+        <div class="tier-top"><span class="stage">Construction</span></div>
+        <h3>Project cost control</h3>
+        <p class="who">Owners, developers and owner’s reps during construction.</p>
+        <div class="price"><b>Ongoing</b><small>Regular reporting cycle</small></div>
+        <ul class="inc">
+          <li>Committed-cost tracking</li>
+          <li>Assessment of proposed changes</li>
+          <li>Updated forecast of final cost</li>
+          <li>Regular cost reports against budget</li>
+        </ul>
+        <a class="btn btn-outline" href="#">Discuss your project</a>
+      </article>
+    </div>
+    <div class="tiers-foot">
+      <span>Not sure which fits? Tell us where the project is and we’ll suggest the scope.</span>
+      <a href="#">View a sample estimate →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= B -->
+<section class="xv" id="b">
+  <div class="wrap">
+    <p class="xtag"><i>B</i> Project timeline <em>— services drawn as bars across the project lifecycle. Shows the “first budget to final cost” claim instead of saying it.</em></p>
+    <div class="head">
+      <p class="sl">Our services</p>
+      <h2 class="st">Wherever the project is, <span class="accent">we price it.</span></h2>
+    </div>
+
+    <div class="tl-scroll">
+      <div class="tl">
+        <div class="tl-ph"><span>Concept</span><span>Schematic</span><span>Design dev.</span><span>Bid</span><span>Construction</span><span>Closeout</span></div>
+        <div class="tl-lanes">
+          <a class="bar d" href="#">Design-to-budget <small>Milestone estimates</small>
+            <i class="ms" style="left:14%"></i><i class="ms" style="left:47%"></i><i class="ms" style="left:80%"></i>
+          </a>
+          <a class="bar b" href="#">Bid estimating <small>Per bid</small></a>
+          <a class="bar c" href="#">Project cost control <small>Ongoing</small></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-cols">
+      <div>
+        <h3><i style="background:var(--blue)"></i>Design-to-budget</h3>
+        <p>Estimates at agreed milestones, compared with your budget, with alternatives priced to support design decisions.</p>
+        <div class="rcv"><b>You receive</b>Milestone estimates, budget comparisons, costed options.</div>
+        <a class="link-arrow" href="#">Discuss your project →</a>
+      </div>
+      <div>
+        <h3><i style="background:var(--ink)"></i>Bid estimating</h3>
+        <p>We measure the work from drawings and specs, price the scope and organize it by trade.</p>
+        <div class="rcv"><b>You receive</b>Quantity takeoffs and a priced estimate with references.</div>
+        <a class="link-arrow" href="#">Request a quote →</a>
+      </div>
+      <div>
+        <h3><i style="background:var(--navy)"></i>Project cost control</h3>
+        <p>We monitor committed costs, assess proposed changes and update the final-cost forecast.</p>
+        <div class="rcv"><b>You receive</b>Cost reports, change assessments, updated forecasts.</div>
+        <a class="link-arrow" href="#">Discuss your project →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= C -->
+<section class="xv" id="c">
+  <div class="wrap">
+    <p class="xtag"><i>C</i> Deliverable previews <em>— each card leads with a miniature of what you actually get. The output is what sells, not the description.</em></p>
+    <div class="head row">
+      <div>
+        <p class="sl">Our services</p>
+        <h2 class="st">See what you get <span class="accent">before you ask.</span></h2>
+      </div>
+      <a class="btn btn-outline btn-sm" href="#">View a full sample →</a>
+    </div>
+
+    <div class="dv">
+      <article class="dv-c">
+        <div class="dv-art">
+          <div class="cap"><span>Estimate vs budget</span><span>Illustrative</span></div>
+          <div class="mc">
+            <i class="bl"></i>
+            <div class="c"><span style="height:64px"></span><em>CON</em></div>
+            <div class="c"><span style="height:72px"></span><em>SD</em></div>
+            <div class="c"><span class="over" style="height:96px"></span><em>DD</em></div>
+            <div class="c"><span style="height:76px"></span><em>CD</em></div>
+          </div>
+        </div>
+        <div class="dv-body">
+          <span class="stage">Design</span>
+          <h3>Design-to-budget</h3>
+          <p>Milestone estimates against your budget, so an overrun shows up at DD and gets designed out, not discovered on bid day.</p>
+          <a class="link-arrow" href="#">Discuss your project →</a>
+        </div>
+      </article>
+      <article class="dv-c">
+        <div class="dv-art">
+          <div class="cap"><span>Priced estimate</span><span>Illustrative</span></div>
+          <div class="mb">
+            <div><span>Trade</span><span>Qty</span><span>Total</span></div>
+            <div><span>07 Roofing</span><span>18,400 SF</span><span>$439,760</span></div>
+            <div><span>08 Curtain wall</span><span>6,900 SF</span><span>$1.09M</span></div>
+            <div class="t"><span>Subtotal</span><span></span><span>$1.66M</span></div>
+          </div>
+        </div>
+        <div class="dv-body">
+          <span class="stage">Bidding</span>
+          <h3>Bid estimating</h3>
+          <p>Quantities measured from drawings and specs, priced and organized by trade, with assumptions and exclusions spelled out.</p>
+          <a class="link-arrow" href="#">Request a quote →</a>
+        </div>
+      </article>
+      <article class="dv-c">
+        <div class="dv-art">
+          <div class="cap"><span>Final-cost forecast</span><span>Illustrative</span></div>
+          <svg class="mf" viewBox="0 0 300 120" preserveAspectRatio="none" aria-hidden="true">
+            <line x1="0" y1="44" x2="300" y2="44" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="5 4"/>
+            <text x="300" y="38" text-anchor="end" font-family="JetBrains Mono" font-size="9" font-weight="600" fill="#1a1a1a">BUDGET</text>
+            <polyline points="0,96 50,92 100,84 140,70 180,62 220,54 260,50 300,48" fill="none" stroke="#3F63D5" stroke-width="2.5" stroke-linejoin="round"/>
+            <g fill="#FFDD64" stroke="#1a1a1a" stroke-width="1.5"><circle cx="140" cy="70" r="4.5"/><circle cx="220" cy="54" r="4.5"/></g>
+            <text x="140" y="88" text-anchor="middle" font-family="JetBrains Mono" font-size="8.5" fill="#7a7a74">CO-04</text>
+            <text x="220" y="72" text-anchor="middle" font-family="JetBrains Mono" font-size="8.5" fill="#7a7a74">CO-09</text>
+          </svg>
+        </div>
+        <div class="dv-body">
+          <span class="stage">Construction</span>
+          <h3>Project cost control</h3>
+          <p>Committed costs tracked, each change order assessed, and the final-cost forecast updated against your budget.</p>
+          <a class="link-arrow" href="#">Discuss your project →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= D -->
+<section class="xv" id="d">
+  <div class="wrap">
+    <p class="xtag"><i>D</i> “Where’s your project?” <em>— visitor picks their stage, one focused panel answers. Less to read, feels tailored.</em></p>
+    <div class="head">
+      <p class="sl">Our services</p>
+      <h2 class="st">Tell us where you are. <span class="accent">We’ll show what fits.</span></h2>
+    </div>
+
+    <div class="pk">
+      <div>
+        <p class="pk-q">My project is…</p>
+        <div class="pk-tabs" role="tablist">
+          <button class="pk-t" role="tab" aria-selected="true" aria-controls="p1"><span class="n">01</span><span><b>Still in design</b><small>Concept through construction documents</small></span><span class="ar">→</span></button>
+          <button class="pk-t" role="tab" aria-selected="false" aria-controls="p2"><span class="n">02</span><span><b>Out to bid</b><small>We’re a contractor pricing the job</small></span><span class="ar">→</span></button>
+          <button class="pk-t" role="tab" aria-selected="false" aria-controls="p3"><span class="n">03</span><span><b>Under construction</b><small>Changes are coming in</small></span><span class="ar">→</span></button>
+        </div>
+      </div>
+
+      <div class="pk-p" id="p1" role="tabpanel">
+        <span class="stage">Design-to-budget</span>
+        <h3>Know the cost of the design as it develops.</h3>
+        <p>We prepare estimates at agreed milestones, compare them with your budget and price alternatives to support design decisions.</p>
+        <div class="pk-g">
+          <div><b>You receive</b><span>Milestone estimates, budget comparisons and costed design options.</span></div>
+          <div><b>For</b><span>Owners, architects and design teams.</span></div>
+        </div>
+        <div class="acts"><a class="btn btn-dark" href="#">Discuss your project <span class="arr">→</span></a><a class="btn btn-outline" href="#">View a sample</a></div>
+      </div>
+      <div class="pk-p" id="p2" role="tabpanel" hidden>
+        <span class="stage">Bid estimating</span>
+        <h3>A bid-ready estimate while your team works the others.</h3>
+        <p>We measure the work from drawings and specifications, price the scope and organize the estimate by trade, with clear assumptions, allowances and exclusions.</p>
+        <div class="pk-g">
+          <div><b>You receive</b><span>Quantity takeoffs and a priced estimate with drawing and spec references.</span></div>
+          <div><b>For</b><span>General contractors and construction teams.</span></div>
+        </div>
+        <div class="acts"><a class="btn btn-dark" href="#">Request a quote <span class="arr">→</span></a><a class="btn btn-outline" href="#">View a sample</a></div>
+      </div>
+      <div class="pk-p" id="p3" role="tabpanel" hidden>
+        <span class="stage">Project cost control</span>
+        <h3>Always know the final cost.</h3>
+        <p>We monitor committed costs, assess proposed changes and update the forecast of the final project cost.</p>
+        <div class="pk-g">
+          <div><b>You receive</b><span>Regular cost reports, change assessments and updated forecasts.</span></div>
+          <div><b>For</b><span>Owners, developers and owner’s representatives.</span></div>
+        </div>
+        <div class="acts"><a class="btn btn-dark" href="#">Discuss your project <span class="arr">→</span></a><a class="btn btn-outline" href="#">View a sample</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('.pk-t').forEach(function (t) {
+    t.addEventListener('click', function () {
+      document.querySelectorAll('.pk-t').forEach(function (x) {
+        var on = x === t;
+        x.setAttribute('aria-selected', on);
+        document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
+      });
+    });
+  });
+</script>
+</body>
+</html>
