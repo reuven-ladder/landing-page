@@ -100,7 +100,10 @@ main{position:relative;z-index:1}
 .person.note{background:transparent;border-style:dashed}
 .person.note h3{font-size:1rem}
 
-.home .faq details{background:#fff}
+.home .faq{background:#fff;border:1px solid var(--line-strong);border-radius:12px;overflow:hidden}
+.home .faq details:last-child{border-bottom:0}
+.home .faq summary{padding:1.15rem 1.4rem}
+.home .faq .a{padding:0 1.4rem 1.25rem}
 .home .form{border:1px solid var(--ink);box-shadow:none;border-radius:14px}
 .home .site-footer{position:relative;z-index:1;background:var(--paper);padding-top:1.25rem}
 

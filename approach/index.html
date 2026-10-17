@@ -17,7 +17,7 @@
     gtag('config', GA_ID);
   </script>
   <title>Why Ladder — Ladder</title>
-  <meta name="description" content="Estimating, rebuilt around AI. Specialist AI agents organized like an estimating department, rules a deadline can't bend, and cost engineers who own the number." />
+  <meta name="description" content="Estimating, rebuilt around AI. A look behind the scenes: AI agents read and cross-check every sheet, and our cost engineers own the number." />
   <meta name="theme-color" content="#fafaf7" />
   <meta property="og:title" content="Ladder — Drawings in. A defensible estimate out." />
   <meta property="og:description" content="Estimating, rebuilt around AI: an estimate fast enough to steer the design and thorough enough to trust." />
@@ -29,13 +29,13 @@
   <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@500;600;700&family=Wix+Madefor+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@500;600;700&family=Wix+Madefor+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/site.css" />
   <link rel="stylesheet" href="../assets/world.css" />
   <link rel="stylesheet" href="../assets/approach.css" />
-  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+  <link rel="stylesheet" href="../assets/desk.css" />
 </head>
-<body class="home approach" data-beat="0">
+<body class="home approach desk" data-beat="0">
 
 <header class="site-header">
   <div class="topbar">
@@ -54,53 +54,242 @@
   </div>
 </header>
 
-<!-- The world: one building, one roof assembly followed from documents to a cost decision -->
-<div class="world" id="world" aria-hidden="true">
-  <canvas></canvas>
-  <img class="fallback" src="../assets/hero-art.svg" alt="" />
-  <div class="grain"></div>
-  <div class="ov" id="ov">
-    <!-- 1 · each document holds part of the roof -->
-    <div class="tag3" data-at="sheet.A-501" data-show="doc"><i></i><div><b>A-501 roof plan</b><small>Area, slopes, drains</small></div></div>
-    <div class="tag3" data-at="sheet.07 54 23" data-show="doc"><i></i><div><b>Spec 07 54 23</b><small>Membrane, insulation, warranty</small></div></div>
-    <div class="tag3" data-at="sheet.ADD. 3" data-show="doc"><i></i><div><b>Addendum 3</b><small>RTU-3 resized · new roof curb</small></div></div>
-    <!-- 2 · questions beside the assembly -->
-    <div class="tag3 warn" data-at="memb" data-dx="5" data-dy="0.4" data-show="q"><i></i><div><b>Membrane <em>60 mil?</em></b><small>Plan note · not yet checked against spec</small></div></div>
-    <div class="tag3 warn" data-at="insul" data-dx="5" data-dy="0.2" data-show="q"><i></i><div><b>Build-up <em>R-30?</em></b><small>Tapered · thickness not dimensioned</small></div></div>
-    <div class="tag3 warn" data-at="deck" data-dx="5" data-dy="0" data-show="q"><i></i><div><b>Roof area <em>≈ 18,900 SF</em></b><small>Gross · curbs not deducted</small></div></div>
-    <div class="tag3 warn" data-at="deck" data-dx="-4.6" data-dy="-1.4" data-show="q"><i></i><div><b>Roof drains <em>allowance?</em></b><small>Count missing on P-201</small></div></div>
+<!-- The scene: one estimator's desk, seen from behind. A scroll-driven camera moves through it. -->
+<div class="stage" id="stage" aria-hidden="true">
+  <div class="glow"></div>
+
+  <!-- L0 · room: wall, window, clock, desk surface -->
+  <div class="layer" data-depth="1" id="L0">
+    <svg class="ink" viewBox="0 0 1600 1000" width="1600" height="1000">
+      <defs>
+        <radialGradient id="lampGlow" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#fff3c4" stop-opacity=".9"/><stop offset="1" stop-color="#fff3c4" stop-opacity="0"/></radialGradient>
+      </defs>
+      <clipPath id="win"><rect x="78" y="98" width="254" height="284"/></clipPath>
+      <rect class="sky" x="78" y="98" width="254" height="284"/>
+      <g class="clouds" clip-path="url(#win)">
+        <path class="cl c-a" d="M60 150 q6 -16 22 -12 q8 -14 24 -6 q16 -4 18 10 q12 2 8 12 h-70 q-10 -2 -2 -4z"/>
+        <path class="cl c-b" d="M60 196 q5 -12 17 -9 q7 -11 19 -4 q12 -3 14 8 q9 2 6 9 h-54 q-8 -2 -2 -4z"/>
+        <path class="bird" d="M0 0 q4 -4 8 0 q4 -4 8 0"/>
+        <path class="cl c-c" d="M60 128 q4 -9 13 -7 q5 -8 14 -3 q9 -2 10 6 q7 1 5 7 h-41 q-6 -1 -1 -3z"/>
+      </g>
+      <g class="skyline"></g>
+      <circle class="moon" cx="292" cy="138" r="13"/>
+      <circle class="sun" cx="120" cy="140" r="18"/>
+      <ellipse class="lamp-light" cx="330" cy="610" rx="230" ry="150" fill="url(#lampGlow)"/>
+      <g class="rough"></g>
+      <g class="clock">
+        <g class="hands">
+          <line id="hh" x1="1450" y1="150" x2="1450" y2="124"/>
+          <line id="mh" x1="1450" y1="150" x2="1450" y2="112"/>
+          <line id="sh" x1="1450" y1="158" x2="1450" y2="108"/>
+          <circle cx="1450" cy="150" r="3.5"/>
+        </g>
+      </g>
+    </svg>
   </div>
 
-  <!-- 1 · the deadline holds while the set grows -->
-  <div class="panel3 deadline">
-    <div class="p-head"><span>Estimate due</span><span>Illustrative</span></div>
-    <div class="dl-row"><span>Due date</span><b>Fri · 2:00 PM</b><s>Unchanged</s></div>
-    <div class="dl-row grow"><span>Documents in the set</span><b id="doc-count">38</b><s>Growing</s></div>
-    <div class="dl-kinds"><span>Drawings</span><span>Specifications</span><span>Schedules</span><span>Revisions</span><span>Quotes</span></div>
-  </div>
+  <!-- L1 · monitors and their screens -->
+  <div class="layer" data-depth="1" id="L1">
+    <svg class="ink" viewBox="0 0 1600 1000" width="1600" height="1000"><g class="rough"></g></svg>
 
-  <!-- 3–4 · the roof as a connected scope, then reviewed -->
-  <div class="panel3 scopecard">
-    <div class="p-head"><span><i class="v3">Roof scope · connected by AI</i><i class="v4">Roof scope · professionally reviewed</i></span><span>Illustrative</span></div>
-    <div class="d-row d-h"><span>Item &amp; source</span><span>Qty</span></div>
-    <div class="d-row"><span><b>TPO membrane, 60 mil, fully adhered</b><small>↗ A-501 · Spec 07 54 23 §2.2</small></span><span><i class="v3">18,900 SF</i><i class="v4"><del>18,900</del> 18,400 SF</i></span></div>
-    <div class="d-row"><span><b>Tapered insulation, avg. R-30</b><small>↗ A-501 slopes · Spec §2.3</small></span><span><i class="v3">18,900 SF</i><i class="v4"><del>18,900</del> 18,400 SF</i></span></div>
-    <div class="d-row"><span><b>Flashings &amp; curbs, incl. RTU-3</b><small>↗ A-502 · Addendum 3 item 12</small></span><span>1,150 LF</span></div>
-    <div class="d-row"><span><b>Roof drains</b><small>↗ P-201 · count missing</small><i class="k l">Allowance</i></span><span>8 EA</span></div>
-    <div class="d-row"><span><b>Pricing basis</b><small class="v3">Last project’s rate, $21.40 / SF</small><small class="v4">Regional bids, $22.30 – $25.50 / SF</small><i class="k a v3">Assumption · not yet reviewed</i><i class="k m v4">Reviewed</i></span><span><i class="v3">—</i><i class="v4">$410k – $470k</i></span></div>
-    <div class="d-row alt v4"><span><b>Alternative: 80 mil membrane</b><small>Longer warranty term · same build-up</small></span><span>+$37k – $53k</span></div>
-  </div>
-
-  <!-- 5 · the decision -->
-  <div class="panel3 optcard">
-    <div class="p-head"><span>Roofing · options against budget</span><span>Illustrative</span></div>
-    <div class="o-grid">
-      <div class="o-col"><p>Option A</p><b>60 mil TPO</b><strong>$410k – $470k</strong><small>As specified · 18,400 SF</small></div>
-      <div class="o-col"><p>Option B</p><b>80 mil TPO</b><strong>$447k – $523k</strong><small>Longer warranty · same build-up</small></div>
+    <!-- left monitor: drawings -->
+    <div class="scr" id="scr-left" style="left:312px;top:342px;width:376px;height:246px">
+      <div class="pdf v-spec">
+        <div class="pdf-bar"><span class="pdf-file"><b>Project_Manual_Vol2.pdf</b></span><span>Page 412 of 1,186</span></div>
+        <div class="spec">
+          <p class="sp-h">SECTION 08 71 00 · DOOR HARDWARE</p>
+          <p class="sp-s">2.4 &nbsp;HARDWARE SETS</p>
+          <p class="sp-l">A. Set 4: Hinges (3), lockset, <mark>closer</mark>, kick plate, smoke seal.</p>
+          <p class="sp-l">B. Closers shall be surface-mounted, Grade 1, with hold-open where noted on the life-safety plan.</p>
+          <p class="sp-l">C. Coordinate with door schedule A-601 and fire ratings on G-101.</p>
+          <p class="sp-l">D. Quantities: <mark class="loop">see drawings.</mark></p>
+          <i></i><i></i><i class="s"></i><i></i><i class="s"></i>
+        </div>
+      </div>
+      <div class="pdf v-take">
+        <div class="pdf-bar"><span class="pdf-file"><b>Takeoff · A-201 Level 2 · Doors</b></span><span>Count <b id="tk-n">79</b></span></div>
+        <div class="take">
+          <svg viewBox="0 0 376 228" aria-hidden="true">
+            <g fill="none" stroke="#3a3a36" stroke-width="1.3"><rect x="14" y="12" width="348" height="204"/><path d="M14 92 H140 M190 92 H362 M140 12 V216 M250 92 V216 M140 150 H250"/></g>
+            <g fill="none" stroke="#3a3a36" stroke-width="1"><path d="M140 40 a16 16 0 0 1 16 16 M140 112 a16 16 0 0 0 -16 16 M190 92 a16 16 0 0 1 -16 16 M250 120 a16 16 0 0 1 16 16 M250 180 a16 16 0 0 0 -16 16 M60 92 a16 16 0 0 0 16 -16 M300 92 a16 16 0 0 1 -16 -16 M200 150 a16 16 0 0 1 16 16"/></g>
+            <g class="tk-m"><circle cx="152" cy="50" r="5"/><circle cx="130" cy="122" r="5"/><circle cx="180" cy="102" r="5"/><circle cx="262" cy="130" r="5"/><circle cx="240" cy="190" r="5"/><circle cx="70" cy="82" r="5"/><circle cx="292" cy="82" r="5"/><circle cx="210" cy="160" r="5"/></g>
+          </svg>
+          <span class="tk-tool">Count tool · click each door</span>
+        </div>
+      </div>
+      <div class="pdf v-before">
+        <div class="pdf-bar"><span class="pdf-file"><b id="pdf-name">A-101_concept.pdf</b></span><span>Page <b id="pg">1</b> of <b id="pgs">3</b></span></div>
+        <div class="pdf-body">
+          <div class="thumbs"><i></i><i></i><i></i><i class="x"></i><i class="x"></i><i class="x"></i><i class="x"></i></div>
+          <div class="sheet">
+            <svg viewBox="0 0 260 190"><g fill="none" stroke="#3a3a36" stroke-width="1.4"><rect x="20" y="20" width="200" height="140"/><path d="M20 90 H120 V160 M120 90 V20 M160 20 V90 H220 M60 90 v-20 M160 120 H220"/><path d="M40 40 h40 M40 50 h28" stroke-width=".8"/></g><g font-family="JetBrains Mono" font-size="7" fill="#7a7a74"><text x="28" y="80">OPEN OFFICE</text><text x="128" y="60">LOBBY</text><text x="168" y="110">CORE</text><text x="168" y="180">A-101 · CONCEPT · NTS</text></g><path d="M140 140 q20 -14 40 0" fill="none" stroke="#d9480f" stroke-width="1.2" stroke-dasharray="3 3"/><text x="132" y="152" font-family="Caveat" font-size="11" fill="#d9480f">roof TBD?</text></svg>
+          </div>
+        </div>
+      </div>
+      <div class="pdf v-after">
+        <div class="pdf-bar"><span class="pdf-file"><b>Ladder · Marked-up drawings</b></span><span>A-601 · Door schedule</span></div>
+        <div class="mk">
+          <div class="mk-t">
+            <p class="h"><span>Door</span><span>Type</span><span>Rating</span><span>Hdw set</span></p>
+            <p><span>101</span><span>A</span><span>—</span><span>2</span></p>
+            <p class="hl"><span>102</span><span>B</span><span>45 min</span><span>4</span></p>
+            <p class="hl"><span>103</span><span>B</span><span>45 min</span><span>4</span></p>
+            <p><span>104</span><span>A</span><span>—</span><span>1</span></p>
+            <p class="hl"><span>105</span><span>C</span><span>90 min</span><span>4</span></p>
+            <p><span>106</span><span>A</span><span>—</span><span>2</span></p>
+          </div>
+          <span class="mk-box">Set 4 · 12 doors</span>
+          <span class="mk-cloud">Closers not listed</span>
+        </div>
+      </div>
     </div>
-    <div class="o-diff"><span>Difference</span><b>+$37k – $53k</b></div>
-    <div class="o-open"><i class="k l">Allowance</i> Roof drains carried until P-201 shows the count</div>
+
+    <!-- main monitor -->
+    <div class="scr" id="scr-main" style="left:744px;top:304px;width:532px;height:302px">
+      <!-- spreadsheet -->
+      <div class="xl">
+        <div class="xl-title"><span class="dots"><i></i><i></i><i></i></span><b>Estimate_v7_FINAL(3).xlsx</b><em class="nr">(Not Responding)</em></div>
+        <div class="xl-fx"><span class="ref" id="xl-ref">F4</span><span class="fx">fx</span><span id="xl-f">='Last job rates'!F12</span><i class="caret"></i></div>
+        <div class="xl-grid">
+          <p class="h"><span></span><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span></p>
+          <p class="hd"><span>1</span><span>Code</span><span>Description</span><span>Qty</span><span>Unit</span><span>Rate</span><span>Total</span></p>
+          <p><span>2</span><span>03 30 00</span><span>Cast-in-place concrete</span><span>640</span><span>CY</span><span>245.00</span><span>156,800</span></p>
+          <p><span>3</span><span>05 12 00</span><span>Structural steel</span><span>92</span><span>TON</span><span>4,850</span><span>446,200</span></p>
+          <p class="r-anchor"><span>4</span><span>07 54 23</span><span>TPO roofing</span><span>18,900</span><span>SF</span><span class="sel">21.40</span><span>404,460</span></p>
+          <p class="r-blind"><span>5</span><span>08 71 00</span><span>Door hardware</span><span class="q">?</span><span>EA</span><span></span><span class="err">#REF!</span></p>
+          <p><span>6</span><span>09 29 00</span><span>Gypsum board</span><span>46,000</span><span>SF</span><span>3.10</span><span>142,600</span></p>
+          <p><span>7</span><span>22 00 00</span><span>Plumbing</span><span>1</span><span>LS</span><span>allow.</span><span>210,000</span></p>
+          <p><span>8</span><span>23 00 00</span><span>HVAC</span><span>54,000</span><span>SF</span><span>8.40</span><span>453,600</span></p>
+          <p class="r-opt"><span>9</span><span></span><span>Contingency</span><span></span><span></span><span><s>5%</s> 2%</span><span>36,273</span></p>
+          <p class="tot"><span>10</span><span></span><span>Total</span><span></span><span></span><span></span><span>1,849,933</span></p>
+          <p><span>11</span><span></span><span></span><span></span><span></span><span></span><span></span></p>
+        </div>
+        <div class="xl-tabs"><span class="on">Estimate</span><span>Takeoff</span><span class="lj">Last job rates</span><span>Sheet4</span></div>
+        <svg class="ptr" viewBox="0 0 12 18"><path d="M1 1 L1 15 L4.5 11.5 L7 17 L9.5 16 L7 10.5 L11.5 10.5 Z"/></svg>
+        <!-- bias call-outs -->
+        <span class="bias-tag b1">Anchoring · last job’s rate</span>
+        <span class="bias-tag b2">Optimism · trimmed to fit budget</span>
+        <span class="bias-tag b3">Fatigue · page 900 skimmed</span>
+        <!-- incoming documents -->
+        <div class="toasts">
+          <div class="toast" data-k="1"><b>Addendum 3</b>14 sheets revised · RTU-3 resized</div>
+          <div class="toast" data-k="2"><b>Re: hardware quote</b>Pricing excludes closers</div>
+          <div class="toast" data-k="3"><b>Spec 08 71 00 · Rev B</b>Hardware sets updated</div>
+          <div class="toast" data-k="4"><b>Addendum 4</b>Roof plan A-501 reissued</div>
+          <div class="toast lost" data-k="5"><b>Bid results · you’re low</b>By 14% under the next bidder</div>
+        </div>
+      </div>
+
+      <!-- Ladder, from the estimator's seat -->
+      <div class="app">
+        <div class="app-top"><b>Ladder<span class="accent">.</span></b><span class="crumb">Internal workspace · Sample project · 54,000 SF renovation &amp; addition · DD estimate</span><span class="me"><i></i>Cost engineer</span></div>
+        <div class="app-body">
+          <aside class="pk">
+            <p class="pk-h">Trade packages</p>
+            <div class="pk-r d"><b>03–05 Structure</b><small>Done</small><i style="--w:100%"></i></div>
+            <div class="pk-r d"><b>07 Envelope</b><small>Done</small><i style="--w:100%"></i></div>
+            <div class="pk-r a o8"><b>08 Openings</b><small><span class="s1">Reading 08 71 00 §2.4</span><span class="s2">Checking A-601, G-101</span><span class="s3">Done</span></small><i class="run"></i></div>
+            <div class="pk-r a"><b>09 Finishes</b><small><span class="s1">Reading A-701</span><span class="s3">Done</span></small><i class="run r2"></i></div>
+            <div class="pk-r a"><b>21–28 MEP</b><small><span class="s1">RTU schedule vs. Add. 3</span><span class="s3">Done</span></small><i class="run r3"></i></div>
+            <p class="pk-h rv">Senior reviewer</p>
+            <div class="pk-r rvw"><b>Boundary checks</b><small>08 ↔ 09 · 07 ↔ 23</small></div>
+          </aside>
+
+          <section class="mid">
+            <div class="tabs"><span class="t-sheets">Sheets</span><span class="t-cov">Coverage</span><span class="t-est">Estimate</span><span class="t-log">Log</span></div>
+
+            <!-- sheets: agents reading -->
+            <div class="view v-sheets">
+              <div class="sh-row">
+                <div class="sh"><b>08 71 00</b><small>Spec · hardware sets</small><i class="scan"></i></div>
+                <div class="sh"><b>A-601</b><small>Door schedule</small><i class="scan d2"></i></div>
+                <div class="sh chk"><b>G-101</b><small>Life-safety plan</small><i class="scan d3"></i></div>
+                <div class="sh"><b>A-501</b><small>Roof plan</small></div>
+                <div class="sh"><b>M-401</b><small>Mech. schedule</small></div>
+                <div class="sh"><b>Add. 3</b><small>RTU-3 resized</small></div>
+              </div>
+              <p class="read-n"><b>212</b> documents · every sheet and spec section assigned to a trade</p>
+            </div>
+
+            <!-- coverage: rules a deadline can't bend -->
+            <div class="view v-cov">
+              <p class="cv-h">Spec coverage · 08 71 00 Door hardware</p>
+              <div class="cv-bar"><i class="u" style="--w:82%"></i><i class="dr" style="--w:18%"></i></div>
+              <p class="cv-k"><span class="u">Used · 41 articles</span><span class="dr">Dropped with reason · 9</span><span class="ur">Unread · 0</span></p>
+              <div class="cv-l"><span>§2.4 Closers</span><em>Used → line 12</em></div>
+              <div class="cv-l"><span>§1.6 Warranty</span><em class="dr">Dropped · no cost impact</em></div>
+              <p class="cv-h">Where each quantity came from</p>
+              <div class="prov"><span><b>146 EA</b>Printed · A-601</span><span><b>18,400 SF</b>Measured · A-501</span><span><b>1,150 LF</b>Calculated</span><span><b>8 EA</b>Judgment</span></div>
+            </div>
+
+            <!-- the log: every decision recorded, carried to the next project -->
+            <div class="view v-log">
+              <p class="cv-h">Project log · every step recorded with its source</p>
+              <div class="lg"><span>10:14</span><b>Agent · 08 Openings</b><em class="bad">Set 4 closers vs. A-601 · conflict</em></div>
+              <div class="lg"><span>10:21</span><b>Cost engineer</b><em>Asked: which set 4 doors are rated?</em></div>
+              <div class="lg"><span>10:23</span><b>Agent · 08 Openings</b><em>8 rated on G-101 · closers needed</em></div>
+              <div class="lg"><span>10:30</span><b>Cost engineer</b><em>Priced · RFI #9 · Clarification</em></div>
+              <div class="lg"><span>10:31</span><b>Reviewer</b><em>08 ↔ 09 boundary checked</em></div>
+              <div class="next"><p>Next project · a check added from this one</p>Compare hardware sets against rated doors on the life-safety plan.</div>
+            </div>
+
+            <!-- estimate line -->
+            <div class="view v-est">
+              <div class="el">
+                <p class="el-ref">08 71 00 · line 12</p>
+                <b>Door hardware sets</b>
+                <div class="el-n"><span>146 EA</span><span>$118k – $139k</span></div>
+                <dl><dt>Basis</dt><dd>Set rate by type. Closers priced on set 4, per spec.</dd><dt>Source</dt><dd>Spec 08 71 00 · A-601 · G-101</dd><dt>Open</dt><dd class="o">RFI #9 · confirm closers on set 4</dd></dl>
+              </div>
+              <div class="tr">
+                <span><b>RFI #9</b>Clarification</span><span><b>Roof drains</b>Allowance</span><span><b>Rate basis</b>Assumption</span><span><b>Owner FF&amp;E</b>Exclusion</span>
+              </div>
+              <div class="stamp">Reviewed &amp; signed<small>Cost engineer · Ladder</small></div>
+            </div>
+          </section>
+
+          <aside class="fd">
+            <p class="fd-h">Findings</p>
+            <div class="f f1"><i class="ok"></i>Roof area 18,400 SF net<small>↗ A-501</small></div>
+            <div class="f f2"><i class="ok"></i>RTU-3 priced at Addendum 3 size<small>↗ M-401 · Add. 3</small></div>
+            <div class="f f3 bad"><i></i>Set 4 lists closers. The door schedule omits them.<small>↗ 08 71 00 · A-601</small></div>
+            <div class="eq"><span class="typed">Which doors use set 4? Any fire-rated?</span></div>
+            <div class="f f4"><i class="ok"></i>12 doors on set 4. 8 are rated on G-101, so closers are needed.<small>↗ A-601 · G-101</small></div>
+            <div class="past"><p>From past projects</p>Hardware sets and door schedules often disagree on closers. Check rated doors on the life-safety plan.</div>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+    <div class="note n-due">Due Fri<br/>2:00 PM</div>
+    <div class="note n-budget">Budget<br/>$1.80M</div>
+    <div class="note n-rfi">RFI cutoff<br/>Tue 5 PM</div>
   </div>
+
+  <!-- L2 · things on the desk -->
+  <div class="layer" data-depth="1.05" id="L2">
+    <svg class="ink" viewBox="0 0 1600 1000" width="1600" height="1000"><g class="rough"></g><g class="steam"><path d="M1166 636 q-8 -14 0 -26 q8 -12 0 -26"/><path d="M1180 640 q-8 -14 0 -26 q8 -12 0 -26"/></g></svg>
+  </div>
+
+  <!-- L3 · the estimator, from behind -->
+  <div class="layer" data-depth="1.32" id="L3">
+    <svg class="ink" viewBox="0 0 1600 1000" width="1600" height="1000"><g class="rough"></g></svg>
+  </div>
+
+  <!-- L4 · labels in the scene -->
+  <div class="layer" data-depth="1" id="L4">
+    <div class="tag4" data-b="1" style="left:1410px;top:590px"><i></i><b>Drawings</b><small>212 sheets</small></div>
+    <div class="tag4" data-b="1" style="left:520px;top:380px"><i></i><b>Specs</b><small>1,186 pages</small></div>
+    <div class="tag4" data-b="1" style="left:1362px;top:480px"><i></i><b>Addenda</b><small>4 so far</small></div>
+    <div class="tag4" data-b="1" style="left:440px;top:672px"><i></i><b>Sub quotes</b><small>23 received</small></div>
+    <div class="tag4" data-b="1" style="left:1010px;top:596px"><i></i><b>Last job’s numbers</b><small>Rates tab</small></div>
+    <div class="tag4 me4" data-b="1" style="left:760px;top:650px"><i></i><b>Experience</b><small>Everything else</small></div>
+    <div class="tag4 warn4" data-b="4" style="left:470px;top:286px"><i></i><b>Old estimates</b><small>Rarely opened again</small></div>
+    <div class="file4"><b>xlsx</b>Estimate_v7_FINAL(3)</div>
+  </div>
+
+  <div class="grain"></div>
+  <p class="illus">Illustrative scene · invented figures</p>
 </div>
 
 <main id="top">
@@ -111,182 +300,127 @@
       <div class="wrap">
         <p class="kicker">Why Ladder</p>
         <h1>Estimating, <span class="accent">rebuilt around AI.</span></h1>
-        <p class="lede">A live estimate built on real data changes a project. It can steer the design, control spending and catch errors and omissions while they’re still cheap to fix. Today that estimate depends on scarce hours from experts.</p>
-        <p class="lede">Ladder changes this by adding AI cost engineers to a team of cost professionals.</p>
+        <p class="lede">A look behind the scenes: how a construction estimate gets made today, and how we make it.</p>
+        <p class="lede">Ladder is a cost estimating firm. Not an AI estimate: an estimate made by cost engineers, with AI doing the reading.</p>
         <div class="cta-row">
-          <a class="btn btn-dark btn-lg" href="../sample/">See a sample estimate <span class="arr">→</span></a>
-          <a class="btn btn-outline btn-lg" href="#b1">Read the story <span>↓</span></a>
+          <a class="btn btn-dark btn-lg" href="#b1">See behind the scenes <span>↓</span></a>
+          <a class="btn btn-outline btn-lg" href="../sample/">View a sample estimate</a>
         </div>
       </div>
     </section>
 
-    <!-- 1 · WHEN COST IS DECIDED -->
+    <!-- 1 · THE JOB -->
     <section class="beat" data-beat="1" id="b1">
       <div class="wrap"><div class="bcard">
-        <p class="bno">01 / When cost is decided</p>
-        <h2>Most of the cost is set <span class="accent">before anyone prices it in detail.</span></h2>
-        <p>The early choices decide the cost: the massing, the structural system, the envelope, the scope. Each one is cheap to change at concept and expensive once the drawings are done.</p>
-        <p class="sub">By the end of construction documents, the main cost lever left is downgrading finishes.</p>
+        <p class="bno">01 / The job</p>
+        <h2>One number. <span class="accent">A dozen sources.</span></h2>
+        <p>An estimator reconciles drawings, specs, addenda, sub quotes, the last job’s numbers and their own experience into a single price.</p>
+        <p class="sub">And when the spec says “see drawings” and the drawings say “see spec”, someone has to chase it down.</p>
       </div></div>
     </section>
 
-    <!-- 2 · HOW ESTIMATES ARE MADE TODAY -->
+    <!-- 2 · THE WORK -->
     <section class="beat" data-beat="2">
       <div class="wrap"><div class="bcard">
-        <p class="bno">02 / How estimates are made today</p>
-        <h2>The earliest estimates <span class="accent">rest on the least.</span></h2>
-        <p>At concept, the information is thin, the deadline is short and the estimate gets the least time. So the number comes from an experienced person, often a cost per square foot from a similar past job, adjusted by judgment.</p>
-        <p class="sub">Detailed estimates arrive later, at milestones, after weeks of manual takeoff. By then many of the decisions have already been made.</p>
+        <p class="bno">02 / The work</p>
+        <h2>No time to read it all. <span class="warn">No time to ask.</span></h2>
+        <p>Even with digital takeoff, clicking every door and wall and re-keying it into a spreadsheet eats the clock. Few estimators ever get far enough ahead to read the whole set and send their questions before the cutoff.</p>
+        <p class="sub">So questions turn into assumptions, and assumptions into risk.</p>
       </div></div>
     </section>
 
-    <!-- 3 · HUMAN BIAS -->
+    <!-- 3 · THE PRESSURE -->
     <section class="beat" data-beat="3">
       <div class="wrap"><div class="bcard">
-        <p class="bno">03 / The part nobody budgets for</p>
-        <h2>Experience comes <span class="warn">with bias.</span></h2>
-        <p>It isn’t carelessness. Research on project forecasts shows that people misjudge cost in predictable ways:</p>
-        <ul class="bias">
-          <li><b>Anchoring</b><span>The first number, or the last project’s rate, pulls every number after it.</span></li>
-          <li><b>Optimism</b><span>Estimates drift toward what the project hopes to spend.</span></li>
-          <li><b>Blind spots</b><span>Pages nobody had time to read never reach the number.</span></li>
-        </ul>
-        <p class="sub">These shortcuts get worse under deadline pressure, and a single total hides them.</p>
+        <p class="bno">03 / The pressure</p>
+        <h2>Tight deadlines. <span class="warn">Thin margins.</span></h2>
+        <p>Addenda keep arriving and the due date doesn’t move. A missed item comes straight out of margin, and one bad estimate can wipe out a year’s profit.</p>
+        <p class="sub">Worse, the low bid often wins because something was missed.</p>
       </div></div>
     </section>
 
-    <!-- 4 · HOW WE WORK: specialist agents, an engineer leading -->
-    <section class="beat solid hww-sec" data-beat="4" id="how-we-work">
-      <div class="wrap">
-        <div class="hww-head">
-          <div>
-            <p class="bno">04 / Our approach</p>
-            <h2>We built an estimating department, <span class="accent">staffed by AI.</span></h2>
-          </div>
-          <div>
-            <p>A lead splits the project into trade packages, the way a chief estimator would. Each trade gets its own specialist agent that reads every sheet and spec section in its slice.</p>
-            <p>A senior reviewer checks each package against what that trade usually carries, and writes findings without changing the numbers. Neighboring trades are then reconciled pair by pair, because scope gaps hide at the boundaries. Anything still unresolved becomes an RFI.</p>
-            <p class="sub">Our cost engineer leads the whole department.</p>
-          </div>
-        </div>
-
-        <div class="hww" id="hww" aria-label="Illustrative walkthrough: a door hardware conflict, from documents to estimate line">
-          <div class="hww-bar">
-            <ol class="hww-steps">
-              <li><button type="button" data-go="1"><i>1</i>Specialist agents examine the project.</button></li>
-              <li><button type="button" data-go="2"><i>2</i>Findings come together for review.</button></li>
-              <li><button type="button" data-go="3"><i>3</i>The engineer challenges and directs.</button></li>
-              <li><button type="button" data-go="4"><i>4</i>Decisions become part of the estimate.</button></li>
-            </ol>
-            <span class="hww-note">Illustrative walkthrough · sample project, invented figures</span>
-          </div>
-
-          <div class="hww-grid">
-            <div class="hc docs">
-              <p class="hc-h">Project documents</p>
-              <div class="doc" id="d-a501"><b>A-501</b>Roof plan</div>
-              <div class="doc" id="d-m401"><b>M-401</b>Mechanical schedule</div>
-              <div class="doc" id="d-add3"><b>Add. 3</b>RTU-3 resized</div>
-              <div class="doc key" id="d-spec"><b>08 71 00</b>Spec · hardware sets</div>
-              <div class="doc key" id="d-a601"><b>A-601</b>Door schedule</div>
-              <div class="doc chk" id="d-g101"><b>G-101</b>Life-safety plan</div>
-            </div>
-
-            <div class="hc agents">
-              <p class="hc-h">Specialist agents</p>
-              <div class="agent" id="a-env"><b>Envelope</b><small>Roof, walls, glazing</small><span>Roof build-up connected</span></div>
-              <div class="agent" id="a-mep"><b>MEP</b><small>Mechanical, plumbing, electrical</small><span>RTU schedule vs. Addendum 3</span></div>
-              <div class="agent" id="a-int"><b>Interiors</b><small>Doors, hardware, finishes</small><span class="t1">Hardware sets vs. door schedule</span><span class="t3">Checking set 4 doors on A-601, G-101</span></div>
-            </div>
-
-            <div class="hc eng">
-              <div class="who">
-                <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#fff" stroke="currentColor" stroke-width="1.5"/><circle cx="20" cy="16" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8.5 33c2.2-6 6.4-8.5 11.5-8.5S29.3 27 31.5 33" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-                <div><b>Cost engineer</b><small>Leads the review</small></div>
-              </div>
-              <div class="find" id="f1"><i class="ok"></i>Roof area 18,400 SF net<small>↗ A-501</small></div>
-              <div class="find" id="f2"><i class="ok"></i>RTU-3 priced at Addendum 3 size<small>↗ M-401 · Add. 3</small></div>
-              <div class="find bad" id="f3"><i></i>Set 4 lists closers. The door schedule omits them.<small>↗ 08 71 00 · A-601</small></div>
-              <div class="ask" id="q1">“Which doors use set 4, and are any of them fire-rated?”</div>
-              <div class="find ret" id="f4"><i class="ok"></i>12 doors on set 4. 8 are rated on G-101, so closers are needed.<small>↗ A-601 · G-101</small></div>
-            </div>
-
-            <div class="hc est">
-              <p class="hc-h">Estimate</p>
-              <div class="eline" id="e1">
-                <p class="eref">08 71 00</p>
-                <b>Door hardware sets</b>
-                <div class="enums"><span>146 EA</span><span>$118k – $139k</span></div>
-                <dl>
-                  <dt>Basis</dt><dd>Set rate by type. Closers priced on set 4, per spec.</dd>
-                  <dt>Source</dt><dd>Spec 08 71 00 · A-601 · G-101</dd>
-                  <dt>Open</dt><dd class="o">RFI #9: confirm closers on set 4</dd>
-                </dl>
-              </div>
-            </div>
-          </div>
-          <svg class="hww-lines" id="hww-lines" aria-hidden="true"></svg>
-        </div>
-      </div>
+    <!-- 4 · THE LOST LESSON -->
+    <section class="beat" data-beat="4">
+      <div class="wrap"><div class="bcard">
+        <p class="bno">04 / The lost lesson</p>
+        <h2>And nothing <span class="warn">comes back.</span></h2>
+        <p>Win or lose, the job gets a folder that’s never deleted and rarely opened again. What the team learned about this set, this trade or this sub seldom reaches the next estimate.</p>
+        <p class="sub">Every bid starts almost from scratch.</p>
+      </div></div>
     </section>
 
-    <!-- 5 · RULES -->
+    <!-- 5 · THE HUMAN LIMIT -->
     <section class="beat" data-beat="5">
       <div class="wrap"><div class="bcard">
-        <p class="bno">05 / Rules a deadline can’t bend</p>
-        <h2>Discipline people keep when they can, <span class="accent">built into every estimate.</span></h2>
-        <ul class="rules">
-          <li>Every spec article is used or dropped with a stated reason. None goes unread.</li>
-          <li>Every quantity says where it came from: printed, calculated, measured or judgment.</li>
-          <li>One measurement gives one number, in every trade that uses it.</li>
-          <li>Every package comes with marked-up drawings that show its evidence.</li>
+        <p class="bno">05 / The human limit</p>
+        <h2>Even the best estimator <span class="warn">is human.</span></h2>
+        <p>Under deadline, judgment takes shortcuts in predictable ways:</p>
+        <ul class="bias">
+          <li><b>Fatigue</b><span>Page 900 doesn’t get the attention page 9 did. A set with a “ground floor” and a “first floor” loses one of them.</span></li>
+          <li><b>Anchoring</b><span>A number that looks like last time goes in without a second look.</span></li>
+          <li><b>Optimism</b><span>Estimates drift toward what the project hopes to spend.</span></li>
         </ul>
+        <p class="sub">None of it is carelessness. It’s what deadlines do to people.</p>
       </div></div>
     </section>
 
-    <!-- 6 · PAST PROJECTS -->
-    <section class="beat" data-beat="6">
+    <!-- 6 · WHY NOW -->
+    <section class="beat tall" data-beat="6" id="how-we-work">
       <div class="wrap"><div class="bcard">
-        <p class="bno">06 / Experience that compounds</p>
+        <p class="bno">06 / Why now</p>
+        <h2>We built an estimating department, <span class="accent">staffed by AI.</span></h2>
+        <p>AI can now read a full set and cross-check it: page against page, trade against trade. That’s the part estimators never have time for. So we built a department of specialist agents, one per trade, that read every page with the same attention.</p>
+        <ol class="steps">
+          <li data-s="1"><i>1</i>Trade agents read the whole set.</li>
+          <li data-s="2"><i>2</i>Conflicts surface with their sources.</li>
+        </ol>
+        <p class="sub">It reads, counts and cross-checks. We call it the AI cost engineer.</p>
+      </div></div>
+    </section>
+
+    <!-- 7 · HUMAN IN THE LOOP -->
+    <section class="beat tall" data-beat="7">
+      <div class="wrap"><div class="bcard">
+        <p class="bno">07 / Human in the loop</p>
+        <h2>Not bulletproof. <span class="accent">So an expert steers it.</span></h2>
+        <p>AI that makes things up is the industry’s biggest fear, and it should be. So every quantity links to the sheet it came from, and nothing reaches the estimate until our cost engineer has checked it.</p>
+        <ol class="steps">
+          <li data-s="3"><i>3</i>The engineer challenges and directs.</li>
+          <li data-s="4"><i>4</i>The decision goes into the estimate.</li>
+        </ol>
+        <div class="treat"><span>Clarification</span><span>Assumption</span><span>Allowance</span><span>Exclusion</span></div>
+        <p class="sub">The grunt work goes. The judgment stays.</p>
+      </div></div>
+    </section>
+
+    <!-- 8 · AI-NATIVE -->
+    <section class="beat" data-beat="8">
+      <div class="wrap"><div class="bcard">
+        <p class="bno">08 / AI-native</p>
         <h2>Every project <span class="accent">makes the next one sharper.</span></h2>
-        <p>The best-documented cure for forecasting bias is to look outside the project: at what comparable work actually took and cost.</p>
-        <p>We carry trade knowledge from every project we’ve estimated: what each trade usually includes, where scope tends to fall between trades and which questions a set like yours usually raises.</p>
-        <p class="sub">An anchor has to earn its place.</p>
+        <p>Every quantity, question and decision is logged with its source. What we learn on one project becomes a check on the next.</p>
+        <p class="sub">It’s the feedback loop bidding never had.</p>
       </div></div>
     </section>
 
-    <!-- 7 · PEOPLE -->
-    <section class="beat" data-beat="7">
+    <!-- 9 · WORKING WITH LADDER -->
+    <section class="beat cta3" data-beat="9">
       <div class="wrap"><div class="bcard">
-        <p class="bno">07 / People who own the number</p>
-        <h2>Our cost engineers <span class="accent">sign it.</span></h2>
-        <p>The agents do the reading. Our cost professionals do the judgment: they direct the work, challenge the findings, weigh alternatives and decide how each open question is handled.</p>
-        <div class="treat">
-          <p>Where the documents don’t answer, the estimate says so:</p>
-          <span>Clarification</span><span>Assumption</span><span>Allowance</span><span>Exclusion</span>
-        </div>
-      </div></div>
-    </section>
-
-    <!-- 8 · WHAT IT MEANS -->
-    <section class="beat cta3" data-beat="8">
-      <div class="wrap"><div class="bcard">
-        <p class="bno">08 / What it means for you</p>
-        <h2>An estimate fast enough to steer the design, <span class="accent">thorough enough to trust.</span></h2>
+        <p class="bno">09 / Working with Ladder</p>
+        <h2>An extension of <span class="accent">your estimating team.</span></h2>
         <ul class="stages">
-          <li><b>During design</b><span>Compare options against your budget while they can still change.</span></li>
-          <li><b>Before bidding</b><span>Know the quantities, scope and assumptions the bids will be priced on.</span></li>
-          <li><b>As the project moves</b><span>Assess each change against the agreed cost basis.</span></li>
+          <li><b>Contractors</b><span>Get ahead of the set: questions out before the cutoff, scope gaps caught before bid day. Bid more with the same team.</span></li>
+          <li><b>Owners &amp; architects</b><span>An independent estimate you can examine before you commit.</span></li>
+          <li><b>You receive</b><span>The estimate workbook, the marked-up drawings and a log of every assumption, with a cost engineer accountable for the number.</span></li>
         </ul>
-        <p>From concept through bidding, cost goes back to guiding decisions instead of reporting them afterwards.</p>
         <div class="cta-row">
           <a class="btn btn-dark btn-lg" href="../#start">Request a quote <span class="arr">→</span></a>
           <a class="btn btn-outline btn-lg" href="../sample/">View a sample estimate</a>
         </div>
+        <div class="used"><p>Teams that have used Ladder</p><div><img src="../assets/logos/glynn-group.png" alt="Glynn Group" loading="lazy" /><img src="../assets/logos/yorke-construction-corporation.png" alt="Yorke Construction Corporation" loading="lazy" /><img src="../assets/logos/lema-construction.png" alt="Lema Construction" loading="lazy" /><img src="../assets/logos/romsdahl-companies.png" alt="Romsdahl Companies" loading="lazy" /><img src="../assets/logos/franklin-development.png" alt="Franklin Development" loading="lazy" /></div></div>
       </div></div>
     </section>
   </div>
-
 </main>
 
 <footer class="site-footer">
@@ -331,8 +465,7 @@
   </div>
 </footer>
 
-<script type="module" src="../assets/approach.js"></script>
-<script src="../assets/hww.js"></script>
+<script type="module" src="../assets/desk.js"></script>
 <script src="../assets/site.js"></script>
 </body>
 </html>
