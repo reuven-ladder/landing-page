@@ -1,6 +1,6 @@
 // Workflow: one project, three stages (documents → quantities → reviewed estimate).
 // Desktop: the visual sticks beside the steps and follows the step in view.
-// Phones: each step gets its own still copy of the visual at that stage.
+// Phones: the same, with the visual stuck above the steps.
 (function () {
   var wf = document.querySelector('.wf');
   if (!wf) return;
@@ -15,18 +15,6 @@
 
   wf.querySelectorAll('[data-go]').forEach(function (b) {
     b.addEventListener('click', function () { set(b.getAttribute('data-go')); });
-  });
-
-  // Phone copies: one still per step, so the process reads without scrolling tricks.
-  steps.forEach(function (s) {
-    var c = vis.cloneNode(true);
-    c.classList.add('wf-still');
-    c.setAttribute('data-stage', s.getAttribute('data-step'));
-    c.removeAttribute('aria-label');
-    c.setAttribute('aria-hidden', 'true');
-    var tabs = c.querySelector('.wf-tabs');
-    if (tabs) tabs.remove();
-    s.appendChild(c);
   });
 
   if ('IntersectionObserver' in window) {
