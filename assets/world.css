@@ -215,9 +215,10 @@ main{position:relative;z-index:1}
 @media (max-width:960px){
   .roles{grid-template-columns:1fr}
   .wf{grid-template-columns:1fr}
-  /* the visual sticks on top and the steps scroll under it, as on desktop */
-  .wf-stick{order:-1;top:68px;z-index:2;margin:0 calc(-1*var(--gutter));padding:.6rem var(--gutter) .8rem;background:var(--paper)}
-  .wf-steps li{min-height:44vh;justify-content:flex-start;padding:1.4rem 0 1.4rem 1rem}
+  /* the visual sticks to the bottom of the screen; the steps scroll above it */
+  .wf{gap:0}
+  .wf-stick{top:auto;bottom:0;z-index:2;margin:0 calc(-1*var(--gutter));padding:.8rem var(--gutter) max(.8rem,env(safe-area-inset-bottom));background:var(--paper);box-shadow:0 -14px 18px -10px var(--paper)}
+  .wf-steps li{min-height:34vh;justify-content:flex-start;padding:1.4rem 0 1.4rem 1rem}
 }
 @media (max-width:560px){
   .wf-bar{padding:.5rem .7rem}

@@ -1,6 +1,6 @@
 // Workflow: one project, three stages (documents → quantities → reviewed estimate).
 // Desktop: the visual sticks beside the steps and follows the step in view.
-// Phones: the same, with the visual stuck above the steps.
+// Phones: the same, with the visual stuck to the bottom of the screen and the steps scrolling above it.
 (function () {
   var wf = document.querySelector('.wf');
   if (!wf) return;
@@ -18,9 +18,12 @@
   });
 
   if ('IntersectionObserver' in window) {
+    // the step is read in the middle of the space left for text: the whole screen on desktop,
+    // the band above the visual on phones
+    var phone = matchMedia('(max-width:960px)').matches;
     var io = new IntersectionObserver(function (en) {
       en.forEach(function (e) { if (e.isIntersecting) set(e.target.getAttribute('data-step')); });
-    }, { rootMargin: '-45% 0px -45% 0px' });
+    }, { rootMargin: phone ? '-25% 0px -60% 0px' : '-45% 0px -45% 0px' });
     steps.forEach(function (s) { io.observe(s); });
   }
 })();

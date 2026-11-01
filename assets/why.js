@@ -159,7 +159,9 @@
         s.tx.style.bottom = '12px';
         // the intro fills the first screen, so its text is in place from the start
         // the last chapter ends the page: the bottom of the scroll is the end of the story
-        s.n.style.height = Math.round((i ? s.th + (last ? 12 : 0) : Math.max(s.th, vh - TOP - 12)) + s.hold) + 'px';
+        // before handing over, the text stays a little longer, so the camera move gets a stretch of
+        // scroll of its own instead of only the height of the next card
+        s.n.style.height = Math.round((i ? s.th + (last ? 12 : 0) : Math.max(s.th, vh - TOP - 12)) + s.hold + (last ? 0 : vh * .3)) + 'px';
         if (i > 0 && i < secs.length - 1) band = Math.max(band, s.th + 24);
       } else {
         // held at the middle of the screen
