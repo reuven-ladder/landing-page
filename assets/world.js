@@ -354,6 +354,7 @@ function start() {
     return { el, pos, vis: 0 };
   });
   const v3 = new THREE.Vector3();
+  const RTL = document.documentElement.dir === 'rtl';
 
   /* ---------- camera keyframes ---------- */
   const K = [
@@ -416,7 +417,9 @@ function start() {
     cp.x += Math.sin(T * 0.13) * 0.9; cp.y += Math.sin(T * 0.17) * 0.4;
     camera.position.copy(cp); camera.lookAt(ct);
     const sh = lerp(K[i].s || 0, K[i + 1].s || 0, f) * (innerWidth < 760 ? 0 : 1);
-    camera.setViewOffset(innerWidth, innerHeight, -sh * innerWidth, 0, innerWidth, innerHeight);
+    // RTL pages put the hero text on the right, so the whole view shifts to bring the building left.
+    const rtl = RTL && !mob ? 0.32 : 0;
+    camera.setViewOffset(innerWidth, innerHeight, (rtl - sh) * innerWidth, 0, innerWidth, innerHeight);
 
     // bidders
     const bids = Math.max(win(p, 0.45, 1, 2.25, 2.7), win(p, 6.45, 7, 8.5, 8.8));

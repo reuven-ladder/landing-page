@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google Analytics (GA4) -->
+  <script>
+    var GA_ID = 'G-2SN38LE7MF';
+    (function(){
+      var s = document.createElement('script'); s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+      document.head.appendChild(s);
+    })();
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', GA_ID);
+  </script>
+  <title>Ladder — חישובי כמויות, כתבי כמויות ואומדני עלות</title>
+  <meta name="description" content="שירותי כמאות לבנייה: חישובי כמויות ותמחור מכרזים לקבלנים, הכנת כתבי כמויות ואומדני עלות לתכנון ולמכרז, על בסיס התוכניות והמפרטים של הפרויקט." />
+  <meta name="theme-color" content="#fafaf7" />
+  <meta property="og:title" content="Ladder — חישובי כמויות, כתבי כמויות ואומדני עלות" />
+  <meta property="og:description" content="לקבלנים, ליזמים ולמנהלי פרויקטים: הכנת כתבי כמויות, אומדנים ותמחור הצעות למכרזים, על בסיס התוכניות והמפרטים של הפרויקט." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="he_IL" />
+  <meta property="og:url" content="https://getladder.ai/he/" />
+  <meta property="og:image" content="https://getladder.ai/assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="alternate" hreflang="en" href="https://getladder.ai/" />
+  <link rel="alternate" hreflang="he" href="https://getladder.ai/he/" />
+  <link rel="alternate" hreflang="x-default" href="https://getladder.ai/" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@500;600;700&family=Wix+Madefor+Text:wght@400;500;600;700&family=Heebo:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/site.css?v=3" />
+  <link rel="stylesheet" href="../assets/world.css?v=5" />
+  <link rel="stylesheet" href="../assets/rtl.css?v=2" />
+  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+</head>
+<body class="home" data-beat="0">
+
+<header class="site-header">
+  <div class="topbar">
+    <a class="brand" href="./" aria-label="Ladder דף הבית" dir="ltr">Ladder<span class="accent">.</span></a>
+    <button class="burger" id="burger" aria-label="תפריט" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+    <nav class="nav" id="nav" aria-label="ראשי">
+      <a href="#services">שירותים</a>
+      <a href="#sample">תוצרים לדוגמה</a>
+      <a href="#how">תהליך העבודה</a>
+      <a href="#about">אודות</a>
+      <span class="lang" aria-label="שפה" dir="ltr"><a href="../" hreflang="en" lang="en">EN</a><b aria-current="true">עברית</b></span>
+      <span class="btns">
+        <a class="btn btn-dark btn-sm" href="#start">יצירת קשר</a>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero world: drawings become a priced estimate (illustrative) -->
+<div class="world" id="world" aria-hidden="true">
+  <canvas></canvas>
+  <img class="fallback" src="../assets/hero-art.svg" alt="" />
+  <div class="grain"></div>
+  <div class="ov" id="ov">
+    <div class="tag3" data-at="A.roof" data-dy="1.2" data-show="meas"><i>1</i><div><b>איטום גג <em>1,710 מ״ר</em></b><small>↗ A-501 · מפרט, פרק 05</small></div></div>
+    <div class="tag3 rf" data-at="A.cw" data-dy="0" data-show="meas"><i>2</i><div><b>קיר מסך <em>640 מ״ר</em></b><small>↗ A-301 · מפרט, פרק 12</small></div></div>
+    <div class="tag3" data-at="A.store" data-dy="0" data-show="meas"><i>3</i><div><b>פרזול דלתות <em>146 יח׳</em></b><small>↗ A-601 · רשימת דלתות</small></div></div>
+  </div>
+  <div class="panel3 herocard">
+    <div class="p-head"><span>אומדן מתומחר</span><span>להמחשה</span></div>
+    <div class="q-row q-h"><span>סעיף</span><span>כמות</span><span>מחיר יח׳</span><span>סה״כ</span></div>
+    <div class="q-row"><span><em>1</em>איטום גג</span><span>1,710 מ״ר</span><span>₪260</span><span>₪444,600</span></div>
+    <div class="q-row"><span><em class="r">2</em>קיר מסך</span><span>640 מ״ר</span><span>₪2,400</span><span>₪1,536,000</span></div>
+    <div class="q-row"><span><em>3</em>פרזול דלתות</span><span>146 יח׳</span><span>₪3,200</span><span>₪467,200</span></div>
+  </div>
+</div>
+
+<main id="top">
+  <div class="story" id="story">
+    <section class="beat hero3" data-beat="0">
+      <div class="wrap">
+        <p class="kicker">שירותי כמאות לבנייה</p>
+        <h1>חישובי כמויות, כתבי כמויות <span class="accent">ואומדני עלות.</span></h1>
+        <p class="lede">לקבלנים, ליזמים ולמנהלי פרויקטים: הכנת כתבי כמויות, אומדנים ותמחור הצעות למכרזים, על בסיס התוכניות והמפרטים של הפרויקט.</p>
+        <p class="method">ה-AI קורא כל תוכנית ומפרט. אנשי המקצוע שלנו מתמחרים ובודקים לפני המסירה.</p>
+        <div class="cta-row">
+          <a class="btn btn-dark btn-lg" href="#start">לקבלת הצעת מחיר <span class="arr">←</span></a>
+          <a class="btn btn-outline btn-lg" href="#sample">לצפייה בדוגמה</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ SERVICES ============ -->
+  <section class="sec" id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title">השירותים <span class="accent">שלנו</span></h2>
+        </div>
+        <p class="sec-sub">אפשר להזמין שירות נקודתי או לשלב כמה שירותים, בהתאם לצורכי הפרויקט.</p>
+      </div>
+      <div class="srv">
+        <article class="srv-c">
+          <span class="srv-stage">לקבלנים ראשיים ולקבלני משנה</span>
+          <h3>חישוב כמויות ותמחור מכרזים</h3>
+          <p class="srv-who">חישוב כמויות ותמחור סעיפי המכרז לקראת הגשת ההצעה.</p>
+          <ul class="srv-inc">
+            <li>חישוב כמויות או בדיקת כתב כמויות קיים, בהיקף שסוכם.</li>
+            <li>תמחור לפי מקורות התמחור ונתוני העלות שסוכמו לפרויקט.</li>
+            <li>קובץ Excel עם הכמויות, המחירים וסיכום העלויות.</li>
+            <li>ריכוז פערים, הנחות תמחור ושאלות הבהרה.</li>
+          </ul>
+          <a class="btn btn-outline" href="#start" data-need="חישוב כמויות ותמחור מכרז">להצעת מחיר לתמחור מכרז</a>
+        </article>
+        <article class="srv-c">
+          <span class="srv-stage">ליזמים, למתכננים ולמנהלי פרויקטים</span>
+          <h3>הכנת כתבי כמויות</h3>
+          <p class="srv-who">כתב כמויות לקבלת הצעות מקבלנים וליציאה למכרז, בפרקי העבודה שסוכמו.</p>
+          <ul class="srv-inc">
+            <li>סעיפי עבודה עם תיאור, יחידת מידה וכמות.</li>
+            <li>חלוקה לפרקי עבודה לפי מסמכי הפרויקט.</li>
+            <li>פירוט חישובי הכמויות והפניות לתוכניות.</li>
+            <li>קובץ Excel לקבלת הצעות מחיר.</li>
+          </ul>
+          <a class="btn btn-outline" href="#start" data-need="הכנת כתב כמויות">להצעת מחיר להכנת כתב כמויות</a>
+        </article>
+        <article class="srv-c">
+          <span class="srv-stage">ליזמים, למזמיני עבודה ולמנהלי פרויקטים</span>
+          <h3>אומדני עלות לתכנון ולמכרז</h3>
+          <p class="srv-who">הערכת עלות בהתאם לרמת התכנון, לצורך קביעת תקציב ובדיקת התכנון מולו.</p>
+          <ul class="srv-inc">
+            <li>אומדן ראשוני או מפורט ב-Excel.</li>
+            <li>חלוקת העלות לפי פרקים או מערכות, בהתאם לתכנון.</li>
+            <li>השוואה לתקציב ובדיקת חלופות שסוכמו.</li>
+            <li>פירוט הנחות האומדן ובסיס התמחור.</li>
+          </ul>
+          <a class="btn btn-outline" href="#start" data-need="אומדן עלות">להצעת מחיר לאומדן</a>
+        </article>
+      </div>
+
+      <div class="sample-band" id="sample">
+        <div>
+          <h3>אומדן לדוגמה <small class="sb-tag">פרויקט בארה״ב</small></h3>
+          <p>בדוגמה מוצגים הכמויות, התמחור וההנחות באומדן לפרויקט בארה״ב. הקבצים באנגלית, במטבע וביחידות של הפרויקט.</p>
+        </div>
+        <div class="sb-btns">
+          <a class="btn btn-dark" href="../sample/ladder-sample-estimate.xlsx" download>להורדת האומדן ב-Excel</a>
+          <a class="btn btn-outline" href="../sample/ladder-sample-estimate.pdf" target="_blank" rel="noopener">לצפייה בדוח</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AUDIENCE ============ -->
+  <section class="sec tint" id="clients">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="sec-label">עם מי אנחנו עובדים</p>
+          <h2 class="sec-title">ליזמים, למתכננים ולמנהלי פרויקטים, <span class="accent">ולקבלנים במכרז.</span></h2>
+        </div>
+        <p class="sec-sub">מהייזום ועד הביצוע, לצד צוות התכנון.</p>
+      </div>
+      <div class="svt-scroll">
+        <div class="svt">
+          <div class="svt-ph"><span>ייזום ופרוגרמה</span><span>תכנון מוקדם</span><span>תכנון להיתר</span><span>תכנון לביצוע</span><span>מכרז</span><span>ביצוע</span></div>
+          <div class="svt-lanes" aria-hidden="true">
+            <div class="svt-bar d">ליווי תקציבי בתכנון <small>אומדן בכל שלב</small>
+              <i class="svt-ms" style="right:11%"></i><i class="svt-ms" style="right:36%"></i><i class="svt-ms" style="right:61%"></i><i class="svt-ms" style="right:86%"></i>
+            </div>
+            <div class="svt-bar b">תמחור מכרזים</div>
+            <div class="svt-bar c">בקרה תקציבית</div>
+          </div>
+          <ol class="svt-notes">
+            <li><h3>תקציב מהיום הראשון</h3><p>מודל עלויות ראשוני לפי שטחים ופרוגרמה, עם הנחות מפורטות, כך שהפרויקט מתחיל מתקציב ריאלי.</p></li>
+            <li><h3>חלופות מתומחרות</h3><p>אומדן ראשון מול התקציב, עם חלופות מתומחרות למערכות העיקריות.</p></li>
+            <li><h3>אומדן מעודכן</h3><p>האומדן מתעדכן לפי התכנון. אנחנו מסמנים היכן התכנון חורג מהתקציב ומתמחרים חלופות לחזור אליו.</p></li>
+            <li><h3>אומדן מפורט</h3><p>כמויות ותמחור מתוכניות הביצוע והמפרטים, מתואמים עם צוות התכנון לפני היציאה למכרז.</p></li>
+            <li><h3>תמחור מכרזים</h3><p>לקבלנים: תמחור מלא של המכרז, מהתוכניות או מכתב הכמויות.</p></li>
+            <li><h3>בקרה תקציבית</h3><p>תמחור חריגים ותחזית מעודכנת לעלות הסופית לאורך הביצוע.</p></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============ WORKFLOW ============ -->
+  <section class="sec" id="how">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="sec-label">איך אנחנו עובדים</p>
+          <h2 class="sec-title">אומדן מבוסס <span class="accent">מתחיל בהנחות ברורות.</span></h2>
+        </div>
+        <p class="sec-sub">כל שורה באומדן מראה מאיפה הגיעה הכמות, איך תומחרה ומה היא מניחה.</p>
+      </div>
+
+      <div class="wf" data-stage="1">
+        <ol class="wf-steps">
+          <li data-step="1">
+            <span class="n">01 · מסמכים</span>
+            <h3>מתחילים ממסמכי הפרויקט.</h3>
+            <p>תוכניות, מפרטים, הבהרות ותיקונים נבדקים יחד, כסט אחד.</p>
+          </li>
+          <li data-step="2">
+            <span class="n">02 · כמויות</span>
+            <h3>מחשבים את הכמויות.</h3>
+            <p>כל כמות נמדדת מהתוכניות ומקושרת למקור שלה. פערים במסמכים הופכים לשאלות הבהרה.</p>
+          </li>
+          <li data-step="3">
+            <span class="n">03 · תמחור ובדיקה</span>
+            <h3>מתומחר, ונבדק לפני המסירה.</h3>
+            <p>כל מחיר מתועד עם מקור התמחור וההנחות. אנשי המקצוע שלנו בודקים את הכמויות והתמחור לפני המסירה.</p>
+          </li>
+        </ol>
+
+        <div class="wf-stick">
+          <div class="wf-vis" aria-label="המחשה: תוכניות, כמויות נמדדות ואומדן מתומחר לפרויקט אחד">
+            <div class="wf-bar">
+              <span>ספרייה עירונית · תכנון לביצוע 90%</span>
+              <span class="wf-tabs"><button type="button" data-go="1">מסמכים</button><button type="button" data-go="2">כמויות</button><button type="button" data-go="3">אומדן</button></span>
+            </div>
+            <div class="wf-body">
+              <svg class="wf-sheets" viewBox="0 0 250 372" aria-hidden="true">
+                <g transform="translate(5 4)">
+                  <rect class="sh" width="240" height="114" rx="2"/>
+                  <path class="tb" d="M200 0v114M200 76h40"/>
+                  <text class="sn" x="206" y="104">A-501</text><text class="st" x="206" y="16">ROOF</text><text class="st" x="206" y="26">PLAN</text>
+                  <path class="ln" d="M22 18h160v80H22z"/>
+                  <path class="area roof" d="M28 24h148v68H28z"/>
+                  <path class="ln th" d="M60 40h24v16H60zM118 62h30v18h-30z"/>
+                  <g class="mk"><circle cx="102" cy="58" r="9"/><text x="102" y="62">1</text></g>
+                </g>
+                <g transform="translate(5 129)">
+                  <rect class="sh" width="240" height="114" rx="2"/>
+                  <path class="tb" d="M200 0v114M200 76h40"/>
+                  <text class="sn" x="206" y="104">A-301</text><text class="st" x="206" y="16">ELEV.</text>
+                  <path class="ln" d="M22 14h160v86H22z"/>
+                  <path class="area cw" d="M22 14h160v62H22z"/>
+                  <path class="ln th" d="M42 14v62M62 14v62M82 14v62M102 14v62M122 14v62M142 14v62M162 14v62M22 30h160M22 46h160M22 61h160M22 76h160"/>
+                  <path class="ln th" d="M40 82h20v18H40zM120 82h20v18h-20z"/>
+                  <g class="mk"><circle cx="102" cy="46" r="9"/><text x="102" y="50">2</text></g>
+                </g>
+                <g transform="translate(5 254)">
+                  <rect class="sh" width="240" height="114" rx="2"/>
+                  <path class="tb" d="M200 0v114M200 76h40"/>
+                  <text class="sn" x="206" y="104">A-601</text><text class="st" x="206" y="16">DOOR</text><text class="st" x="206" y="26">SCHED.</text>
+                  <path class="ln" d="M16 14h176v88H16z"/>
+                  <path class="ln th" d="M16 28h176M16 42h176M16 56h176M16 70h176M16 84h176M60 14v88M110 14v88M150 14v88"/>
+                  <path class="area door" d="M16 42h176v14H16z"/>
+                  <g class="mk"><circle cx="172" cy="49" r="9"/><text x="172" y="53">3</text></g>
+                </g>
+                <rect class="scan" x="5" y="4" width="240" height="3"/>
+              </svg>
+
+              <div class="wf-right">
+                <div class="wf-docs">
+                  <p class="wf-cap">מסמכים שהתקבלו</p>
+                  <div class="doc"><i>▤</i><span><b>תוכניות</b><small>48 גיליונות · A, S, M, E, P</small></span><s>נקרא</s></div>
+                  <div class="doc"><i>§</i><span><b>מפרטים</b><small>מפרט מיוחד ופרקי המפרט הכללי</small></span><s>נקרא</s></div>
+                  <div class="doc"><i>+</i><span><b>הבהרות</b><small>1 עד 3, כולל הגדלת יחידת מיזוג RTU-3</small></span><s>נקרא</s></div>
+                  <div class="doc"><i>⌖</i><span><b>מיקום ומועד הגשה</b><small>מהבקשה שלכם</small></span><s>נרשם</s></div>
+                </div>
+                <div class="wf-est">
+                  <p class="wf-cap"><span class="c2">היקף נמדד</span><span class="c3">אומדן מתומחר</span></p>
+                  <div class="wl"><em>1</em><span><b>איטום גג ביריעות</b><small class="c2">↗ A-501 · מפרט, פרק 05</small><small class="c3">מקור מחיר: הצעות ספקים</small></span><span class="q">1,710 מ״ר</span><span class="p">₪444,600</span></div>
+                  <div class="wl"><em>2</em><span><b>קיר מסך</b><small class="c2">↗ A-301 · גובה עליון לא ברור</small><small class="c3 warn">טווח עד מענה לשאלת הבהרה 7</small></span><span class="q">640 מ״ר</span><span class="p">₪1,536,000</span></div>
+                  <div class="wl"><em>3</em><span><b>סטים לפרזול דלתות</b><small class="c2">↗ A-601 · רשימת דלתות</small><small class="c3">מחיר לסט לפי סוג</small></span><span class="q">146 יח׳</span><span class="p">₪467,200</span></div>
+                  <div class="wf-rev"><span>✓ נבדק לפני המסירה</span><b>₪2,447,800</b></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="sec tint" id="about">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title">אודות <span class="accent">Ladder</span></h2>
+        </div>
+        <p class="sec-sub">Ladder מספקת שירותי כמאות ואומדנים בשילוב כלי AI שפיתחנו. אנחנו אחראים לניהול העבודה ולמסירת התוצרים שסוכמו עם הלקוח.</p>
+      </div>
+      <div class="team">
+        <article class="badge" tabindex="0">
+          <div class="role-tag">מנכ״ל <span>Ladder</span></div>
+          <div class="photo">
+            <img src="../assets/team/omri-admon.webp" alt="עומרי אדמון" loading="lazy" />
+          </div>
+          <div class="meta"><h3>עומרי אדמון</h3><p>מנכ״ל</p></div>
+          <div class="bio">קשרי לקוחות וניהול העבודה מול הלקוח. ניסיון בבניית מערכות תפעול לחברות Fortune 100.<br/><a href="https://www.linkedin.com/in/omri-admon-74405877/" target="_blank" rel="noopener">LinkedIn ←</a></div>
+        </article>
+        <article class="badge" tabindex="0">
+          <div class="role-tag">CTO <span>Ladder</span></div>
+          <div class="photo">
+            <img src="../assets/team/reuven-amar.webp" alt="ראובן עמר" loading="lazy" />
+          </div>
+          <div class="meta"><h3>ראובן עמר</h3><p>CTO</p></div>
+          <div class="bio">מוביל את פיתוח כלי ה-AI של Ladder. יותר מ-15 שנות ניסיון ב-AI ובראייה ממוחשבת, ולשעבר CTO בחברת טכנולוגיה לבנייה.<br/><a href="https://www.linkedin.com/in/reuven-amar-780b03190/" target="_blank" rel="noopener">LinkedIn ←</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="sec" id="faq">
+    <div class="wrap split top">
+      <div>
+        <h2 class="sec-title">שאלות <span class="accent">נפוצות</span></h2>
+      </div>
+      <div class="faq">
+        <details><summary>מה ההבדל בין כתב כמויות לאומדן?</summary><div class="a">כתב כמויות מפרט את סעיפי העבודה, יחידות המידה והכמויות. אומדן מוסיף הערכת מחירים ועלות. אפשר להזמין כתב כמויות ללא מחירים לצורך קבלת הצעות, או לשלב אותו עם אומדן.</div></details>
+        <details><summary>אפשר לעבוד עם כתב כמויות קיים?</summary><div class="a">כן. אפשר להזמין תמחור, בדיקת כמויות או את שניהם. שומרים על מבנה כתב הכמויות ומספור הסעיפים, ומציגים את הפערים שנמצאו בנפרד.</div></details>
+        <details><summary>לפי מה נקבעים המחירים?</summary><div class="a">לפי מקורות התמחור והנתונים שסוכמו לפרויקט, כגון מחירונים רלוונטיים ונתוני עלות שתעבירו. ההנחות נרשמות באומדן. בתמחור לקבלן, ההתאמות לתקורות ולרווח נעשות איתכם, והמחירים להגשה מאושרים על ידכם.</div></details>
+        <details><summary>אילו מסמכים צריך להעביר?</summary><div class="a">תוכניות PDF, מפרטים וכתב כמויות, ככל שקיימים, לצד תיאור העבודה ומועד ההגשה. אפשר להתחיל משיחה או מתיאור קצר; נבהיר איזה חומר נדרש כדי להציע את העבודה.</div></details>
+        <details><summary>מי בודק את העבודה ומי אחראי לתוצרים?</summary><div class="a">Ladder אחראית לניהול העבודה ולתוצרים שסוכמו. פרטי הגורם המקצועי הבודק והיקף הבדיקה נכללים בהצעה.</div></details>
+        <details><summary>כמה זה עולה וכמה זמן זה לוקח?</summary><div class="a">שכר הטרחה ומועד המסירה נקבעים לאחר בחינת החומר והיקף העבודה. מסכמים אותם מראש, לפני תחילת העבודה.</div></details>
+        <details><summary>מה קורה כשהתוכניות משתנות?</summary><div class="a">בודקים את המהדורה החדשה מול בסיס העבודה הקודם ומגדירים מה צריך לעדכן. היקף העדכון, שכר הטרחה ולוח הזמנים מסוכמים לפני ביצועו.</div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="sec tint" id="start">
+    <div class="wrap">
+      <div class="lead">
+        <div>
+          <h2 class="sec-title">לקבלת <span class="accent">הצעת מחיר</span></h2>
+          <p class="sec-sub">ספרו לנו מה נדרש ומה מועד ההגשה. אפשר לצרף קישור למסמכים או להתחיל משיחה.</p>
+          <p class="alt-cta">מעדיפים לדבר? <a class="btn btn-outline btn-sm" href="https://calendar.app.google/ddxDKCrxcTo2gX5bA" target="_blank" rel="noopener">לתיאום שיחה <span class="arr">←</span></a></p>
+          <p class="contact-alt">אפשר גם לכתוב ל-<a href="mailto:omri@getladder.ai">omri@getladder.ai</a>.</p>
+        </div>
+        <div class="form">
+          <form id="projectForm" data-formspree="https://formspree.io/f/xgobzrwq" novalidate>
+            <input type="hidden" name="_subject" value="Quote request from getladder.ai (Hebrew)" />
+            <input type="hidden" name="language" value="he" />
+            <div class="row">
+              <div class="field"><label for="f-name">שם מלא <em>*</em></label><input id="f-name" name="name" autocomplete="name" required /></div>
+              <div class="field"><label for="f-co">חברה</label><input id="f-co" name="company" autocomplete="organization" /></div>
+            </div>
+            <div class="row">
+              <div class="field"><label for="f-phone">טלפון</label><input id="f-phone" type="tel" name="phone" autocomplete="tel" dir="ltr" required /></div>
+              <div class="field"><label for="f-email">דוא״ל</label><input id="f-email" type="email" name="email" autocomplete="email" required /></div>
+            </div>
+            <div class="row">
+              <div class="field"><label for="f-need">השירות המבוקש</label>
+                <select id="f-need" name="need">
+                  <option>חישוב כמויות ותמחור מכרז</option>
+                  <option>הכנת כתב כמויות</option>
+                  <option>אומדן עלות</option>
+                  <option>פנייה אחרת</option>
+                </select>
+              </div>
+              <div class="field"><label for="f-link">קישור למסמכים</label><input id="f-link" type="url" name="documents_link" placeholder="Drive, Dropbox, WeTransfer…" /></div>
+            </div>
+            <div class="field"><label for="f-msg">כמה מילים על הפרויקט</label><textarea id="f-msg" name="message"></textarea></div>
+            <button type="submit" class="btn btn-dark">שליחת בקשה להצעת מחיר <span class="arr">←</span></button>
+            <p class="note"><em>*</em> שדה חובה · טלפון או דוא״ל</p>
+            <p class="err" role="alert">לא הצלחנו לשלוח את הבקשה. אפשר לנסות שוב או לכתוב ל-<a href="mailto:omri@getladder.ai">omri@getladder.ai</a>.</p>
+          </form>
+          <div class="ok" role="status"><h3>הבקשה התקבלה.</h3><p>ניצור קשר להשלמת פרטי העבודה.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="panel">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="./" dir="ltr">Ladder<span class="accent">.</span></a>
+        <p>שירותי כמאות, כתבי כמויות ואומדני עלות.</p>
+        <p><a href="mailto:omri@getladder.ai">omri@getladder.ai</a></p>
+      </div>
+      <div>
+        <h4>Ladder</h4>
+        <ul>
+          <li><a href="#services">שירותים</a></li>
+          <li><a href="#sample">תוצרים לדוגמה</a></li>
+          <li><a href="#how">תהליך העבודה</a></li>
+          <li><a href="#about">אודות</a></li>
+          <li><a href="company/#careers">קריירה</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>עזרה</h4>
+        <ul>
+          <li><a href="#faq">שאלות נפוצות</a></li>
+          <li><a href="#start">יצירת קשר</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>משפטי</h4>
+        <ul>
+          <li><a href="../privacy-policy/" hreflang="en">מדיניות פרטיות (באנגלית)</a></li>
+          <li><a href="../terms-of-use/" hreflang="en">תנאי שימוש (באנגלית)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>© <span id="year">2026</span> Ladder</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('[data-need]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      var s = document.getElementById('f-need');
+      if (s) s.value = a.getAttribute('data-need');
+    });
+  });
+  // Phone or email: either one is enough.
+  (function () {
+    var tel = document.getElementById('f-phone'), mail = document.getElementById('f-email');
+    function sync() { tel.required = !mail.value.trim(); mail.required = !tel.value.trim(); }
+    tel.addEventListener('input', sync); mail.addEventListener('input', sync);
+  })();
+</script>
+<script type="module" src="../assets/world.js"></script>
+<script src="../assets/site.js"></script>
+<script src="../assets/workflow.js"></script>
+</body>
+</html>

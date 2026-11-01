@@ -46,7 +46,7 @@
       if (!form.checkValidity()) { form.reportValidity(); return; }
       var btn = form.querySelector('button[type="submit"]');
       var label = btn ? btn.innerHTML : '';
-      if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+      if (btn) { btn.disabled = true; btn.textContent = document.documentElement.lang === 'he' ? 'בשליחה…' : 'Sending…'; }
       if (box) box.classList.remove('failed');
       fetch(form.getAttribute('data-formspree'), {
         method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' }

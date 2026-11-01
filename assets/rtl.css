@@ -1,0 +1,52 @@
+/* Hebrew / RTL overrides. Loaded only on /he/ pages, after site.css and world.css.
+   Wix Madefor has no Hebrew glyphs, so Heebo fills them in per character. */
+:root{
+  --display:"Wix Madefor Display","Heebo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --sans:"Wix Madefor Text","Heebo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Heebo","JetBrains Mono","SF Mono",Menlo,monospace; /* JetBrains spaces are too wide between Hebrew words */
+}
+[dir="rtl"] *{letter-spacing:0!important}
+[dir="rtl"] .hero3 h1{line-height:1.05;max-width:12.5ch}
+[dir="rtl"] .sec-title,[dir="rtl"] .srv-c h3{line-height:1.15}
+
+/* header */
+[dir="rtl"] .nav .btns{margin-left:0;margin-right:.5rem}
+@media (max-width:960px){[dir="rtl"] .nav .btns{margin:1rem 0 0}}
+
+/* hero: text on the right, building and price card on the left */
+[dir="rtl"] .world,[dir="rtl"] .marquee{direction:ltr}
+[dir="rtl"] .tag3>div,[dir="rtl"] .panel3{direction:rtl}
+[dir="rtl"] .panel3{right:auto;left:max(24px,4vw)}
+[dir="rtl"] .hero3::before{background:linear-gradient(270deg,var(--paper) 0,rgba(250,250,247,.94) 28%,rgba(250,250,247,.5) 42%,rgba(250,250,247,0) 56%)}
+[dir="rtl"] .q-row>span:not(:first-child){text-align:left}
+[dir="rtl"] .herocard .q-row em{margin-right:0;margin-left:.45rem}
+@media (max-width:760px){
+  [dir="rtl"] .panel3{left:16px;right:16px}
+  [dir="rtl"] .hero3::before{background:linear-gradient(180deg,var(--paper) 0,rgba(250,250,247,.92) 52%,rgba(250,250,247,0) 72%)}
+}
+
+/* services */
+[dir="rtl"] .srv-c{border-left:0;border-right:1px solid var(--line)}
+[dir="rtl"] .srv-c:first-child{border-right:0}
+[dir="rtl"] .srv-c::before,[dir="rtl"] .svt-notes li::before{transform-origin:right}
+@media (max-width:900px){[dir="rtl"] .srv-c{border-right:0}}
+
+/* timeline */
+[dir="rtl"] .svt-ph span{padding:.9rem .75rem .9rem 0;border-left:0;border-right:1px solid var(--line)}
+[dir="rtl"] .svt-ph span:first-child{border-right:0}
+[dir="rtl"] .svt-bar small{margin-left:0;margin-right:auto}
+[dir="rtl"] .svt-notes li{padding:1.25rem .75rem 1.25rem 1rem;border-left:0;border-right:1px solid var(--line)}
+[dir="rtl"] .svt-notes li:first-child{border-right:0}
+
+/* workflow */
+[dir="rtl"] .wf-steps li{padding:1.25rem 1.4rem 1.25rem 0;border-left:0;border-right:2px solid var(--line-strong)}
+[dir="rtl"] .wf-steps li.on{border-right-color:var(--blue)}
+[dir="rtl"] .wl .p{text-align:left}
+[dir="rtl"] .wf-sheets{direction:ltr}
+
+/* team stamp */
+[dir="rtl"] .badge .ink{right:auto;left:14px}
+
+/* form */
+[dir="rtl"] .field select{background-position:left .8rem center;padding-right:.9rem;padding-left:2.2rem}
+[dir="rtl"] input[type="email"],[dir="rtl"] input[type="url"]{direction:ltr;text-align:right}
