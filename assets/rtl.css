@@ -50,3 +50,5 @@
 /* form */
 [dir="rtl"] .field select{background-position:left .8rem center;padding-right:.9rem;padding-left:2.2rem}
 [dir="rtl"] input[type="email"],[dir="rtl"] input[type="url"]{direction:ltr;text-align:right}
+/* phones: swipe cards keep their full border, as in English */
+@media (max-width:760px){[dir="rtl"] .srv .srv-c,[dir="rtl"] .srv .srv-c:first-child{border:1px solid var(--line-strong)}}
