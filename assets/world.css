@@ -411,7 +411,7 @@ body.hero2 .hero3::before{background:linear-gradient(90deg,var(--paper) 0,var(--
   body.hero2 .hero3 .wrap{position:relative;z-index:1;min-height:calc(100svh - 68px);justify-content:center;align-items:stretch;text-align:start;padding:1.5rem 0 2.5rem}
   body.hero2 .hero3 h1{font-size:clamp(2.2rem,10vw,2.9rem);letter-spacing:-.052em;line-height:.98}
   body.hero2 .hero3 h1 .accent{white-space:nowrap}
-  body.hero2 .hero3 .lede{margin:1.1rem 0 0;font-size:1.05rem;max-width:19em;color:var(--ink)}
+  body.hero2 .hero3 .lede{margin:1.1rem 0 0;font-size:1.05rem;max-width:19em;color:var(--ink);font-weight:600}
   body.hero2 .hero3 .cta-row{width:100%;margin:2.2rem 0 0;flex-direction:row;flex-wrap:nowrap;align-items:center;gap:1.1rem}
   body.hero2 .hero3 .cta-row .btn-dark{justify-content:center;white-space:nowrap;padding:.9rem 1.25rem;font-size:.95rem}
   body.hero2 .hero3 .h-quote{align-self:center;white-space:nowrap;border:0;background:none;padding:.6rem .8rem;font-size:.95rem;text-decoration:underline;text-underline-offset:3px}
