@@ -2,6 +2,7 @@
   const NS='http://www.w3.org/2000/svg', ink='#34382c', blue='#3F63D5', orange='#c2410c', green='#16733a', paper='#fafaf7';
   const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   let busy=false, resizeTimer, lastW=innerWidth;
+  document.documentElement.classList.add('sk-js');
   function element(tag,attrs,parent){const n=document.createElementNS(NS,tag);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.appendChild(n);return n;}
   function scene(id,mobileHeight,desktopHeight,fixedWidth){const svg=document.getElementById(id),mobile=!fixedWidth&&svg.clientWidth<480,w=fixedWidth||(mobile?400:560),h=mobile?mobileHeight:desktopHeight;svg.replaceChildren();svg.setAttribute('viewBox',`0 0 ${w} ${h}`);const r=rough.svg(svg);let seed=17;
     const opts=(color=ink,extra={})=>({seed:seed++,stroke:color,strokeWidth:1.15,roughness:1.05,bowing:.6,...extra});
@@ -24,7 +25,7 @@
     s.reveal(s.path(m?'M126 102 C199 75 119 29 199 57':'M187 120 C272 90 185 22 310 84',blue));
     s.reveal(s.path(m?'M279 126 C330 166 345 149 333 201':'M380 148 C480 185 471 213 391 230',blue));
     s.text(m?12:26,m?258:325,'bid day: Friday',m?22:25,orange);s.path(m?'M12 263 q45 8 117 1':'M26 332 q75 7 132 0',orange);
-    s.text(m?250:400,m?281:351,'RFI cutoff: passed',m?18:22,orange);
+    s.text(m?226:400,m?292:351,'RFI cutoff: passed',m?18:22,orange);
   }
   function building(){const s=scene('building-sketch',390,430),{mobile:m}=s;
     s.doc(m?6:22,9,m?151:172,91,'DRAWING · REV A',['Original layout'],-7);s.doc(m?236:359,16,m?151:172,91,'DRAWING · REV B',['Revised layout'],6);
@@ -88,9 +89,21 @@
     if(t==='list'){[22,32,42].forEach(y=>{add(r.path(`M17 ${y} l3 3 l5 -6`,o(green,{strokeWidth:1.6})));add(r.line(28,y,47,y,o()));});}
   });}
   // Lines from the lead cost professional to each agent (hidden on phones via CSS).
+  // Org chart. Desktop: curves from the lead to each agent. Phones: a vertical tree, a trunk from the lead
+  // down the left with one branch per agent; trunk and branches draw in as they cross the reading line.
   function links(){const org=document.querySelector('.sk-org');if(!org)return;const svg=org.querySelector('.sk-links');svg.replaceChildren();const lead=org.querySelector('#lead'),agents=[...org.querySelectorAll('.sk-agent')];
-    if(!lead||getComputedStyle(svg).display==='none')return;const box=org.getBoundingClientRect(),w=box.width,h=box.height;svg.setAttribute('viewBox',`0 0 ${w} ${h}`);const r=rough.svg(svg),L=lead.getBoundingClientRect(),x0=L.left+L.width/2-box.left,y0=L.bottom-box.top;
-    const g=element('g',{class:'draw-ink'},svg);agents.forEach((a,i)=>{const A=a.getBoundingClientRect(),x1=A.left+A.width/2-box.left,y1=A.top-box.top-4;g.appendChild(r.path(`M${x0} ${y0} C ${x0} ${(y0+y1)/2} ${x1} ${(y0+y1)/2} ${x1} ${y1}`,{seed:120+i,stroke:blue,strokeWidth:1.3,roughness:.9,bowing:.5}));});}
+    if(!lead||getComputedStyle(svg).display==='none')return;const box=org.getBoundingClientRect(),w=box.width,h=box.height;svg.setAttribute('viewBox',`0 0 ${w} ${h}`);const r=rough.svg(svg),L=lead.getBoundingClientRect(),o=(i,x={})=>({seed:120+i,stroke:blue,strokeWidth:1.3,roughness:.9,bowing:.5,...x});
+    if(matchMedia('(max-width:700px)').matches){const x=14,y0=L.bottom-box.top,av=agents.map(a=>{const A=a.querySelector('.sk-av').getBoundingClientRect();return{x:a.parentElement.getBoundingClientRect().left+40-box.left,y:A.top+A.height/2-box.top};}),yEnd=av[av.length-1].y;
+      element('g',{class:'draw-ink','data-tip':'.72'},svg).appendChild(r.line(x,y0,x,yEnd,o(0,{roughness:.7})));
+      av.forEach((a,i)=>element('g',{class:'draw-ink','data-tip':'.72'},svg).appendChild(r.path(`M${x} ${a.y-14} Q ${x} ${a.y} ${a.x-4} ${a.y}`,o(1+i))));
+      const more=org.querySelector('.sk-more');if(more){const M=more.getBoundingClientRect(),ym=M.top+M.height/2-box.top;element('path',{d:`M${x} ${yEnd} V ${ym} H ${x+18}`,class:'sk-tail',fill:'none',stroke:blue,'stroke-width':1.3,'stroke-linecap':'round'},svg);}
+      return;}
+    const x0=L.left+L.width/2-box.left,y0=L.bottom-box.top;
+    const g=element('g',{class:'draw-ink'},svg);agents.forEach((a,i)=>{const A=a.getBoundingClientRect(),x1=A.left+A.width/2-box.left,y1=A.top-box.top-4;g.appendChild(r.path(`M${x0} ${y0} C ${x0} ${(y0+y1)/2} ${x1} ${(y0+y1)/2} ${x1} ${y1}`,o(i)));});}
+  // Phones: a hand-drawn spine through the strip's numbers, drawn in as you scroll.
+  function stripLine(){const sec=document.getElementById('finding');if(!sec)return;let svg=sec.querySelector(':scope>svg.sk-strip-line');if(!svg){svg=document.createElementNS(NS,'svg');svg.setAttribute('class','sk-strip-line');svg.setAttribute('aria-hidden','true');sec.prepend(svg);}svg.replaceChildren();
+    if(getComputedStyle(svg).display==='none')return;const S=sec.getBoundingClientRect();svg.setAttribute('viewBox',`0 0 ${S.width} ${S.height}`);const n=[...sec.querySelectorAll('.sk-strip b')].map(b=>{let x=b.offsetWidth/2,y=b.offsetHeight/2,e=b;while(e&&e!==sec){x+=e.offsetLeft;y+=e.offsetTop;e=e.offsetParent;}return{x,y};});if(n.length<2)return;
+    const r=rough.svg(svg);n.slice(1).forEach((q,i)=>element('g',{class:'draw-ink','data-tip':'.72'},svg).appendChild(r.line(n[i].x,n[i].y,q.x,q.y,{seed:300+i,stroke:ink,strokeWidth:1.2,roughness:.8,bowing:.6})));}
   // Strike-through on the "tool" cards: one rough line per rendered text line, drawn in on hover (CSS).
   function strikes(){document.querySelectorAll('.sk-x .sk-opt-b').forEach((pEl,i)=>{const card=pEl.parentElement;let svg=card.querySelector(':scope>svg.sk-strike');if(!svg){svg=element('svg',{class:'sk-strike','aria-hidden':'true'},card);}svg.replaceChildren();
     const C=card.getBoundingClientRect();svg.setAttribute('viewBox',`0 0 ${C.width} ${C.height}`);const r=rough.svg(svg),range=document.createRange();range.selectNodeContents(pEl);
@@ -101,8 +114,10 @@
   function sheet(){const sh=document.querySelector('.sk-sheet');if(!sh)return;const lines=[...sh.querySelectorAll('.sk-line')];sh.style.minHeight='';const was=lines.map(d=>d.open);let max=0;
     lines.forEach(d=>{lines.forEach(x=>x.open=(x===d));max=Math.max(max,sh.offsetHeight);});lines.forEach((d,i)=>d.open=was[i]);sh.style.minHeight=max+'px';}
   document.addEventListener('toggle',e=>{const d=e.target;if(!d.classList||!d.classList.contains('sk-line')||!d.open)return;document.querySelectorAll('.sk-line[open]').forEach(x=>{if(x!==d)x.open=false;});},true);
-  function drawScenes(){desk();papers();panels();memory();building();sheet();boxes();avatars();links();strikes();prepareInk();update();}
+  function drawScenes(){desk();papers();panels();memory();building();sheet();boxes();avatars();links();stripLine();strikes();prepareInk();update();}
   function prepareInk(){document.querySelectorAll('.draw-ink path').forEach(p=>{if(p.getAttribute('fill')&&p.getAttribute('fill')!=='none')return;try{const len=p.getTotalLength();p.dataset.len=len;p.style.strokeDasharray=len;}catch{}});}
-  function update(){busy=false;const vh=innerHeight;document.querySelectorAll('.draw-ink').forEach(g=>{const r=g.ownerSVGElement.getBoundingClientRect(),progress=reduced?1:Math.max(0,Math.min(1,(vh*.95-r.top)/(r.height*.85)));g.querySelectorAll('path[data-len]').forEach(p=>p.style.strokeDashoffset=Number(p.dataset.len)*(1-progress));});}
+  function update(){busy=false;const vh=innerHeight;document.querySelectorAll('.draw-ink').forEach(g=>{const tip=g.dataset.tip,r=tip?g.getBoundingClientRect():g.ownerSVGElement.getBoundingClientRect(),progress=reduced?1:Math.max(0,Math.min(1,tip?(vh*tip-r.top)/Math.max(r.height,1):(vh*.95-r.top)/(r.height*.85)));g.querySelectorAll('path[data-len]').forEach(p=>p.style.strokeDashoffset=Number(p.dataset.len)*(1-progress));});
+    // Cards that play once when they reach the reading line (agents on the phone tree, crossed-out tool cards on touch).
+    document.querySelectorAll('.sk-agent,.sk-opt,.sk-more,.sk-strip li').forEach(el=>{if(reduced||el.getBoundingClientRect().top<vh*.78)el.classList.add('in');});}
   addEventListener('scroll',()=>{if(!busy){busy=true;requestAnimationFrame(update);}},{passive:true});addEventListener('resize',()=>{if(innerWidth===lastW)return;lastW=innerWidth;clearTimeout(resizeTimer);resizeTimer=setTimeout(drawScenes,140);});drawScenes();document.fonts.ready.then(drawScenes);addEventListener('load',drawScenes);
 })();
