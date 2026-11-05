@@ -35,11 +35,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@500;600;700&family=Wix+Madefor+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/site.css?v=7" />
-  <link rel="stylesheet" href="assets/world.css?v=9" />
+  <link rel="stylesheet" href="assets/world.css?v=10" />
   <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" crossorigin />
   <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head>
-<body class="home" data-beat="0">
+<body class="home hero2" data-beat="0">
 
 <header class="site-header">
   <div class="topbar">
@@ -53,7 +53,7 @@
       <a href="#about">About</a>
       <span class="lang" aria-label="Language"><b aria-current="true">EN</b><a href="he/" hreflang="he" lang="he">עברית</a></span>
       <span class="btns">
-        <a class="btn btn-dark btn-sm" href="#start">Contact us</a>
+        <a class="btn btn-dark btn-sm" href="#start">Get a quote</a>
       </span>
     </nav>
   </div>
@@ -82,13 +82,14 @@
   <div class="story" id="story">
     <section class="beat hero3" data-beat="0">
       <div class="wrap">
-        <p class="kicker">Construction cost and quantity services</p>
-        <h1>Quantity takeoffs, bills of quantities <span class="accent">and cost estimates.</span></h1>
-        <p class="lede">For owners, project managers and contractors: bills of quantities, cost estimates and bid management, from your project’s drawings and specifications.</p>
-        <p class="method">Ladder’s cost professionals check every number with the advanced AI tools we built.</p>
+        <div class="h-top">
+          <h1><span class="ln">Quantity takeoffs</span> <span class="ln">and cost estimates.</span> <span class="accent">Read to the last page.</span></h1>
+          <p class="lede"><span class="t-long">From your drawings and specifications. AI tools we built read every sheet; our cost professionals check every number.</span><span class="t-short">AI reads every sheet. Our cost professionals check every number.</span></p>
+        </div>
+        <div class="h-art" aria-hidden="true"></div>
         <div class="cta-row">
-          <a class="btn btn-dark btn-lg" href="#start">Get a quote <span class="arr">→</span></a>
-          <a class="btn btn-outline btn-lg" href="#sample">See a sample</a>
+          <a class="btn btn-dark btn-lg" href="#sample">See a sample estimate <span class="arr">→</span></a>
+          <a class="btn btn-outline btn-lg h-quote" href="#start">Get a quote</a>
         </div>
       </div>
     </section>
@@ -446,7 +447,7 @@
     });
   });
 </script>
-<script type="module" src="assets/world.js?v=2"></script>
+<script type="module" src="assets/world.js?v=3"></script>
 <script src="assets/site.js?v=2"></script>
 <script src="assets/workflow.js?v=3"></script>
 </body>

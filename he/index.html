@@ -36,12 +36,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@500;600;700&family=Wix+Madefor+Text:wght@400;500;600;700&family=Heebo:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/site.css?v=7" />
-  <link rel="stylesheet" href="../assets/world.css?v=9" />
-  <link rel="stylesheet" href="../assets/rtl.css?v=4" />
+  <link rel="stylesheet" href="../assets/world.css?v=10" />
+  <link rel="stylesheet" href="../assets/rtl.css?v=5" />
   <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" crossorigin />
   <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head>
-<body class="home" data-beat="0">
+<body class="home hero2" data-beat="0">
 
 <header class="site-header">
   <div class="topbar">
@@ -54,7 +54,7 @@
       <a href="#about">אודות</a>
       <span class="lang" aria-label="שפה" dir="ltr"><a href="../" hreflang="en" lang="en">EN</a><b aria-current="true">עברית</b></span>
       <span class="btns">
-        <a class="btn btn-dark btn-sm" href="#start">יצירת קשר</a>
+        <a class="btn btn-dark btn-sm" href="#start">לקבלת הצעת מחיר</a>
       </span>
     </nav>
   </div>
@@ -83,13 +83,14 @@
   <div class="story" id="story">
     <section class="beat hero3" data-beat="0">
       <div class="wrap">
-        <p class="kicker">שירותי כמאות לבנייה</p>
-        <h1>חישובי כמויות, כתבי כמויות <span class="accent">ואומדני עלות.</span></h1>
-        <p class="lede">לקבלנים, ליזמים ולמנהלי פרויקטים: הכנת כתבי כמויות, אומדנים וניהול מכרזים, על בסיס התוכניות והמפרטים של הפרויקט.</p>
-        <p class="method">אנשי המקצוע של Ladder מתמחרים ובודקים כל מספר באמצעות כלי ה-AI המתקדמים ביותר שפיתחנו.</p>
+        <div class="h-top">
+          <h1><span class="ln">כתבי כמויות</span> <span class="ln">ואומדני עלות.</span> <span class="accent">עד הסעיף האחרון.</span></h1>
+          <p class="lede">מהתוכניות והמפרטים של הפרויקט. ה-AI&nbsp;שפיתחנו קורא כל עמוד; אנשי המקצוע שלנו בודקים כל מספר.</p>
+        </div>
+        <div class="h-art" aria-hidden="true"></div>
         <div class="cta-row">
-          <a class="btn btn-dark btn-lg" href="#start">לקבלת הצעת מחיר <span class="arr">←</span></a>
-          <a class="btn btn-outline btn-lg" href="#sample">לצפייה בדוגמה</a>
+          <a class="btn btn-dark btn-lg" href="#sample">לצפייה בדוגמה <span class="arr">←</span></a>
+          <a class="btn btn-outline btn-lg h-quote" href="#start">לקבלת הצעת מחיר</a>
         </div>
       </div>
     </section>
@@ -446,7 +447,7 @@
     });
   });
 </script>
-<script type="module" src="../assets/world.js?v=2"></script>
+<script type="module" src="../assets/world.js?v=3"></script>
 <script src="../assets/site.js?v=2"></script>
 <script src="../assets/workflow.js?v=3"></script>
 </body>

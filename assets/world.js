@@ -386,8 +386,16 @@ function start() {
   }
   addEventListener('scroll', readScroll, { passive: true });
 
+  // phones: the hero keeps a gap between its headline and its actions; the building is framed there
+  const art = document.querySelector('.hero3 .h-art'), card = document.querySelector('.herocard');
+  let artTop = 0, artH = 0, hyLast = '';
+  function measureArt() {
+    if (!art || innerWidth >= 760) { artH = 0; return; }
+    const r = art.getBoundingClientRect(); artTop = r.top + scrollY; artH = r.height;
+  }
   function resize() {
     const w = innerWidth, h = innerHeight;
+    measureArt();
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.fov = w < 760 ? 44 : 30;
@@ -396,6 +404,8 @@ function start() {
   }
   addEventListener('resize', () => { resize(); readScroll(); dirty = true; });
   resize(); readScroll(); prog = target;
+  if (document.fonts) document.fonts.ready.then(() => { measureArt(); dirty = true; });
+  addEventListener('scroll', () => { if (artH) dirty = true; }, { passive: true });
 
   /* ---------- frame ---------- */
   const cp = new THREE.Vector3(), ct = new THREE.Vector3(), tmpA = new THREE.Vector3(), tmpB = new THREE.Vector3();
@@ -422,8 +432,16 @@ function start() {
     camera.position.copy(cp); camera.lookAt(ct);
     const sh = lerp(K[i].s || 0, K[i + 1].s || 0, f) * (innerWidth < 760 ? 0 : 1);
     // RTL pages put the hero text on the right, so the whole view shifts to bring the building left.
-    const rtl = RTL && !mob ? 0.32 : 0;
-    camera.setViewOffset(innerWidth, innerHeight, (rtl - sh) * innerWidth, 0, innerWidth, innerHeight);
+    // LTR desktop: the building sits a little further right, clear of the headline.
+    const rtl = mob ? 0 : RTL ? (art ? 0.38 : 0.32) : -0.11;
+    if (mob && artH) {
+      // zoom so the building fills the gap, and centre it there; it scrolls away with the hero
+      const z = Math.min(1.9, Math.max(0.9, innerHeight * 0.78 / artH)), c = artTop + artH * 0.47 - scrollY;
+      const vw = innerWidth * z, vh = innerHeight * z;
+      camera.setViewOffset(innerWidth, innerHeight, (innerWidth - vw) / 2, (innerHeight - vh) / 2 + (innerHeight / 2 - c) * z, vw, vh);
+      // the priced line sits at the bottom of the gap
+      if (card) { const hy = Math.round(artTop + artH - scrollY - card.offsetHeight + 6) + 'px'; if (hy !== hyLast) { card.style.setProperty('--hy', hy); hyLast = hy; } }
+    } else camera.setViewOffset(innerWidth, innerHeight, (rtl - sh) * innerWidth, 0, innerWidth, innerHeight);
 
     // bidders
     const bids = Math.max(win(p, 0.45, 1, 2.25, 2.7), win(p, 6.45, 7, 8.5, 8.8));
