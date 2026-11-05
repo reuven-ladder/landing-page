@@ -286,6 +286,8 @@ main{position:relative;z-index:1}
 .svt-bar.d{grid-column:1/5;background:var(--blue)}
 .svt-bar.b{grid-column:5/6;background:var(--ink)}
 .svt-bar.c{grid-column:6/7;background:var(--navy)}
+.svt-bar.d,.svt-bar.b,.svt-bar.c{grid-row:1}
+.svt-bar.q{grid-column:4/6;grid-row:2;background:var(--blue-600)}
 .svt-ms{position:absolute;bottom:-6px;width:12px;height:12px;border-radius:50%;background:#F5B700;border:2px solid var(--paper)}
 .tint .svt-ms{border-color:var(--paper-2)}
 .svt-notes{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid var(--line)}
@@ -379,3 +381,15 @@ main{position:relative;z-index:1}
 .contact-alt{margin-top:1rem;font-size:.9rem;color:var(--ink-2)}
 @media (max-width:900px){.aud,.proc{grid-template-columns:1fr}}
 .srv-who+.srv-inc{margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--line)}
+
+/* section heads: sub-line under the title, all sections */
+.sec-head{grid-template-columns:1fr;gap:0;align-items:start}
+.sec-head .sec-sub{margin-top:.9rem}
+
+/* service cards: rows line up across the 3 cards (divider at the same height) */
+@media (min-width:901px){
+  .srv{grid-template-rows:auto auto auto 1fr auto}
+  .srv-c{display:grid;grid-row:span 5;grid-template-rows:subgrid;row-gap:0;align-content:start}
+  .srv-c .srv-stage,.srv-c h3{align-self:start}
+  .srv-c .btn{align-self:end;justify-self:stretch}
+}
