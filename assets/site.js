@@ -9,12 +9,18 @@
   var burger = document.getElementById('burger');
   var nav = document.getElementById('nav');
   if (burger && nav) {
-    burger.addEventListener('click', function () {
-      var open = nav.classList.toggle('open');
+    var setOpen = function (open) {
+      nav.classList.toggle('open', open);
       burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    burger.addEventListener('click', function () {
+      var open = !nav.classList.contains('open');
+      setOpen(open);
+      if (open) { var first = nav.querySelector('a'); if (first) first.focus(); }
     });
-    nav.addEventListener('click', function (e) {
-      if (e.target.closest('a')) { nav.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
+    nav.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && nav.classList.contains('open')) { setOpen(false); burger.focus(); }
     });
   }
 
@@ -52,7 +58,7 @@
         method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' }
       }).then(function (r) {
         if (!r.ok) throw new Error('bad status');
-        if (box) box.classList.add('sent');
+        if (box) { box.classList.add('sent'); var h = box.querySelector('.ok h3'); if (h) h.focus(); }
         if (window.gtag) window.gtag('event', 'generate_lead', { form_id: form.id || 'form' });
       }).catch(function () {
         if (box) box.classList.add('failed');

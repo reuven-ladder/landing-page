@@ -19,6 +19,7 @@
   <title>Ladder — חישובי כמויות, כתבי כמויות ואומדני עלות</title>
   <meta name="description" content="שירותי כמאות לבנייה: חישובי כמויות וכתבי כמויות למכרז, ניהול מכרזים ואומדני עלויות מתכנון עד מכרז, על בסיס התוכניות והמפרטים של הפרויקט." />
   <meta name="theme-color" content="#fafaf7" />
+  <link rel="canonical" href="https://getladder.ai/he/" />
   <meta property="og:title" content="Ladder — חישובי כמויות, כתבי כמויות ואומדני עלות" />
   <meta property="og:description" content="לקבלנים, ליזמים ולמנהלי פרויקטים: הכנת כתבי כמויות, אומדנים וניהול מכרזים, על בסיס התוכניות והמפרטים של הפרויקט." />
   <meta property="og:type" content="website" />
@@ -34,9 +35,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@500;600;700&family=Wix+Madefor+Text:wght@400;500;600;700&family=Heebo:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../assets/site.css?v=3" />
-  <link rel="stylesheet" href="../assets/world.css?v=8" />
-  <link rel="stylesheet" href="../assets/rtl.css?v=3" />
+  <link rel="stylesheet" href="../assets/site.css?v=7" />
+  <link rel="stylesheet" href="../assets/world.css?v=9" />
+  <link rel="stylesheet" href="../assets/rtl.css?v=4" />
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" crossorigin />
   <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head>
 <body class="home" data-beat="0">
@@ -369,7 +371,7 @@
       <div class="lead">
         <div>
           <h2 class="sec-title">לקבלת <span class="accent">הצעת מחיר</span></h2>
-          <p class="sec-sub">ספרו לנו מה נדרש ומה מועד ההגשה. אפשר לצרף קישור למסמכים או להתחיל משיחה.</p>
+          <p class="sec-sub">השאירו פרטים ונחזור אליכם לגבי הפרויקט.</p>
           <p class="alt-cta">מעדיפים לדבר? <a class="btn btn-outline btn-sm" href="https://calendar.app.google/ddxDKCrxcTo2gX5bA" target="_blank" rel="noopener">לתיאום שיחה <span class="arr">←</span></a></p>
           <p class="contact-alt">אפשר גם לכתוב ל-<a href="mailto:omri@getladder.ai">omri@getladder.ai</a>.</p>
         </div>
@@ -377,31 +379,18 @@
           <form id="projectForm" data-formspree="https://formspree.io/f/xgobzrwq" novalidate>
             <input type="hidden" name="_subject" value="Quote request from getladder.ai (Hebrew)" />
             <input type="hidden" name="language" value="he" />
+            <input type="hidden" name="need" id="f-need" value="" />
             <div class="row">
               <div class="field"><label for="f-name">שם מלא <em>*</em></label><input id="f-name" name="name" autocomplete="name" required /></div>
-              <div class="field"><label for="f-co">חברה</label><input id="f-co" name="company" autocomplete="organization" /></div>
+              <div class="field"><label for="f-phone">טלפון <em>*</em></label><input id="f-phone" type="tel" name="phone" autocomplete="tel" dir="ltr" required /></div>
             </div>
-            <div class="row">
-              <div class="field"><label for="f-phone">טלפון</label><input id="f-phone" type="tel" name="phone" autocomplete="tel" dir="ltr" required /></div>
-              <div class="field"><label for="f-email">דוא״ל</label><input id="f-email" type="email" name="email" autocomplete="email" required /></div>
-            </div>
-            <div class="row">
-              <div class="field"><label for="f-need">השירות המבוקש</label>
-                <select id="f-need" name="need">
-                  <option>חישוב כמויות וכתב כמויות</option>
-                  <option>ניהול מכרז</option>
-                  <option>אומדן עלות</option>
-                  <option>פנייה אחרת</option>
-                </select>
-              </div>
-              <div class="field"><label for="f-link">קישור למסמכים</label><input id="f-link" type="url" name="documents_link" placeholder="Drive, Dropbox, WeTransfer…" /></div>
-            </div>
-            <div class="field"><label for="f-msg">כמה מילים על הפרויקט</label><textarea id="f-msg" name="message"></textarea></div>
-            <button type="submit" class="btn btn-dark">שליחת בקשה להצעת מחיר <span class="arr">←</span></button>
-            <p class="note"><em>*</em> שדה חובה · טלפון או דוא״ל</p>
-            <p class="err" role="alert">לא הצלחנו לשלוח את הבקשה. אפשר לנסות שוב או לכתוב ל-<a href="mailto:omri@getladder.ai">omri@getladder.ai</a>.</p>
+            <div class="field"><label for="f-email">דוא״ל <em>*</em></label><input id="f-email" type="email" name="email" autocomplete="email" dir="ltr" required /></div>
+            <div class="field"><label for="f-msg">הודעה <span>(לא חובה)</span></label><textarea id="f-msg" name="message"></textarea></div>
+            <button type="submit" class="btn btn-dark">שליחה <span class="arr">←</span></button>
+            <p class="note"><em>*</em> שדה חובה</p>
+            <p class="err" role="alert">לא הצלחנו לשלוח את הפרטים. אפשר לנסות שוב או לכתוב ל-<a href="mailto:omri@getladder.ai">omri@getladder.ai</a>.</p>
           </form>
-          <div class="ok" role="status"><h3>הבקשה התקבלה.</h3><p>ניצור קשר להשלמת פרטי העבודה.</p></div>
+          <div class="ok" role="status"><h3 tabindex="-1">תודה, קיבלנו.</h3><p>נחזור אליכם כדי לשמוע על הפרויקט ומה נדרש להצעת המחיר.</p></div>
         </div>
       </div>
     </div>
@@ -456,15 +445,9 @@
       if (s) s.value = a.getAttribute('data-need');
     });
   });
-  // Phone or email: either one is enough.
-  (function () {
-    var tel = document.getElementById('f-phone'), mail = document.getElementById('f-email');
-    function sync() { tel.required = !mail.value.trim(); mail.required = !tel.value.trim(); }
-    tel.addEventListener('input', sync); mail.addEventListener('input', sync);
-  })();
 </script>
-<script type="module" src="../assets/world.js"></script>
-<script src="../assets/site.js"></script>
-<script src="../assets/workflow.js?v=2"></script>
+<script type="module" src="../assets/world.js?v=2"></script>
+<script src="../assets/site.js?v=2"></script>
+<script src="../assets/workflow.js?v=3"></script>
 </body>
 </html>

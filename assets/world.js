@@ -370,8 +370,9 @@ function start() {
   ];
 
   /* ---------- scroll ---------- */
-  let target = 0, prog = 0;
+  let target = 0, prog = 0, dirty = true;
   function readScroll() {
+    dirty = true;
     const vc = innerHeight * 0.5;
     const cs = beats.map((b) => { const r = b.getBoundingClientRect(); return r.top + r.height / 2; });
     let p = 0;
@@ -393,7 +394,7 @@ function start() {
     camera.updateProjectionMatrix();
     lineMats.forEach((m) => m.resolution.set(w, h));
   }
-  addEventListener('resize', () => { resize(); readScroll(); });
+  addEventListener('resize', () => { resize(); readScroll(); dirty = true; });
   resize(); readScroll(); prog = target;
 
   /* ---------- frame ---------- */
@@ -404,6 +405,9 @@ function start() {
   function frame(now) {
     requestAnimationFrame(frame);
     if (root.classList.contains('off')) { last = now; return; }
+    // Reduced motion: the scene is a still; redraw only when scroll or size changes it.
+    if (reduce && !dirty) { last = now; return; }
+    dirty = false;
     const dt = Math.min(0.05, (now - last) / 1000); last = now;
     uTime.value += reduce ? 0 : dt;
     prog += (target - prog) * (reduce ? 1 : Math.min(1, dt * 3.2));
@@ -438,10 +442,12 @@ function start() {
 
     // hero loop: documents -> measured scope -> priced estimate, without scrolling
     const heroVis = 1 - sm(p / 0.6);
-    const L = (T % 11) / 11;
+    // Reduced motion holds the loop on its final state: measured parts tagged, priced card shown.
+    const L = reduce ? 0.7 : (T % 11) / 11;
     const hScan = win(L, 0.02, 0.08, 0.3, 0.36) * heroVis;
     const hMeas = win(L, 0.28, 0.36, 0.9, 0.97) * heroVis;
-    root.classList.toggle('hero-price', win(L, 0.55, 0.6, 0.9, 0.95) * heroVis > 0.5);
+    const price = win(L, 0.55, 0.6, 0.9, 0.95) * heroVis > 0.5;
+    if (price !== root._price) { root.classList.toggle('hero-price', price); root._price = price; }
 
     // gaps: canopy pulses red on A
     const gap = win(p, 2.5, 3, 3.6, 4.2);
@@ -481,13 +487,11 @@ function start() {
       v3.copy(a.pos()).project(camera);
       const x = (v3.x * 0.5 + 0.5) * W, y = (-v3.y * 0.5 + 0.5) * H;
       const on = show > 0.5 && v3.z < 1;
-      a.el.style.transform = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0)`;
-      a.el.classList.toggle('on', on);
+      const tf = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0)`;
+      if (a.tf !== tf) { a.el.style.transform = tf; a.tf = tf; }
+      if (a.on !== on) { a.el.classList.toggle('on', on); a.on = on; }
     });
 
-    // HTML panels
-    document.documentElement.style.setProperty('--bids', bids.toFixed(3));
-    
     renderer.render(scene, camera);
   }
   requestAnimationFrame(frame);

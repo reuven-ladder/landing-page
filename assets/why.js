@@ -450,8 +450,13 @@
   gsap.ticker.lagSmoothing(0);
   if (lenis) gsap.ticker.add(t => lenis.raf(t * 1000));
 
+  // Size the sections once fonts are in (or after 1.2s), then reveal: the story never jumps in view.
   layout(true);
-  if (document.fonts) document.fonts.ready.then(() => layout(true));
+  const reveal = () => document.documentElement.classList.remove('why-wait');
+  if (document.fonts) {
+    Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 1200))]).then(() => { layout(true); reveal(); });
+    document.fonts.ready.then(() => layout(true));
+  } else reveal();
   addEventListener('resize', () => layout());
   gsap.ticker.add((t, dt) => render(t * 1000, dt));
 

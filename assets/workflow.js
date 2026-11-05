@@ -25,5 +25,7 @@
       en.forEach(function (e) { if (e.isIntersecting) set(e.target.getAttribute('data-step')); });
     }, { rootMargin: phone ? '-25% 0px -60% 0px' : '-45% 0px -45% 0px' });
     steps.forEach(function (s) { io.observe(s); });
-  }
+    // the scan line is an SVG animation that re-lays out every frame: run it only while the visual is on screen
+    new IntersectionObserver(function (en) { vis.classList.toggle('in-view', en[0].isIntersecting); }).observe(vis);
+  } else vis.classList.add('in-view');
 })();

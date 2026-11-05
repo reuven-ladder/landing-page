@@ -19,6 +19,14 @@
   <title>חברה — Ladder</title>
   <meta name="description" content="Ladder היא משרד כמאות ואומדנים מבוסס AI. הכירו את הצוות, משרות פתוחות ודרכים ליצירת קשר." />
   <meta name="theme-color" content="#fafaf7" />
+  <link rel="canonical" href="https://getladder.ai/he/company/" />
+  <meta property="og:title" content="חברה — Ladder" />
+  <meta property="og:description" content="Ladder היא משרד כמאות ואומדנים מבוסס AI. הכירו את הצוות, משרות פתוחות ודרכים ליצירת קשר." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="he_IL" />
+  <meta property="og:url" content="https://getladder.ai/he/company/" />
+  <meta property="og:image" content="https://getladder.ai/assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="alternate" hreflang="en" href="https://getladder.ai/company/" />
   <link rel="alternate" hreflang="he" href="https://getladder.ai/he/company/" />
   <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32.png" />
@@ -26,8 +34,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@500;600;700&family=Wix+Madefor+Text:wght@400;500;600;700&family=Heebo:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../../assets/site.css?v=6" />
-  <link rel="stylesheet" href="../../assets/rtl.css?v=3" />
+  <link rel="stylesheet" href="../../assets/site.css?v=7" />
+  <link rel="stylesheet" href="../../assets/rtl.css?v=4" />
 </head>
 <body>
 
@@ -51,7 +59,7 @@
 <main id="top">
   <section class="page-hero">
     <p class="eyebrow">חברה</p>
-    <h1>משרד כמאות ואומדנים, <span class="accent">מבוסס AI.</span></h1>
+    <h1>משרד כמאות ואומדנים, <span class="accent">על בסיס כלי AI שפיתחנו.</span></h1>
     <p>עלות הבנייה קבורה באלפי עמודים. בנינו משרד שבו ה-AI תומך בעבודה על המסמכים, ואנשי המקצוע שלנו בודקים כל אומדן לפני המסירה. כך יזמים, מתכננים וקבלנים מקבלים אומדן שאפשר לעמוד מאחוריו, עם מקור לכל שורה.</p>
   </section>
 
@@ -120,23 +128,25 @@
         <div>
           <p class="eyebrow">יצירת קשר</p>
           <h2>בואו נדבר.</h2>
-          <p class="sub">שאלה, שיתוף פעולה, או סתם סקרנות? שלחו הודעה. אם יש מסמכים, <a href="../#start">שלחו את הפרויקט</a> ונאשר היקף, מחיר ולוח זמנים.</p>
+          <p class="sub">פרויקט, שאלה או שיתוף פעולה? השאירו פרטים ונחזור אליכם.</p>
           <p class="alt-cta">מעדיפים לדבר? <a class="link-arrow" href="https://calendar.app.google/ddxDKCrxcTo2gX5bA" target="_blank" rel="noopener">לתיאום שיחה ←</a></p>
         </div>
         <div class="form">
-          <form id="contactForm" data-formspree="https://formspree.io/f/xgobzrwq">
+          <form id="projectForm" data-formspree="https://formspree.io/f/xgobzrwq" novalidate>
             <input type="hidden" name="_subject" value="Contact from getladder.ai/he/company" />
             <input type="hidden" name="language" value="he" />
+            <input type="hidden" name="need" id="f-need" value="" />
             <div class="row">
-              <div class="field"><label for="c-name">שם מלא</label><input id="c-name" name="name" autocomplete="name" required /></div>
-              <div class="field"><label for="c-email">דוא״ל</label><input id="c-email" type="email" name="email" autocomplete="email" required /></div>
+              <div class="field"><label for="f-name">שם מלא <em>*</em></label><input id="f-name" name="name" autocomplete="name" required /></div>
+              <div class="field"><label for="f-phone">טלפון <em>*</em></label><input id="f-phone" type="tel" name="phone" autocomplete="tel" dir="ltr" required /></div>
             </div>
-            <div class="field"><label for="c-co">חברה</label><input id="c-co" name="company" autocomplete="organization" /></div>
-            <div class="field"><label for="c-msg">הודעה</label><textarea id="c-msg" name="message" required></textarea></div>
-            <button type="submit" class="btn btn-dark">שליחת הודעה <span class="arr">←</span></button>
-            <p class="err" role="alert">משהו השתבש. אפשר לכתוב ישירות ל-<a href="mailto:omri@getladder.ai">omri@getladder.ai</a></p>
+            <div class="field"><label for="f-email">דוא״ל <em>*</em></label><input id="f-email" type="email" name="email" autocomplete="email" dir="ltr" required /></div>
+            <div class="field"><label for="f-msg">הודעה <span>(לא חובה)</span></label><textarea id="f-msg" name="message"></textarea></div>
+            <button type="submit" class="btn btn-dark">שליחה <span class="arr">←</span></button>
+            <p class="note"><em>*</em> שדה חובה</p>
+            <p class="err" role="alert">לא הצלחנו לשלוח את הפרטים. אפשר לנסות שוב או לכתוב ל-<a href="mailto:omri@getladder.ai">omri@getladder.ai</a>.</p>
           </form>
-          <div class="ok" role="status"><h3>קיבלנו.</h3><p>נחזור אליכם בקרוב.</p></div>
+          <div class="ok" role="status"><h3 tabindex="-1">תודה, קיבלנו.</h3><p>נחזור אליכם כדי לשמוע על הפרויקט ומה נדרש להצעת המחיר.</p></div>
         </div>
       </div>
     </div>
@@ -157,7 +167,9 @@
           <li><a href="../#services">שירותים</a></li>
           <li><a href="../#sample">תוצרים לדוגמה</a></li>
           <li><a href="../#how">תהליך העבודה</a></li>
-          <li><a href="./#careers">קריירה</a></li>
+          <li><a href="../#about">אודות</a></li>
+          <li><a href="../company/#careers">קריירה</a></li>
+          <li><a href="https://www.linkedin.com/company/ladder-ai/" target="_blank" rel="noopener">LinkedIn</a></li>
         </ul>
       </div>
       <div>
@@ -181,6 +193,6 @@
   </div>
 </footer>
 
-<script src="../../assets/site.js"></script>
+<script src="../../assets/site.js?v=2"></script>
 </body>
 </html>

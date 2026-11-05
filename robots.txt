@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /approach-lab/
+Disallow: /faq/
+
+Sitemap: https://getladder.ai/sitemap.xml

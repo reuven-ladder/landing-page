@@ -19,6 +19,13 @@
   <title>Company — Ladder</title>
   <meta name="description" content="Ladder is a construction cost estimating firm. Meet the team, see open roles, and get in touch." />
   <meta name="theme-color" content="#fafaf7" />
+  <link rel="canonical" href="https://getladder.ai/company/" />
+  <meta property="og:title" content="Company — Ladder" />
+  <meta property="og:description" content="Ladder is a construction cost estimating firm. Meet the team, see open roles, and get in touch." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://getladder.ai/company/" />
+  <meta property="og:image" content="https://getladder.ai/assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="alternate" hreflang="en" href="https://getladder.ai/company/" />
   <link rel="alternate" hreflang="he" href="https://getladder.ai/he/company/" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png" />
@@ -26,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@500;600;700&family=Wix+Madefor+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../assets/site.css?v=6" />
+  <link rel="stylesheet" href="../assets/site.css?v=7" />
 </head>
 <body>
 
@@ -51,7 +58,7 @@
 <main id="top">
   <section class="page-hero">
     <p class="eyebrow">Company</p>
-    <h1>An AI-powered <span class="accent">cost estimating firm.</span></h1>
+    <h1>A cost estimating firm, <span class="accent">built on our own AI tools.</span></h1>
     <p>Construction cost is buried in thousands of pages. We built a firm where AI supports the document work and cost professionals review every estimate before delivery, so owners, designers and contractors get an estimate they can defend, with every line traced to its source.</p>
   </section>
 
@@ -120,22 +127,25 @@
         <div>
           <p class="eyebrow">Contact</p>
           <h2>Let’s talk.</h2>
-          <p class="sub">A question, a partnership, or just curious? Send a note. If you have documents, <a href="../#start">send the project</a> and we’ll confirm the scope, fee and schedule.</p>
+          <p class="sub">A project, a question or a partnership? Leave your details and we’ll get back to you.</p>
           <p class="alt-cta">Prefer to talk? <a class="link-arrow" href="https://calendar.app.google/ddxDKCrxcTo2gX5bA" target="_blank" rel="noopener">Book a call →</a></p>
         </div>
         <div class="form">
-          <form id="contactForm" data-formspree="https://formspree.io/f/xgobzrwq">
+          <form id="projectForm" data-formspree="https://formspree.io/f/xgobzrwq" novalidate>
             <input type="hidden" name="_subject" value="Contact from getladder.ai/company" />
+            <input type="hidden" name="language" value="en" />
+            <input type="hidden" name="need" id="f-need" value="" />
             <div class="row">
-              <div class="field"><label for="c-name">Name</label><input id="c-name" name="name" autocomplete="name" required /></div>
-              <div class="field"><label for="c-email">Work email</label><input id="c-email" type="email" name="email" autocomplete="email" required /></div>
+              <div class="field"><label for="f-name">Full name <em>*</em></label><input id="f-name" name="name" autocomplete="name" required /></div>
+              <div class="field"><label for="f-phone">Phone <em>*</em></label><input id="f-phone" type="tel" name="phone" autocomplete="tel" required /></div>
             </div>
-            <div class="field"><label for="c-co">Company</label><input id="c-co" name="company" autocomplete="organization" /></div>
-            <div class="field"><label for="c-msg">Message</label><textarea id="c-msg" name="message" required></textarea></div>
-            <button type="submit" class="btn btn-dark">Send message <span class="arr">→</span></button>
-            <p class="err" role="alert">Something went wrong. Email <a href="mailto:omri@getladder.ai">omri@getladder.ai</a> instead.</p>
+            <div class="field"><label for="f-email">Email <em>*</em></label><input id="f-email" type="email" name="email" autocomplete="email" required /></div>
+            <div class="field"><label for="f-msg">Message <span>(optional)</span></label><textarea id="f-msg" name="message"></textarea></div>
+            <button type="submit" class="btn btn-dark">Send <span class="arr">→</span></button>
+            <p class="note"><em>*</em> Required</p>
+            <p class="err" role="alert">We couldn’t send your details. Try again or email <a href="mailto:omri@getladder.ai">omri@getladder.ai</a>.</p>
           </form>
-          <div class="ok" role="status"><h3>Got it.</h3><p>We’ll be in touch shortly.</p></div>
+          <div class="ok" role="status"><h3 tabindex="-1">Thanks, we got it.</h3><p>We’ll get back to you to talk through the project and what we need to quote it.</p></div>
         </div>
       </div>
     </div>
@@ -147,31 +157,31 @@
     <div class="foot-grid">
       <div class="foot-brand">
         <a class="brand" href="../">Ladder<span class="accent">.</span></a>
-        <p>Construction cost estimating. Drawings in, a defensible estimate out.</p>
+        <p>Quantity takeoffs, bills of quantities and cost estimates.</p>
         <p><a href="mailto:omri@getladder.ai">omri@getladder.ai</a></p>
       </div>
       <div>
         <h4>Ladder</h4>
         <ul>
           <li><a href="../#services">Services</a></li>
+          <li><a href="../#sample">Sample work</a></li>
           <li><a href="../#how">How we work</a></li>
           <li><a href="../approach/">Why Ladder</a></li>
-          <li><a href="../sample/">Sample estimate</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Company</h4>
-        <ul>
-          <li><a href="../company/">About</a></li>
+          <li><a href="../#about">About</a></li>
           <li><a href="../company/#careers">Careers</a></li>
           <li><a href="https://www.linkedin.com/company/ladder-ai/" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li><a href="https://medium.com/ladder-ai" target="_blank" rel="noopener">Medium</a></li>
         </ul>
       </div>
       <div>
-        <h4>Resources</h4>
+        <h4>Help</h4>
         <ul>
           <li><a href="../#faq">FAQ</a></li>
+          <li><a href="../#start">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
           <li><a href="../privacy-policy/">Privacy Policy</a></li>
           <li><a href="../terms-of-use/">Terms of Use</a></li>
         </ul>
@@ -179,11 +189,10 @@
     </div>
     <div class="foot-base">
       <span>© <span id="year">2026</span> Ladder</span>
-      <span>Drawn by Ladder AI · Reviewed by people</span>
     </div>
   </div>
 </footer>
 
-<script src="../assets/site.js"></script>
+<script src="../assets/site.js?v=2"></script>
 </body>
 </html>
