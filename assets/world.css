@@ -404,28 +404,27 @@ body.hero2 .hero3 .cta-row{margin-top:2rem}
 body.hero2 .hero3::before{background:linear-gradient(90deg,var(--paper) 0,var(--paper) 36%,rgba(250,250,247,.9) 44%,rgba(250,250,247,0) 56%)}
 @media (min-width:761px){.hero3 .h-art{display:none}}
 @media (max-width:760px){
-  body.hero2 .hero3{padding:68px var(--gutter) 0;min-height:100svh}
+  /* phones: the animation is the hero's background; the content sits centred on top of it */
+  body.hero2 .hero3{position:relative;padding:68px var(--gutter) 0;min-height:100svh;overflow:clip}
   body.hero2 .hero3::before{display:none}
   body.hero2 .site-header{background:var(--paper)}
-  body.hero2 .hero3 .wrap{min-height:calc(100svh - 68px)}
-  /* the text sits in the scene: a soft veil, no band; the subtitle rests just above the roofline */
-  body.hero2 .hero3 .h-top{position:relative;z-index:1;margin:0 calc(-1*var(--gutter));padding:clamp(2.2rem,9svh,5rem) var(--gutter) 0;background:linear-gradient(rgba(250,250,247,.96) 55%,rgba(250,250,247,.7) 80%,rgba(250,250,247,0))}
-  body.hero2 .hero3 h1{font-size:clamp(2.1rem,9.75vw,2.8rem);letter-spacing:-.052em;line-height:.98}
+  body.hero2 .hero3 .wrap{position:relative;z-index:1;min-height:calc(100svh - 68px);justify-content:center;align-items:stretch;text-align:start;padding:1.5rem 0 2.5rem}
+  body.hero2 .hero3 h1{font-size:clamp(2.2rem,10vw,2.9rem);letter-spacing:-.052em;line-height:.98}
   body.hero2 .hero3 h1 .accent{white-space:nowrap}
-  body.hero2 .hero3 .lede{margin-top:1rem;font-size:1.02rem;max-width:20em;color:var(--ink-2)}
-  body.hero2 .hero3 .h-art{flex:1 0 12rem;margin-top:-1.2rem}
-  body.hero2 .hero3 .cta-row{margin:0 calc(-1*var(--gutter));padding:1rem var(--gutter) .9rem;flex-direction:column;align-items:stretch;gap:.25rem;background:linear-gradient(rgba(250,250,247,0),var(--paper) 1rem)}
-  body.hero2 .hero3 .cta-row .btn-dark{justify-content:center}
-  body.hero2 .hero3 .h-quote{align-self:center;border:0;background:none;padding:.7rem .8rem;font-size:.95rem;text-decoration:underline;text-underline-offset:3px}
+  body.hero2 .hero3 .lede{margin:1.1rem 0 0;font-size:1.05rem;max-width:19em;color:var(--ink)}
+  body.hero2 .hero3 .cta-row{width:100%;margin:2.2rem 0 0;flex-direction:row;flex-wrap:nowrap;align-items:center;gap:1.1rem}
+  body.hero2 .hero3 .cta-row .btn-dark{justify-content:center;white-space:nowrap;padding:.9rem 1.25rem;font-size:.95rem}
+  body.hero2 .hero3 .h-quote{align-self:center;white-space:nowrap;border:0;background:none;padding:.6rem .8rem;font-size:.95rem;text-decoration:underline;text-underline-offset:3px}
   body.hero2 .hero3 .h-quote:hover{background:none}
-  /* logos start below the first screen */
-  body.hero2.home .logos.hero-logos{height:auto;margin-top:0;padding:1.1rem 0;background:var(--paper)}
-  /* the loop, readable: one tag and one priced line */
+  /* the frame world.js fits the building into: the whole hero */
+  body.hero2 .hero3 .h-art{position:absolute;inset:68px 0 0;z-index:0}
+  /* faded and grey, with a soft clearing behind the words; only the numbered markers keep their colour */
+  body.hero2 .world canvas{opacity:.36;filter:saturate(.85)}
+  body.hero2 .hero3 .wrap::before{content:"";position:absolute;z-index:-1;left:50%;top:50%;width:calc(100% + 2*var(--gutter));height:70%;translate:-50% -50%;background:radial-gradient(closest-side,rgba(250,250,247,.72),rgba(250,250,247,0));pointer-events:none}
+  body.hero2 .world .grain{display:none}
   body.hero2 .world .ov{display:block}
-  body.hero2 .world .ov .tag3:not(.rf){display:none}
-  body.hero2 .herocard{display:block;left:16px;right:16px;width:auto;top:var(--hy,auto);bottom:auto;transform:translateY(10px) scale(.97);transition:opacity .45s var(--ease),transform .6s var(--ease)}
-  body.hero2 .herocard .q-h,body.hero2 .herocard .q-row:not(.q-h):nth-of-type(3),body.hero2 .herocard .q-row:nth-of-type(5){display:none}
-  body.hero2 .herocard .q-row{grid-template-columns:1fr auto auto;gap:.8rem}
-  body.hero2 .herocard .q-row>span:nth-child(3){display:none}
-  body.hero2 .herocard .p-head{padding:.6rem .9rem}
+  body.hero2 .world .ov .tag3>div{display:none}
+  body.hero2 .world .ov .tag3 i{width:26px;height:26px;left:-13px;top:-13px;font-size:.8rem;line-height:21px}
+  body.hero2 .herocard{display:none}
+  body.hero2.home .logos.hero-logos{height:auto;margin-top:0;padding:1.1rem 0;background:var(--paper)}
 }

@@ -387,11 +387,13 @@ function start() {
   addEventListener('scroll', readScroll, { passive: true });
 
   // phones: the hero keeps a gap between its headline and its actions; the building is framed there
-  const art = document.querySelector('.hero3 .h-art'), card = document.querySelector('.herocard');
-  let artTop = 0, artH = 0, hyLast = '';
+  const art = document.querySelector('.hero3 .h-art'), card = document.querySelector('.herocard'), cta = document.querySelector('.hero3 .cta-row');
+  let artTop = 0, artH = 0, artL = 0, artW = 0, ctaB = 0, hyLast = '', clipLast = '', keep = [];
+  const words = [...document.querySelectorAll('.hero3 h1 > span, .hero3 .lede, .hero3 .cta-row > a')];
   function measureArt() {
-    if (!art || innerWidth >= 760) { artH = 0; return; }
-    const r = art.getBoundingClientRect(); artTop = r.top + scrollY; artH = r.height;
+    if (!art || innerWidth >= 760) { artH = 0; if (clipLast) { root.style.clipPath = ''; clipLast = ''; } return; }
+    const r = art.getBoundingClientRect(); artTop = r.top + scrollY; artH = r.height; artL = r.left; artW = r.width;
+    keep = words.map((n) => { const b = n.getBoundingClientRect(); return [b.left - 18, b.top + scrollY - 18, b.right + 18, b.bottom + scrollY + 18]; });
   }
   function resize() {
     const w = innerWidth, h = innerHeight;
@@ -436,11 +438,11 @@ function start() {
     const rtl = mob ? 0 : RTL ? (art ? 0.38 : 0.32) : -0.11;
     if (mob && artH) {
       // zoom so the building fills the gap, and centre it there; it scrolls away with the hero
-      const z = Math.min(1.9, Math.max(0.9, innerHeight * 0.78 / artH)), c = artTop + artH * 0.47 - scrollY;
+      const z = Math.min(1.9, Math.max(0.5, innerHeight * 0.72 / artH)), c = artTop + artH * 0.3 - scrollY;
       const vw = innerWidth * z, vh = innerHeight * z;
       camera.setViewOffset(innerWidth, innerHeight, (innerWidth - vw) / 2, (innerHeight - vh) / 2 + (innerHeight / 2 - c) * z, vw, vh);
       // the priced line sits at the bottom of the gap
-      if (card) { const hy = Math.round(artTop + artH - scrollY - card.offsetHeight + 6) + 'px'; if (hy !== hyLast) { card.style.setProperty('--hy', hy); hyLast = hy; } }
+      if (card) { const hy = Math.round(artTop + artH - scrollY - card.offsetHeight - 14) + 'px'; if (hy !== hyLast) { card.style.setProperty('--hy', hy); hyLast = hy; } }
     } else camera.setViewOffset(innerWidth, innerHeight, (rtl - sh) * innerWidth, 0, innerWidth, innerHeight);
 
     // bidders
@@ -472,7 +474,8 @@ function start() {
     // measure: highlight A's parts one by one
     const meas = Math.max(win(p, 3.5, 4, 5.6, 6.2), hMeas);
     const hiParts = ['roof', 'cw', 'store'];
-    hiParts.forEach((k, j) => A.P[k].setTint(meas * Math.max(sm((p - 3.55 - j * 0.12) / 0.3), heroVis), BLUE));
+    // phones: the facade fills a light red as it's measured
+    hiParts.forEach((k, j) => A.P[k].setTint(meas * Math.max(sm((p - 3.55 - j * 0.12) / 0.3), heroVis), artH ? RED : BLUE));
     A.P.canopy.setTint(Math.max(gap * (0.6 + 0.4 * Math.sin(T * 4)), meas * Math.max(sm((p - 3.95) / 0.3), heroVis)), RED);
     trails.forEach((m, j) => { m.opacity = meas * Math.max(sm((p - 3.55 - j * 0.12) / 0.3), heroVis); m.dashOffset -= dt * 1.4; });
 
@@ -504,7 +507,9 @@ function start() {
       const show = vis[a.el.dataset.show] || 0;
       v3.copy(a.pos()).project(camera);
       const x = (v3.x * 0.5 + 0.5) * W, y = (-v3.y * 0.5 + 0.5) * H;
-      const on = show > 0.5 && v3.z < 1;
+      // phones: the building sits behind the words; a marker that would land on text waits until it's clear
+      const hid = artH && keep.some((k) => x > k[0] && x < k[2] && y + scrollY > k[1] && y + scrollY < k[3]);
+      const on = show > 0.5 && v3.z < 1 && !hid;
       const tf = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0)`;
       if (a.tf !== tf) { a.el.style.transform = tf; a.tf = tf; }
       if (a.on !== on) { a.el.classList.toggle('on', on); a.on = on; }

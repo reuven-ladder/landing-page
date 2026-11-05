@@ -56,3 +56,4 @@
 /* hero v2 (body.hero2): the fade runs from the text side, the headline keeps its own line breaks */
 [dir="rtl"] body.hero2 .hero3::before{background:linear-gradient(270deg,var(--paper) 0,var(--paper) 36%,rgba(250,250,247,.9) 44%,rgba(250,250,247,0) 56%)}
 [dir="rtl"] body.hero2 .hero3 h1{max-width:none}
+.nw{white-space:nowrap}
