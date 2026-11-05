@@ -3,8 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Hold the story hidden until why.js has sized its sections (avoids layout shift); 3s failsafe if scripts don't load. -->
-  <script>document.documentElement.classList.add('why-wait');setTimeout(function(){document.documentElement.classList.remove('why-wait')},3000);</script>
   <!-- Google Analytics (GA4) -->
   <script>
     var GA_ID = 'G-2SN38LE7MF';
@@ -19,11 +17,11 @@
     gtag('config', GA_ID);
   </script>
   <title>Why Ladder — Ladder</title>
-  <meta name="description" content="Estimating, rebuilt around AI. A look behind the scenes: AI agents read and cross-check every sheet, and our cost professionals review every number." />
+  <meta name="description" content="An estimating department that reads to the last page: cost professionals working with AI agents we built, delivering reviewed takeoffs and estimates." />
   <meta name="theme-color" content="#fafaf7" />
   <link rel="canonical" href="https://getladder.ai/approach/" />
   <meta property="og:title" content="Why Ladder — Ladder" />
-  <meta property="og:description" content="Estimating, rebuilt around AI. A look behind the scenes: AI agents read and cross-check every sheet, and our cost professionals review every number." />
+  <meta property="og:description" content="An estimating department that reads to the last page: cost professionals working with AI agents we built, delivering reviewed takeoffs and estimates." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://getladder.ai/approach/" />
   <meta property="og:image" content="https://getladder.ai/assets/og.png" />
@@ -34,11 +32,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@500;600;700&family=Wix+Madefor+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/site.css?v=7" />
-  <link rel="stylesheet" href="../assets/world.css?v=9" />
-  <link rel="stylesheet" href="../assets/why.css?v=3" />
+  <link rel="stylesheet" href="../assets/sketch.css?v=3" />
 </head>
-<body class="why">
-
+<body class="why-sk">
 <header class="site-header">
   <div class="topbar">
     <a class="brand" href="../" aria-label="Ladder home">Ladder<span class="accent">.</span></a>
@@ -51,192 +47,137 @@
       <a href="../#about">About</a>
       <span class="lang" aria-label="Language"><b aria-current="true">EN</b><a href="../he/" hreflang="he" lang="he">עברית</a></span>
       <span class="btns">
-        <a class="btn btn-dark btn-sm" href="../#start">Contact us</a>
+        <a class="btn btn-dark btn-sm" href="../#start">Get a quote</a>
       </span>
     </nav>
   </div>
 </header>
 
-<!-- The scene: one estimator's desk, drawn into a canvas, with a few cards on top. It stays fixed;
-     scrolling the story below plays one timeline through it. -->
-<div class="stage" id="stage" aria-hidden="true">
-  <canvas></canvas>
-
-  <!-- in the room: pinned to points in the scene, they move with the camera -->
-  <div class="wt tag" data-x="1372" data-y="452"><b>Drawings</b><small>212 sheets</small></div>
-  <div class="wt tag" data-x="500" data-y="338"><b>Specs</b><small>1,186 pages</small></div>
-  <div class="wt tag" data-x="1420" data-y="676"><b>Addenda</b><small>4 so far</small></div>
-  <div class="wt tag" data-x="420" data-y="690"><b>Sub quotes</b><small>23 received</small></div>
-  <div class="wt tag" data-x="900" data-y="580"><b>Last job’s numbers</b><small>Rates tab</small></div>
-  <div class="wt tag me" data-x="760" data-y="640"><b>Experience</b><small>Everything else</small></div>
-  <div class="wt tag nb" data-x="567" data-y="164"><b>This bid</b><small>Filed with the others</small></div>
-
-  <div class="wt note" data-x="790" data-y="600"><b>Due Fri</b>2:00 PM</div>
-  <div class="wt note" data-x="870" data-y="606"><b>Budget</b>$1.80M</div>
-  <div class="wt note late" data-x="950" data-y="602"><b>RFI cutoff</b>Tue 5 PM</div>
-  <div class="wt toasts" data-x="1268" data-y="314">
-    <p class="toast"><b>Addendum 3</b>14 sheets revised · RTU-3 resized</p>
-    <p class="toast"><b>Re: hardware quote</b>Pricing excludes closers</p>
-    <p class="toast"><b>Spec 08 71 00 · Rev B</b>Hardware sets updated</p>
-    <p class="toast"><b>Addendum 4</b>Roof plan A-501 reissued</p>
-    <p class="toast lost"><b>Bid results · you’re low</b>By 14% under the next bidder</p>
-  </div>
-
-  <div class="wt bias" data-x="1252" data-y="394"><b>Anchoring</b>Last job’s rate</div>
-  <div class="wt bias" data-x="1252" data-y="494"><b>Optimism</b>Trimmed to fit budget</div>
-  <div class="wt bias" data-x="500" data-y="520"><b>Fatigue</b>Page 900 skimmed</div>
-
-  <!-- one finding: the cards sit over the scene -->
-  <div class="fr fr-r low">
-    <div class="reading"><small>Trade agents · reading the set</small><p><b class="cnt">0</b><span>documents</span></p><p class="rd-l">Every sheet and spec section assigned to a trade.</p></div>
-  </div>
-  <div class="fr fr-c low">
-    <div class="cov">
-      <small>Spec coverage · 08 71 00 Door hardware</small>
-      <div class="cov-n"><p><b>41</b>Used</p><p><b>9</b>Dropped with reason</p><p class="zero"><b>0</b>Unread</p></div>
+<main class="sk" id="begin">
+  <section class="sk-sec sk-hero" id="intro">
+    <div class="sk-hero-copy">
+      <p class="sk-kick">Why Ladder</p>
+      <h1>An estimating department<br><span class="accent">that reads to the last page.</span></h1>
+      <p class="sk-explain sk-first">Cost professionals working with AI agents we built, delivering reviewed takeoffs and estimates.</p>
+      <a class="sk-cue" href="#team">Meet the department <span aria-hidden="true">↓</span></a>
     </div>
-    <p class="fix">Fatigue → page 900 gets read like page 9</p>
-  </div>
-  <div class="fr fr-1">
-    <div class="ldoc a"><small>Spec 08 71 00 · §2.4</small><p>Set 4 <span>→</span> <mark>closer</mark></p></div>
-    <div class="link"><i></i><b>Conflict</b></div>
-    <div class="ldoc b"><small>A-601 · Door schedule</small><p>Set 4 <span>→</span> <mark>no closer</mark></p></div>
-    <div class="flag"><i></i><span>Set 4 lists closers. The door schedule omits them.<small>Openings agent · ↗ 08 71 00 · A-601</small></span></div>
-  </div>
-  <div class="fr fr-2">
-    <div class="bubble"><small>Cost professional</small><span>Which doors use set 4? Any fire-rated? Check G-101.</span></div>
-    <div class="reply"><i></i><span>12 doors on set 4. 8 are rated on G-101, so closers are needed.<small>↗ A-601 · G-101</small></span></div>
-  </div>
-  <div class="fr fr-3">
-    <div class="num">
-      <small>Door hardware · 08 71 00 · line 12</small>
-      <p class="num-l">Closers · set 4</p>
-      <p class="num-v"><s>0</s><b><i class="n">0</i><em> EA</em></b></p>
-      <p class="num-by">Changed by cost professional · rated doors on G-101</p>
-      <div class="dec"><p><b>8</b>rated → closers priced</p><p><b>4</b>unclear → RFI #9</p></div>
+    <figure class="sk-hero-art"><svg id="desk-sketch" role="img" aria-label="A sketched cost professional at a desk, reviewing a specification and an estimate"></svg><figcaption class="hand sk-hero-note">Every sheet read.<br>Every number checked.</figcaption></figure>
+  </section>
+
+  <section class="sk-sec" id="problem">
+    <div class="sk-prose">
+      <p class="sk-kick">Bid week</p>
+      <h2>1,186 pages. Four addenda.<br><span class="accent">One estimator.</span></h2>
+      <p>Bid day is Friday. The RFI cutoff was Tuesday. Addendum 4 just arrived.</p>
+      <p>Nobody reads all of it in time. So assumptions go into the bid, and the low number often wins because something was missed.</p>
     </div>
-  </div>
-  <div class="fr fr-4">
-    <div class="sig">
-      <p class="sig-ref">08 71 00 · line 12</p>
-      <p class="sig-h"><b>Door hardware sets</b><span>146 EA · $118k – $139k</span></p>
-      <p class="kv"><b>Basis</b><span>Set rate by type. Closers on the 8 rated set 4 doors, per spec and G-101.</span></p>
-      <p class="kv"><b>Source</b><span>Spec 08 71 00 · A-601 · G-101</span></p>
-      <p class="kv"><b class="warn">Open</b><span class="warn">RFI #9 · closers on the other 4 set 4 doors</span></p>
-      <div class="trail"><p><b>RFI #9</b>Clarification</p><p><b>Roof drains</b>Allowance</p><p><b>Rate basis</b>Assumption</p><p><b>Owner FF&amp;E</b>Exclusion</p></div>
-      <span class="stamp">Reviewed<small>Cost professional · Ladder</small></span>
+    <figure class="sk-draw sk-papers"><svg id="papers-sketch" role="img" aria-label="Drawings and a 1,186-page specification that refer to each other, and addendum 4 arriving after the RFI cutoff"></svg><figcaption class="hand">“You’re low by 14%.”<br><span class="unresolved">Good news, or a missed scope?</span></figcaption></figure>
+  </section>
+
+  <section class="sk-wide" id="compare">
+    <div class="sk-head">
+      <p class="sk-kick">What you actually get</p>
+      <h2>A tool helps you measure.<br><span class="accent">We deliver the estimate.</span></h2>
     </div>
-    <div class="fixes"><p class="fix">Anchoring → every rate carries its source</p><p class="fix">Optimism → an independent, reviewed number</p></div>
-  </div>
-  <div class="fr fr-5 low">
-    <div class="next"><small>Next project · a check added from this one</small>Compare hardware sets against rated doors on the life-safety plan.</div>
-  </div>
-  <div class="fr fr-6">
-    <div class="dls">
-      <div class="dl"><i>XLSX</i><b>Estimate workbook</b><small>Every line with its basis and source</small></div>
-      <div class="dl"><i>PDF</i><b>Estimate report</b><small>Summary, basis and open questions</small></div>
-      <div class="dl"><i>LOG</i><b>Assumption log</b><small>Every RFI, allowance and exclusion</small></div>
+    <div class="sk-compare">
+      <div class="sk-box sk-opt sk-x"><p class="sk-opt-k">Takeoff software</p><p class="sk-opt-b">Faster measuring. Your team still reads the set, prices the work and checks it.</p><p class="hand">You run it.</p></div>
+      <div class="sk-box sk-opt sk-x"><p class="sk-opt-k">Takeoff service</p><p class="sk-opt-b">Quantities delivered. Pricing, open questions and review usually stay with you.</p><p class="hand">You check it.</p></div>
+      <div class="sk-box sk-opt sk-us" data-ink="blue"><p class="sk-opt-k">Ladder</p><p class="sk-opt-b">Quantities, pricing, open questions for your RFIs and a reviewed estimate. Plus people who answer when you call.</p><p class="hand">We deliver it.</p></div>
     </div>
-    <p class="dls-by">Reviewed by a cost professional before delivery</p>
-  </div>
-</div>
+  </section>
 
-<main id="top">
-  <!-- The story. Each chapter's text stays in place while the scene plays its part. -->
-  <div class="story" id="story">
-
-    <section class="ch" data-t="0">
-      <div class="tx intro">
-        <p class="kicker">Why Ladder</p>
-        <h1>Estimating, <span class="accent">rebuilt around AI.</span></h1>
-        <p class="lede t-long">Ladder’s cost professionals work with AI agents we built. The agents read and cross-check the documents; our cost professionals direct them, make the calls and review every number before delivery.</p>
-        <div class="cta-row">
-          <a class="btn btn-dark btn-lg" href="#b1">See behind the scenes <span>↓</span></a>
-          <a class="btn btn-outline btn-lg t-long" href="../sample/">See a sample</a>
-        </div>
+  <section class="sk-wide" id="team">
+    <div class="sk-head">
+      <p class="sk-kick">Meet the department</p>
+      <h2>Dozens of agents. Every sheet.<br><span class="accent">People make the calls.</span></h2>
+      <p>We run dozens of specialist agents. Each one reads its part of the set, all of it, and shows where every finding came from. Our cost professionals direct them, price the work and decide what goes into your estimate. Meet five of them.</p>
+    </div>
+    <div class="sk-org">
+      <svg class="sk-links" aria-hidden="true"></svg>
+      <div class="sk-people">
+        <article class="sk-box sk-person"><div class="sk-ph"><img src="../assets/team/omri-admon.webp" alt="" loading="lazy" /></div><h3>Omri Admon</h3><p class="sk-role">CEO</p><p>Runs your project with you: scope, schedule and delivery.</p></article>
+        <article class="sk-box sk-person sk-lead" data-ink="blue" id="lead"><h3>Your cost professional</h3><p class="sk-role">Leads the estimate</p><p>Directs the agents, challenges what they find, prices the work and makes every call. Reviews the estimate before it reaches you.</p><p class="hand">Named in your proposal.</p></article>
+        <article class="sk-box sk-person"><div class="sk-ph"><img src="../assets/team/reuven-amar.webp" alt="" loading="lazy" /></div><h3>Reuven Amar</h3><p class="sk-role">CTO</p><p>Leads the team that builds and trains the agents.</p></article>
       </div>
-    </section>
-
-    <section class="ch" data-t="1.2" id="b1">
-      <div class="tx">
-        <p class="bno">01 / The job</p>
-        <h2>One number. <span class="accent">A dozen sources.</span></h2>
-        <p>An estimator reconciles drawings, specs, addenda, sub quotes, the last job’s numbers and their own experience into a single price.</p>
-        <p class="sub t-long">And when the spec says “see drawings” and the drawings say “see spec”, someone has to chase it down.</p>
+      <div class="sk-agents">
+        <article class="sk-box sk-agent"><span class="sk-av" data-icon="door"></span><h3 class="hand">Dora</h3><p class="sk-role">Openings agent</p><p>Reads Division 08 and every door schedule. Counts hardware sets and checks them against the plans and fire ratings.</p><p class="sk-trait">Flags every mismatch, with both sources.</p></article>
+        <article class="sk-box sk-agent"><span class="sk-av" data-icon="beam"></span><h3 class="hand">Stella</h3><p class="sk-role">Structure agent</p><p>Reads the structural set: foundations, frames, slabs and their schedules, cross-checked with the general notes.</p><p class="sk-trait">Shows the math, sheet by sheet.</p></article>
+        <article class="sk-box sk-agent"><span class="sk-av" data-icon="pipe"></span><h3 class="hand">Pipa</h3><p class="sk-role">MEP agent</p><p>Reads mechanical, electrical and plumbing drawings and schedules. Counts equipment and fixtures, measures runs.</p><p class="sk-trait">Notices when RTU-3 changes size.</p></article>
+        <article class="sk-box sk-agent"><span class="sk-av" data-icon="addenda"></span><h3 class="hand">Addie</h3><p class="sk-role">Addenda agent</p><p>Compares every addendum and revision with the set before it, and tells the others what changed.</p><p class="sk-trait">Reads addendum 4 as carefully as addendum 1.</p></article>
+        <article class="sk-box sk-agent"><span class="sk-av" data-icon="list"></span><h3 class="hand">Page</h3><p class="sk-role">Coverage agent</p><p>Keeps the list: every sheet and spec section read, used, or set aside with a reason.</p><p class="sk-trait">Unread: 0.</p></article>
       </div>
-    </section>
+      <p class="hand sk-more">+ dozens more, from concrete and roofing to finishes and sitework.</p>
+      <p class="sk-all"><b>All of them:</b> don’t get tired on page 900. Don’t reuse last job’s rate without asking. Never make the final call.</p>
+      <p class="hand sk-org-note">The agents report to people. Never the other way round.</p>
+    </div>
+  </section>
 
-    <section class="ch" data-t="3.4">
-      <div class="tx">
-        <p class="bno">02 / Under deadline</p>
-        <h2>No time to read it all. <span class="warn">No time to ask.</span></h2>
-        <p class="t-long">Addendum 4 lands two days before bid day, and the RFI cutoff has already passed. Somewhere in 1,186 spec pages, hardware set 4 calls for closers the door schedule leaves out.</p>
-        <p class="sub">So questions turn into assumptions, and assumptions into risk.</p>
-      </div>
-    </section>
+  <section class="sk-wide" id="finding">
+    <div class="sk-head">
+      <p class="sk-kick">One Tuesday in bid week</p>
+      <h2>What reading to the last page<br><span class="accent">looks like.</span></h2>
+    </div>
+    <ol class="sk-strip">
+      <li><svg id="panel-1" role="img" aria-label="Specification section 08 71 00 lists a closer in hardware set 4"></svg><p><b>1</b> The spec, page 412: hardware set 4 includes a closer.</p></li>
+      <li><svg id="panel-2" role="img" aria-label="The door schedule shows no closer for set 4, and Dora flags the conflict"></svg><p><b>2</b> The door schedule leaves it out. Dora flags it, with both sources.</p></li>
+      <li><svg id="panel-3" role="img" aria-label="The cost professional asks which set 4 doors are fire-rated"></svg><p><b>3</b> The cost professional asks the question that settles it.</p></li>
+      <li><svg id="panel-4" role="img" aria-label="Closers on set 4 go from 0 to 8 in the estimate, and RFI 9 covers the other 4 doors"></svg><p><b>4</b> 8 rated doors: closers priced. 4 unclear: RFI #9 goes out.</p></li>
+    </ol>
+    <p class="sk-strip-note">Illustrative example.</p>
+  </section>
 
-    <section class="ch" data-t="5.8">
-      <div class="tx">
-        <p class="bno">03 / The human limit</p>
-        <h2>Even the best estimator <span class="warn">is human.</span></h2>
-        <p class="t-long">Under deadline, judgment takes shortcuts in predictable ways:</p>
-        <ul class="biases">
-          <li><b>Fatigue</b><span>Page 900 doesn’t get the attention page 9 did. A set with a “ground floor” and a “first floor” loses one of them.</span></li>
-          <li><b>Anchoring</b><span>A number that looks like last time goes in without a second look.</span></li>
-          <li><b>Optimism</b><span>Estimates drift toward what the project hopes to spend.</span></li>
-        </ul>
-        <p class="sub">None of it is carelessness. It’s what deadlines do to people.</p>
-      </div>
-    </section>
+  <section class="sk-sec" id="check">
+    <div class="sk-prose">
+      <p class="sk-kick">Every number, traceable</p>
+      <h2>Don’t trust us.<br><span class="accent">Check us.</span></h2>
+      <p>Accuracy is the first thing contractors ask about AI, and it should be.</p>
+      <p>So every quantity points to the sheet it came from, every assumption is written down, and a cost professional reviews the estimate before it reaches you.</p>
+    </div>
+    <div class="sk-box sk-sheet">
+      <p class="sk-sheet-k">Estimate · Rev 2 <span class="hand">tap a line ↓</span></p>
+      <details class="sk-line" name="sk-lines" open><summary><span class="c">08 71 00</span><span class="d">Door hardware sets</span><span class="q">146 EA</span></summary><dl><dt>Basis</dt><dd>Counted from the door schedule; set rate by hardware type.</dd><dt>Source</dt><dd>A-601 · Spec 08 71 00 §2.4</dd><dt>Reviewed</dt><dd>Cost professional, Ladder</dd></dl></details>
+      <details class="sk-line" name="sk-lines"><summary><span class="c">08 71 00</span><span class="d">Closers · set 4</span><span class="q">8 EA</span></summary><dl><dt>Basis</dt><dd>Closers on the 8 fire-rated set 4 doors, per spec and life-safety plan.</dd><dt>Source</dt><dd>Spec 08 71 00 · A-601 · G-101</dd><dt>Open</dt><dd class="rfi">RFI #9 · closers on the other 4 set 4 doors</dd></dl></details>
+      <details class="sk-line" name="sk-lines"><summary><span class="c">07 54 23</span><span class="d">TPO roofing</span><span class="q">18,400 SF</span></summary><dl><dt>Basis</dt><dd>Roof plan area plus parapet turn-ups.</dd><dt>Source</dt><dd>A-501, reissued in addendum 4 · re-measured after Addie’s compare</dd><dt>Reviewed</dt><dd>Cost professional, Ladder</dd></dl></details>
+      <details class="sk-line" name="sk-lines"><summary><span class="c">22 14 26</span><span class="d">Roof drains</span><span class="q">Allowance</span></summary><dl><dt>Basis</dt><dd>Drain count unclear on the plumbing roof plan.</dd><dt>Source</dt><dd>P-501</dd><dt>Open</dt><dd class="rfi">Allowance, listed in the assumption log</dd></dl></details>
+      <p class="sk-sheet-note">Illustrative lines.</p>
+    </div>
+  </section>
 
-    <section class="ch" data-t="8.2" id="how-we-work">
-      <div class="tx">
-        <p class="bno">04 / How we work</p>
-        <h2>One finding, <span class="accent">start to finish.</span></h2>
-        <p class="t-long">Specialist AI agents, one per trade, read the set and cross-check it. A cost professional directs them, challenges what they find and decides what goes into the estimate.</p>
-        <ol class="fsteps">
-          <li><i>1</i><span>Specialist agents read every sheet, one per trade. Nothing goes unread.</span></li>
-          <li><i>2</i><span>The spec and the door schedule disagree.</span></li>
-          <li><i>3</i><span>The openings agent flags it, with both sources.</span></li>
-          <li><i>4</i><span>The cost professional challenges it and asks for a check.</span></li>
-          <li><i>5</i><span>The answer changes the quantity.</span></li>
-          <li><i>6</i><span>The estimate keeps the decision and its basis.</span></li>
-        </ol>
-        <p class="sub t-long">The agents do the reading. The cost professional changes the number.</p>
-      </div>
-    </section>
+  <section class="sk-sec sk-flip" id="memory">
+    <div class="sk-prose">
+      <p class="sk-kick">What carries forward</p>
+      <h2>Your best estimator’s memory,<br><span class="accent">written down.</span></h2>
+      <p>Every question, decision and assumption is logged with its source. And every project leaves a new check behind for the next one.</p>
+      <p class="sk-em">When someone retires, the checks stay.</p>
+    </div>
+    <figure class="sk-draw sk-memory"><svg id="memory-sketch" role="img" aria-label="A checklist of cross-checks run on every new set, with one check added from the last project"></svg><figcaption class="hand">Last project’s lesson,<br>this project’s check.</figcaption></figure>
+  </section>
 
-    <section class="ch" data-t="20.6">
-      <div class="tx">
-        <p class="bno">05 / What carries forward</p>
-        <h2>The next project <span class="accent">starts with this one’s lessons.</span></h2>
-        <p>Every quantity, question and decision is logged with its source.<span class="t-long"> This project added one check to every set we read after it: compare hardware sets against rated doors on the life-safety plan.</span></p>
-      </div>
-    </section>
+  <section class="sk-sec" id="example">
+    <div class="sk-prose">
+      <p class="sk-kick">After bid day</p>
+      <h2>“What if we<br><span class="accent">change this?”</span></h2>
+      <p>The layout changes. We revisit the affected quantities and pricing, explain the cost impact and flag what still needs a decision.</p>
+      <p class="sk-note">The scope and delivery date of each update are agreed with you.</p>
+    </div>
+    <figure class="sk-draw sk-building"><svg id="building-sketch" role="img" aria-label="The same sketched building with the revised area highlighted, showing the scope that is checked again"></svg><figcaption><span class="hand">What changed?</span> <span class="hand unresolved">What does it mean for cost?</span></figcaption></figure>
+  </section>
 
-    <section class="ch" data-t="23.6">
-      <div class="tx end">
-        <p class="bno">06 / Working with Ladder</p>
-        <h2>An extension of <span class="accent">your estimating team.</span></h2>
-        <ul class="stages">
-          <li><b>Contractors</b><span>Takeoff and bill of quantities pricing ahead of the bid: questions out before the cutoff, scope gaps caught before bid day.</span></li>
-          <li><b>Owners &amp; project managers</b><span>Cost estimates from design to bid, then bid management: contractor bids compared line by line against the estimate.</span></li>
-          <li><b>You receive</b><span>An Excel estimate with the basis and source of every line, a written report and a log of every assumption, reviewed by a cost professional before delivery.</span></li>
-        </ul>
-        <div class="cta-row">
-          <a class="btn btn-dark btn-lg" href="../#start">Get a quote <span class="arr">→</span></a>
-          <a class="btn btn-outline btn-lg" href="../sample/">See a sample</a>
-        </div>
-        <div class="used"><div><img src="../assets/logos/glynn-group.png" alt="Glynn Group" loading="lazy" /><img src="../assets/logos/yorke-construction-corporation.png" alt="Yorke Construction Corporation" loading="lazy" /><img src="../assets/logos/lema-construction.png" alt="Lema Construction" loading="lazy" /><img src="../assets/logos/romsdahl-companies.png" alt="Romsdahl Companies" loading="lazy" /><img src="../assets/logos/franklin-development.png" alt="Franklin Development" loading="lazy" /></div></div>
-        <p class="fine">© <span id="year">2026</span> Ladder · <a href="../#faq">FAQ</a> · <a href="../privacy-policy/">Privacy</a> · <a href="../terms-of-use/">Terms</a></p>
-      </div>
-    </section>
-  </div>
+  <section class="sk-close">
+    <p class="sk-kick">Why Ladder</p>
+    <h2>Send us your next bid.<br><span class="accent">We’ll read every page of it.</span></h2>
+    <p>Bring the set, the deadline and the questions. Our cost professionals and their agents will do the rest, and show you the work.</p>
+    <div class="sk-actions">
+      <a class="btn btn-dark btn-lg" href="../#start">Get a quote <span class="arr">→</span></a>
+      <a class="btn btn-outline btn-lg" href="../sample/">See a sample estimate</a>
+    </div>
+    <div class="sk-used"><p>Teams that have used Ladder</p><div><img src="../assets/logos/glynn-group.png" alt="Glynn Group" loading="lazy" /><img src="../assets/logos/yorke-construction-corporation.png" alt="Yorke Construction Corporation" loading="lazy" /><img src="../assets/logos/lema-construction.png" alt="Lema Construction" loading="lazy" /><img src="../assets/logos/romsdahl-companies.png" alt="Romsdahl Companies" loading="lazy" /><img src="../assets/logos/franklin-development.png" alt="Franklin Development" loading="lazy" /></div></div>
+  </section>
 </main>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="../assets/why.js?v=3"></script>
+
+<script src="../assets/sketch/rough.js"></script>
+<script src="../assets/sketch.js?v=3"></script>
 <script src="../assets/site.js?v=2"></script>
 </body>
 </html>
