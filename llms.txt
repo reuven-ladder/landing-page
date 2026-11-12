@@ -1,0 +1,24 @@
+# Ladder
+
+> Ladder is a construction cost estimating firm working on projects in the United States and Israel. We deliver cost estimates from design to bid, quantity takeoffs, bills of quantities, bid management and cost control, from a project's drawings and specifications. AI tools we built read the documents; our cost professionals price the work and review every estimate before delivery.
+
+- Markets: United States (square feet, USD, CSI MasterFormat / UniFormat) and Israel (square meters, ILS, Israeli general specification chapters, Dekel / Binarit price books)
+- Languages: English and Hebrew
+- Clients: owners and developers, design teams, project managers and contractors
+- Contact: omri@getladder.ai · +972-52-473-2842
+- Fees and delivery dates are set per project after reviewing the documents and scope.
+
+## Pages
+
+- [Home (English)](https://getladder.ai/): services, how we work, team, FAQ, quote form
+- [Home (Hebrew)](https://getladder.ai/he/): כתבי כמויות, ניהול מכרזים ואומדני עלות
+- [Why Ladder](https://getladder.ai/approach/): how cost professionals work with our AI agents
+- [Sample deliverable](https://getladder.ai/sample/): an illustrative US estimate excerpt and findings report (Excel and PDF)
+- [Company](https://getladder.ai/company/): team and careers
+
+## Services
+
+- Cost estimates from design to bid: an estimate at each design stage, variance to budget, costed alternatives
+- Quantity takeoff and bill of quantities: quantities with sheet references; a bill of quantities ready for bidding, or a check and pricing of an existing one
+- Bid management: bid package, bidder questions, bids leveled line by line against the estimate, comparison report
+- Cost control: change orders priced and an updated forecast of final cost during construction
