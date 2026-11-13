@@ -5,7 +5,7 @@
 - Markets: United States (square feet, USD, CSI MasterFormat / UniFormat) and Israel (square meters, ILS, Israeli general specification chapters, Dekel / Binarit price books)
 - Languages: English and Hebrew
 - Clients: owners and developers, design teams, project managers and contractors
-- Contact: omri@getladder.ai · +972-52-473-2842
+- Contact: office@getladder.ai · US +1 (845) 570-0597 · Israel +972-52-473-2842
 - Fees and delivery dates are set per project after reviewing the documents and scope.
 
 ## Pages
