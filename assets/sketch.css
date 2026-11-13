@@ -45,6 +45,8 @@
 .sk-close{padding:74px 30px 56px;text-align:center;border-top:1px solid var(--sk-rule);max-width:1116px;margin:auto}
 .sk-close h2{max-width:none}
 .sk-close>p:not(.sk-kick){max-width:36rem;margin:1.4rem auto 0}
+.sk-close>p.sk-contact.sk-contact{font-size:.95rem;margin-top:1.6rem;color:var(--ink-3)}
+.sk-contact a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 .sk-actions{display:flex;justify-content:center;align-items:center;gap:16px;margin-top:32px;flex-wrap:wrap}
 .sk-used{margin-top:56px}
 .sk-used p{font:600 .74rem/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:0 0 18px}
